@@ -63,20 +63,6 @@
 					{
 						icon: "el-icon-lx-calendar",
 						index: "2",
-						title: "租房",
-						subs: [{
-								index: "secondary",
-								title: "租房管理"
-							},
-							{
-								index: "publicpools",
-								title: "公房池"
-							},
-						]
-					},
-					{
-						icon: "el-icon-lx-calendar",
-						index: "3",
 						title: "客源",
 						subs: [{
 								index: "mycustomers",
