@@ -47,6 +47,15 @@ const routes = [{
 			component: () => import(
 				"../views/secondary/HandHouse.vue")
 		},
+		{
+			path: "/into_housing",
+			name: "into_housing",
+			meta: {
+				title: '新增房源'
+			},
+			component: () => import(
+				"../views/secondary/IntoHousing.vue")
+		},
 		
 	]
 }, {
