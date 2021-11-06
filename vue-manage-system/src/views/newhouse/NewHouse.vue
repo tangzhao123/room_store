@@ -43,11 +43,14 @@
 </template>
 
 <script>
-	import request from "../utils/request.js";
 	export default{
 		data(){
 			return{
 				selectParams:{},
+				total:10,
+				pageSize:10,
+				currentPage:1,
+				tableData:[],
 				options: [{
 						value: '全部',
 						label: '全部',
@@ -69,13 +72,7 @@
 			}
 		},
 		methods:{
-			load(){
-				request.post("/house/select",{
-					selectParams:{
-					pageNum:this.pageNum
-					}
-				})
-			}
+			
 		}
 	}
 </script>

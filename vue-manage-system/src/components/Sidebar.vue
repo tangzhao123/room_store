@@ -85,7 +85,7 @@
 					},
 					{
 						icon:"el-icon-s-home",
-						index:"4",
+						index:"5",
 						title:"新房",
 						subs:[
 							{
