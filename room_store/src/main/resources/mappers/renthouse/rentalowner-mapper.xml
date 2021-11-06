@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 租房业主信息 -->
+<mapper namespace="cn.gson.room_store.model.mapper.renthouse.RentalownerMapper">
+    <resultMap id="rentalowner" type="cn.gson.room_store.model.pojos.renthouse.Rentalowner">
+        <id column="reow_no" property="reowNo" />
+        <result column="reow_name" property="reowName" />
+        <result column="reow_phone" property="reowPhone" />
+        <result column="reow_phones" property="reowPhones" />
+        <result column="reow_remark" property="reowRemark" />
+        <result column="reow_reho_no" property="reowRehoNo" />
+    </resultMap>
+
+    <!-- 查询租房业主信息 -->
+    <select id="findAllRentalowner" resultMap="rentalowner">
+        select * from rentalowner where reow_reho_no = #{param}
+    </select>
+
+    <!-- 新增租房业主信息 -->
+    <insert id="insertRentalowner" parameterType="cn.gson.room_store.model.pojos.renthouse.Rentalowner">
+        insert into rentalowner(reow_name,reow_phone,reow_phones,reow_remark,reow_reho_no) values
+        (#{reowName},#{reowPhone},#{reowPhones},#{reowRemark},#{reowRehoNo})
+    </insert>
+
+    <!-- 修改租房业主信息 -->
+    <insert id="updateRentalowner" parameterType="cn.gson.room_store.model.pojos.renthouse.Rentalowner">
+        update rentalowner set reow_name = #{reowName} , reow_phone = #{reowPhone}
+                             , reow_phones = #{reowPhones} , reow_remark = #{reowRemark}
+        where reow_no = #{reowNo}
+    </insert>
+
+</mapper>
