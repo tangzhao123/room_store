@@ -56,7 +56,24 @@ const routes = [{
 			component: () => import(
 				"../views/secondary/IntoHousing.vue")
 		},
-		
+		{
+			path: "/newhouse",
+			name: "newhouse",
+			meta: {
+				title: '新房管理'
+			},
+			component: () => import(
+				"../views/newhouse/NewHouse.vue")
+		},
+		{
+			path: "/house-collection",
+			name: "house-collection",
+			meta: {
+				title: '新房采集'
+			},
+			component: () => import(
+				"../views/newhouse/HouseCollection.vue")
+		}
 	]
 }, {
 	path: "/login",
