@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.statistical.LoginMapper">
+
+    <!-- 查询二手房带看记录 根据房源编号查询 -->
+    <select id="login" resultType="cn.gson.room_store.model.pojos.secondary.Users">
+        select * from users where user_phone=#{phone} and user_pass=#{pass}
+    </select>
+</mapper>

@@ -60,6 +60,29 @@
 							},
 						]
 					},
+					{
+						icon: "el-icon-lx-calendar",
+						index: "2",
+						title: "客源",
+						subs: [{
+								index: "mycustomers",
+								title: "我的客源"
+							},{
+								index: "maleguestpool",
+								title: "公客池"
+							},
+						]
+					},
+					{
+						icon: "el-icon-lx-calendar",
+						index: "3",
+						title: "营销中心",
+						subs: [{
+								index: "selectgoodroom",
+								title: "精选好房"
+							},
+						]
+					},
 
 
 				]
