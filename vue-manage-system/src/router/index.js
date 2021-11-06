@@ -94,10 +94,19 @@ const routes = [{
 
 		},
 		{
+			path: "/rentalhousing",
+			name: "Rentalhousing",
+			meta: {
+				title: '租房管理'
+			},
+			component: () => import(
+				"../views/renthouse/Rentalhousing.vue")
+		},
+		{
 			path: "/publicpools",
 			name: "Publicpools",
 			meta: {
-				title: '公房池'
+				title: '租房公房池'
 			},
 			component: () => import(
 				"../views/renthouse/Publicpools.vue")

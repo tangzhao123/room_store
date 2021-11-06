@@ -97,7 +97,20 @@
 							title:'新房采集'
 						}
 						]
-					}
+					},
+					{
+						icon: "el-icon-lx-calendar",
+						index: "6",
+						title: "租房",
+						subs: [{
+								index: "rentalhousing",
+								title: "租房管理"
+							},{
+								index: "publicpools",
+								title: "租房公房池"
+							},
+						]
+					},
 
 				]
 			};
