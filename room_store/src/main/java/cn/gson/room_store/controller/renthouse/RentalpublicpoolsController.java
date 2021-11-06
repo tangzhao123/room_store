@@ -7,6 +7,7 @@ import cn.gson.room_store.model.service.renthouse.RentalownerService;
 import cn.gson.room_store.model.service.renthouse.RentalpublicpoolsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +37,7 @@ public class RentalpublicpoolsController {
 
     //    新增公房池推荐客源
     @PostMapping("insertRentalpublicpoolsKy")
-    public void insertRentalpublicpoolsKy(Customers customers){
+    public void insertRentalpublicpoolsKy(@RequestBody Customers customers){
         rentalpublicpoolsService.insertRentalpublicpoolsKy(customers);
     }
 
@@ -48,7 +49,7 @@ public class RentalpublicpoolsController {
 
     //    移入公房池
     @PostMapping("insertRentalpublicpools")
-    public void insertRentalpublicpools(Rentalpublicpools rentalpublicpools){
+    public void insertRentalpublicpools(@RequestBody Rentalpublicpools rentalpublicpools){
         rentalpublicpoolsService.insertRentalpublicpools(rentalpublicpools);
     }
 }

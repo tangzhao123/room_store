@@ -24,20 +24,20 @@ public class RentalownerController {
     RentalownerService rentalownerService;
 
     //查询租房业主信息
-    @RequestMapping("findAllRentalfollowup")
+    @RequestMapping("findAllRentalowner")
     public Rentalowner findAllRentalowner(String param){
         return rentalownerService.findAllRentalowner(param);
     }
 
     //新增租房业主信息
-    @PostMapping("insertRentalfollowup")
-    public void insertRentalowner(Rentalowner rentalowner){
+    @PostMapping("insertRentalowner")
+    public void insertRentalowner(@RequestBody Rentalowner rentalowner){
         rentalownerService.insertRentalowner(rentalowner);
     }
 
     //修改租房业主信息
     @PostMapping("updateRentalowner")
-    public void updateRentalowner(Rentalowner rentalowner){
+    public void updateRentalowner(@RequestBody Rentalowner rentalowner){
         rentalownerService.updateRentalowner(rentalowner);
     }
 }

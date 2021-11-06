@@ -15,8 +15,8 @@
     <!-- 多条件模糊查询租房公房池 -->
 
     <!-- 查询租房公房池推荐客源 -->
-    <select id="findRentalpublicpoolsAndCustomers">
-        select * from customers c right join rentalhousing r on c.secondary_number = r.reho_number where c.secondary_number = #{param}
+    <select id="findRentalpublicpoolsAndCustomers" resultMap="customers">
+        select * from customers c right join rentalhousing r on c.secondary_number = r.reho_number where r.reho_number = #{param}
     </select>
 
     <!-- 租房公房池推荐客源 完成跟进、无效 -->
@@ -27,7 +27,7 @@
     <!-- 新增公房池推荐客源 -->
     <update id="insertRentalpublicpoolsKy" parameterType="cn.gson.room_store.model.pojos.secondary.Customers">
         insert into customers(secondary_number,customers_name,customers_phone) values
-                    (secondaryNumber,customersName,customersPhone)
+                    (#{secondaryNumber},#{customersName},#{customersPhone})
     </update>
 
     <!-- 移出公房池 -->
