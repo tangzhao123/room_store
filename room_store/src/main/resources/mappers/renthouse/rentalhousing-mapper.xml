@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.renthouse.RentalhousingMapper">
+
+    <resultMap id="rentalhousing" type="cn.gson.room_store.model.pojos.renthouse.Rentalhousing">
+        <id column="reho_no" property="rehoNo" />
+        <result column="reho_number" property="rehoNumber" />
+        <result column="reho_site" property="rehoSite" />
+        <result column="reho_community" property="rehoCommunity" />
+        <result column="reho_unit" property="rehoUnit" />
+        <result column="reho_building" property="rehoBuilding" />
+        <result column="reho_floornumber" property="rehoFloornumber" />
+        <result column="reho_livefewfloor" property="rehoLivefewfloor" />
+        <result column="reho_roomnumber" property="rehoRoomnumber" />
+        <result column="reho_coveredarea" property="rehoCoveredarea" />
+        <result column="reho_insidespace" property="rehoInsidespace" />
+        <result column="reho_housetype" property="rehoHousetype" />
+        <result column="reho_orientation" property="rehoOrientation" />
+        <result column="reho_elevator" property="rehoElevator" />
+        <result column="reho_housingtypes" property="rehoHousingtypes" />
+        <result column="reho_ladder" property="rehoLadder" />
+        <result column="reho_households" property="rehoHouseholds" />
+        <result column="reho_certcate_cover" property="rehoCertcateCover" />
+        <result column="reho_certcate_backcover" property="rehoCertcateBackcover" />
+        <result column="reho_certcate_qsy" property="rehoCertcateQsy" />
+        <result column="reho_certcate_familypage" property="rehoCertcateFamilypage" />
+        <result column="reho_rentouttitle" property="rehoRentouttitle" />
+        <result column="reho_rent" property="rehoRent" />
+        <result column="reho_payway" property="rehoPayway" />
+        <result column="reho_fitmenttype" property="rehoFitmenttype" />
+        <result column="reho_shortestlease" property="rehoShortestlease" />
+        <result column="reho_suppfacility" property="rehoSuppfacility" />
+        <result column="reho_houslabel" property="rehoHouslabel" />
+        <result column="reho_housremark" property="rehoHousremark" />
+        <result column="reho_date" property="rehoDate" />
+        <result column="reho_shelf" property="rehoShelf" />
+        <result column="reho_gfczt" property="rehoGfczt" />
+        <result column="reho_good_room" property="rehoGoodRoom" />
+        <result column="reho_users_no" property="rehoUsersNo" />
+    </resultMap>
+
+    <select id="findAllRentalhousing" resultMap="rentalhousing">
+        select * from rentalhousing
+    </select>
+
+    <insert id="insertRentalhousing" parameterType="cn.gson.room_store.model.pojos.renthouse.Rentalhousing">
+        insert into rentalhousing(reho_number,reho_site,reho_community,reho_unit,reho_building,reho_floornumber,reho_livefewfloor,reho_roomnumber,
+                                  reho_coveredarea,reho_insidespace,reho_housetype,reho_orientation,reho_elevator,reho_housingtypes,reho_ladder,reho_households,
+                                  reho_certcate_cover,reho_certcate_backcover,reho_certcate_qsy,reho_certcate_familypage,reho_rentouttitle,reho_rent,reho_payway,
+                                  reho_fitmenttype,reho_shortestlease,reho_suppfacility,reho_houslabel,reho_housremark,reho_good_room,reho_users_no) values
+        (#{rehoNumber},#{rehoSite},#{rehoCommunity},#{rehoUnit},#{rehoBuilding},#{rehoFloornumber},#{rehoLivefewfloor},#{rehoRoomnumber},
+         #{rehoCoveredarea},#{rehoInsidespace},#{rehoHousetype},#{rehoOrientation},#{rehoElevator},#{rehoHousingtypes},
+         #{rehoLadder},#{rehoHouseholds},#{rehoCertcateCover},#{rehoCertcateBackcover},
+         #{rehoCertcateQsy},#{rehoCertcateFamilypage},#{rehoRentouttitle},#{rehoRent},#{rehoPayway},
+         #{rehoFitmenttype},#{rehoShortestlease},#{rehoSuppfacility},#{rehoHouslabel},#{rehoHousremark},#{rehoGoodRoom},#{rehoUsersNo}
+        )
+    </insert>
+
+
+
+
+</mapper>
