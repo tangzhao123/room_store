@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.newhouse.HouseTypeMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.newhouse.HouseType">
+    <id column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="type_structure" jdbcType="VARCHAR" property="typeStructure" />
+    <result column="type_area" jdbcType="INTEGER" property="typeArea" />
+    <result column="type_label" jdbcType="VARCHAR" property="typeLabel" />
+    <result column="type_img" jdbcType="VARCHAR" property="typeImg" />
+    <result column="type_describe" jdbcType="VARCHAR" property="typeDescribe" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    type_id, type_name, type_structure, type_area, type_label, type_img, type_describe
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from house_type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByAll" parameterType="cn.gson.room_store.vo.newhouse.HouseTypeSearchVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from house_type
+    <where>
+      <if test="typeName!=null">
+        and type_name like concat(concat('%',#{typeName}),'%')
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from house_type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="type_id" keyProperty="typeId" parameterType="cn.gson.room_store.model.pojos.newhouse.HouseType" useGeneratedKeys="true">
+    insert into house_type (type_name, type_structure, type_area, 
+      type_label, type_img, type_describe
+      )
+    values (#{typeName,jdbcType=VARCHAR}, #{typeStructure,jdbcType=VARCHAR}, #{typeArea,jdbcType=INTEGER}, 
+      #{typeLabel,jdbcType=VARCHAR}, #{typeImg,jdbcType=VARCHAR}, #{typeDescribe,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="type_id" keyProperty="typeId" parameterType="cn.gson.room_store.model.pojos.newhouse.HouseType" useGeneratedKeys="true">
+    insert into house_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="typeName != null">
+        type_name,
+      </if>
+      <if test="typeStructure != null">
+        type_structure,
+      </if>
+      <if test="typeArea != null">
+        type_area,
+      </if>
+      <if test="typeLabel != null">
+        type_label,
+      </if>
+      <if test="typeImg != null">
+        type_img,
+      </if>
+      <if test="typeDescribe != null">
+        type_describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeStructure != null">
+        #{typeStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="typeArea != null">
+        #{typeArea,jdbcType=INTEGER},
+      </if>
+      <if test="typeLabel != null">
+        #{typeLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="typeImg != null">
+        #{typeImg,jdbcType=VARCHAR},
+      </if>
+      <if test="typeDescribe != null">
+        #{typeDescribe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByAll" parameterType="cn.gson.room_store.model.pojos.newhouse.HouseType">
+    update house_type
+    <set>
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeStructure != null">
+        type_structure = #{typeStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="typeArea != null">
+        type_area = #{typeArea,jdbcType=INTEGER},
+      </if>
+      <if test="typeLabel != null">
+        type_label = #{typeLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="typeImg != null">
+        type_img = #{typeImg,jdbcType=VARCHAR},
+      </if>
+      <if test="typeDescribe != null">
+        type_describe = #{typeDescribe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.newhouse.HouseType">
+    update house_type
+    set type_name = #{typeName,jdbcType=VARCHAR},
+      type_structure = #{typeStructure,jdbcType=VARCHAR},
+      type_area = #{typeArea,jdbcType=INTEGER},
+      type_label = #{typeLabel,jdbcType=VARCHAR},
+      type_img = #{typeImg,jdbcType=VARCHAR},
+      type_describe = #{typeDescribe,jdbcType=VARCHAR}
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+</mapper>

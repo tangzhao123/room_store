@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.newhouse.SourceCollectionMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.newhouse.SourceCollection">
+    <id column="source_id" jdbcType="INTEGER" property="sourceId" />
+    <result column="source_name" jdbcType="VARCHAR" property="sourceName" />
+    <result column="source_position" jdbcType="VARCHAR" property="sourcePosition" />
+    <result column="source_address" jdbcType="VARCHAR" property="sourceAddress" />
+    <result column="source_property" jdbcType="VARCHAR" property="sourceProperty" />
+    <result column="source_area" jdbcType="INTEGER" property="sourceArea" />
+    <result column="source_characteristic" jdbcType="VARCHAR" property="sourceCharacteristic" />
+    <result column="source_price" jdbcType="DOUBLE" property="sourcePrice" />
+    <result column="source_total_price" jdbcType="DOUBLE" property="sourceTotalPrice" />
+    <result column="source_developer" jdbcType="VARCHAR" property="sourceDeveloper" />
+    <result column="source_time" jdbcType="TIMESTAMP" property="sourceTime" />
+    <result column="source_users_no" jdbcType="INTEGER" property="sourceUsersNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    source_id, source_name, source_position, source_address, source_property, source_area, 
+    source_characteristic, source_price, source_total_price, source_developer, source_time, 
+    source_users_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from source_collection
+    where source_id = #{sourceId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" parameterType="cn.gson.room_store.vo.newhouse.SourceCollectionSearchVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from source_collection
+    <where>
+      <if test="sourceName !=null">
+        and  source_name like concat(concat('%',#{sourceName}),'%')
+      </if>
+      <if test="sourceProperty !=null">
+        and  source_property like concat(concat('%',#{sourceProperty}),'%')
+      </if>
+      <if test="sourcePrice !=null">
+        and  source_price like concat(concat('%',#{sourcePrice}),'%')
+      </if>
+      <if test="sourceTotalPrice !=null">
+        and  source_total_rice like concat(concat('%',#{sourceTotalPrice}),'%')
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from source_collection
+    where source_id = #{sourceId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="source_id" keyProperty="sourceId" parameterType="cn.gson.room_store.model.pojos.newhouse.SourceCollection" useGeneratedKeys="true">
+    insert into source_collection (source_name, source_position, source_address, 
+      source_property, source_area, source_characteristic, 
+      source_price, source_total_price, source_developer, 
+      source_time, source_users_no)
+    values (#{sourceName,jdbcType=VARCHAR}, #{sourcePosition,jdbcType=VARCHAR}, #{sourceAddress,jdbcType=VARCHAR}, 
+      #{sourceProperty,jdbcType=VARCHAR}, #{sourceArea,jdbcType=INTEGER}, #{sourceCharacteristic,jdbcType=VARCHAR}, 
+      #{sourcePrice,jdbcType=DOUBLE}, #{sourceTotalPrice,jdbcType=DOUBLE}, #{sourceDeveloper,jdbcType=VARCHAR}, 
+      #{sourceTime,jdbcType=TIMESTAMP}, #{sourceUsersNo,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="source_id" keyProperty="sourceId" parameterType="cn.gson.room_store.model.pojos.newhouse.SourceCollection" useGeneratedKeys="true">
+    insert into source_collection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sourceName != null">
+        source_name,
+      </if>
+      <if test="sourcePosition != null">
+        source_position,
+      </if>
+      <if test="sourceAddress != null">
+        source_address,
+      </if>
+      <if test="sourceProperty != null">
+        source_property,
+      </if>
+      <if test="sourceArea != null">
+        source_area,
+      </if>
+      <if test="sourceCharacteristic != null">
+        source_characteristic,
+      </if>
+      <if test="sourcePrice != null">
+        source_price,
+      </if>
+      <if test="sourceTotalPrice != null">
+        source_total_price,
+      </if>
+      <if test="sourceDeveloper != null">
+        source_developer,
+      </if>
+      <if test="sourceTime != null">
+        source_time,
+      </if>
+      <if test="sourceUsersNo != null">
+        source_users_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sourceName != null">
+        #{sourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePosition != null">
+        #{sourcePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceAddress != null">
+        #{sourceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceProperty != null">
+        #{sourceProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceArea != null">
+        #{sourceArea,jdbcType=INTEGER},
+      </if>
+      <if test="sourceCharacteristic != null">
+        #{sourceCharacteristic,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePrice != null">
+        #{sourcePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="sourceTotalPrice != null">
+        #{sourceTotalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="sourceDeveloper != null">
+        #{sourceDeveloper,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceTime != null">
+        #{sourceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sourceUsersNo != null">
+        #{sourceUsersNo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByAll" parameterType="cn.gson.room_store.model.pojos.newhouse.SourceCollection">
+    update source_collection
+    <set>
+      <if test="sourceName != null">
+        source_name = #{sourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePosition != null">
+        source_position = #{sourcePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceAddress != null">
+        source_address = #{sourceAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceProperty != null">
+        source_property = #{sourceProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceArea != null">
+        source_area = #{sourceArea,jdbcType=INTEGER},
+      </if>
+      <if test="sourceCharacteristic != null">
+        source_characteristic = #{sourceCharacteristic,jdbcType=VARCHAR},
+      </if>
+      <if test="sourcePrice != null">
+        source_price = #{sourcePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="sourceTotalPrice != null">
+        source_total_price = #{sourceTotalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="sourceDeveloper != null">
+        source_developer = #{sourceDeveloper,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceTime != null">
+        source_time = #{sourceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sourceUsersNo != null">
+        source_users_no = #{sourceUsersNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where source_id = #{sourceId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.newhouse.SourceCollection">
+    update source_collection
+    set source_name = #{sourceName,jdbcType=VARCHAR},
+      source_position = #{sourcePosition,jdbcType=VARCHAR},
+      source_address = #{sourceAddress,jdbcType=VARCHAR},
+      source_property = #{sourceProperty,jdbcType=VARCHAR},
+      source_area = #{sourceArea,jdbcType=INTEGER},
+      source_characteristic = #{sourceCharacteristic,jdbcType=VARCHAR},
+      source_price = #{sourcePrice,jdbcType=DOUBLE},
+      source_total_price = #{sourceTotalPrice,jdbcType=DOUBLE},
+      source_developer = #{sourceDeveloper,jdbcType=VARCHAR},
+      source_time = #{sourceTime,jdbcType=TIMESTAMP},
+      source_users_no = #{sourceUsersNo,jdbcType=INTEGER}
+    where source_id = #{sourceId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.newhouse.NewHouseMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.newhouse.NewHouse">
+    <id column="house_id" jdbcType="INTEGER" property="houseId" />
+    <result column="house_name" jdbcType="VARCHAR" property="houseName" />
+    <result column="house_position" jdbcType="VARCHAR" property="housePosition" />
+    <result column="house_address" jdbcType="VARCHAR" property="houseAddress" />
+    <result column="house_property" jdbcType="VARCHAR" property="houseProperty" />
+    <result column="house_area" jdbcType="INTEGER" property="houseArea" />
+    <result column="house_characteristic" jdbcType="VARCHAR" property="houseCharacteristic" />
+    <result column="house_price" jdbcType="DOUBLE" property="housePrice" />
+    <result column="house_total_price" jdbcType="DOUBLE" property="houseTotalPrice" />
+    <result column="house_developer" jdbcType="VARCHAR" property="houseDeveloper" />
+    <result column="house_certificate" jdbcType="VARCHAR" property="houseCertificate" />
+    <result column="house_certificate_time" jdbcType="TIMESTAMP" property="houseCertificateTime" />
+    <result column="house_state" jdbcType="INTEGER" property="houseState" />
+    <result column="house_img" jdbcType="VARCHAR" property="houseImg" />
+    <result column="house_ishide" jdbcType="INTEGER" property="houseIshide" />
+    <result column="house_number" jdbcType="INTEGER" property="houseNumber" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="chara_id" jdbcType="INTEGER" property="charaId" />
+    <result column="good_id" jdbcType="INTEGER" property="goodId" />
+    <result column="house_users_no" jdbcType="INTEGER" property="houseUsersNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    house_id, house_name, house_position, house_address, house_property, house_area, 
+    house_characteristic, house_price, house_total_price, house_developer, house_certificate, 
+    house_certificate_time, house_state, house_img, house_ishide, house_number, type_id, 
+    chara_id, good_id, house_users_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from new_house
+    where house_id = #{houseId,jdbcType=INTEGER}
+  </select>
+  <select id="selectFindAll" parameterType="cn.gson.room_store.vo.newhouse.NewHouseSerachVo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from new_house
+    <where>
+      <if test="houseName !=null">
+        and  house_name like concat(concat('%',#{houseName}),'%')
+      </if>
+      <if test="houseProperty != null">
+        and house_property like concat(concat('%',#{houseProperty}),'%')
+      </if>
+      <if test="houseCharacteristic != null">
+        and house_characteristic like concat(concat('%',#{houseCharacteristic}),'%')
+      </if>
+      <if test="houseTotalPrice != null">
+        and house_total_price like concat(concat('%',#{houseTotalPrice}),'%')
+      </if>
+      <if test="housePrice != null">
+        and house_price like concat(concat('%',#{housePrice}),'%')
+      </if>
+      <if test="houseArea != null">
+        and house_area like concat(concat('%',#{houseArea}),'%')
+      </if>
+      <if test="housePosition != null">
+        and house_position like concat(concat('%',#{housePosition}),'%')
+      </if>
+      <if test="houseState != null">
+        and house_state like concat(concat('%',#{houseState}),'%')
+      </if>
+      <if test="houseNumber != null">
+        and house_number like concat(concat('%',#{houseNumber}),'%')
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from new_house
+    where house_id = #{houseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="house_id" keyProperty="houseId" parameterType="cn.gson.room_store.model.pojos.newhouse.NewHouse" useGeneratedKeys="true">
+    insert into new_house (house_name, house_position, house_address, 
+      house_property, house_area, house_characteristic, 
+      house_price, house_total_price, house_developer, 
+      house_certificate, house_certificate_time, 
+      house_state, house_img, house_ishide, 
+      house_number, type_id, chara_id, 
+      good_id, house_users_no)
+    values (#{houseName,jdbcType=VARCHAR}, #{housePosition,jdbcType=VARCHAR}, #{houseAddress,jdbcType=VARCHAR}, 
+      #{houseProperty,jdbcType=VARCHAR}, #{houseArea,jdbcType=INTEGER}, #{houseCharacteristic,jdbcType=VARCHAR}, 
+      #{housePrice,jdbcType=DOUBLE}, #{houseTotalPrice,jdbcType=DOUBLE}, #{houseDeveloper,jdbcType=VARCHAR}, 
+      #{houseCertificate,jdbcType=VARCHAR}, #{houseCertificateTime,jdbcType=TIMESTAMP}, 
+      #{houseState,jdbcType=INTEGER}, #{houseImg,jdbcType=VARCHAR}, #{houseIshide,jdbcType=INTEGER}, 
+      #{houseNumber,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{charaId,jdbcType=INTEGER}, 
+      #{goodId,jdbcType=INTEGER}, #{houseUsersNo,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="house_id" keyProperty="houseId" parameterType="cn.gson.room_store.model.pojos.newhouse.NewHouse" useGeneratedKeys="true">
+    insert into new_house
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="houseName != null">
+        house_name,
+      </if>
+      <if test="housePosition != null">
+        house_position,
+      </if>
+      <if test="houseAddress != null">
+        house_address,
+      </if>
+      <if test="houseProperty != null">
+        house_property,
+      </if>
+      <if test="houseArea != null">
+        house_area,
+      </if>
+      <if test="houseCharacteristic != null">
+        house_characteristic,
+      </if>
+      <if test="housePrice != null">
+        house_price,
+      </if>
+      <if test="houseTotalPrice != null">
+        house_total_price,
+      </if>
+      <if test="houseDeveloper != null">
+        house_developer,
+      </if>
+      <if test="houseCertificate != null">
+        house_certificate,
+      </if>
+      <if test="houseCertificateTime != null">
+        house_certificate_time,
+      </if>
+      <if test="houseState != null">
+        house_state,
+      </if>
+      <if test="houseImg != null">
+        house_img,
+      </if>
+      <if test="houseIshide != null">
+        house_ishide,
+      </if>
+      <if test="houseNumber != null">
+        house_number,
+      </if>
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="charaId != null">
+        chara_id,
+      </if>
+      <if test="goodId != null">
+        good_id,
+      </if>
+      <if test="houseUsersNo != null">
+        house_users_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="houseName != null">
+        #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="housePosition != null">
+        #{housePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAddress != null">
+        #{houseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="houseProperty != null">
+        #{houseProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="houseArea != null">
+        #{houseArea,jdbcType=INTEGER},
+      </if>
+      <if test="houseCharacteristic != null">
+        #{houseCharacteristic,jdbcType=VARCHAR},
+      </if>
+      <if test="housePrice != null">
+        #{housePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="houseTotalPrice != null">
+        #{houseTotalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="houseDeveloper != null">
+        #{houseDeveloper,jdbcType=VARCHAR},
+      </if>
+      <if test="houseCertificate != null">
+        #{houseCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="houseCertificateTime != null">
+        #{houseCertificateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="houseState != null">
+        #{houseState,jdbcType=INTEGER},
+      </if>
+      <if test="houseImg != null">
+        #{houseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="houseIshide != null">
+        #{houseIshide,jdbcType=INTEGER},
+      </if>
+      <if test="houseNumber != null">
+        #{houseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="charaId != null">
+        #{charaId,jdbcType=INTEGER},
+      </if>
+      <if test="goodId != null">
+        #{goodId,jdbcType=INTEGER},
+      </if>
+      <if test="houseUsersNo != null">
+        #{houseUsersNo,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByAll" parameterType="cn.gson.room_store.model.pojos.newhouse.NewHouse">
+    update new_house
+    <set>
+      <if test="houseName != null">
+        house_name = #{houseName,jdbcType=VARCHAR},
+      </if>
+      <if test="housePosition != null">
+        house_position = #{housePosition,jdbcType=VARCHAR},
+      </if>
+      <if test="houseAddress != null">
+        house_address = #{houseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="houseProperty != null">
+        house_property = #{houseProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="houseArea != null">
+        house_area = #{houseArea,jdbcType=INTEGER},
+      </if>
+      <if test="houseCharacteristic != null">
+        house_characteristic = #{houseCharacteristic,jdbcType=VARCHAR},
+      </if>
+      <if test="housePrice != null">
+        house_price = #{housePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="houseTotalPrice != null">
+        house_total_price = #{houseTotalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="houseDeveloper != null">
+        house_developer = #{houseDeveloper,jdbcType=VARCHAR},
+      </if>
+      <if test="houseCertificate != null">
+        house_certificate = #{houseCertificate,jdbcType=VARCHAR},
+      </if>
+      <if test="houseCertificateTime != null">
+        house_certificate_time = #{houseCertificateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="houseState != null">
+        house_state = #{houseState,jdbcType=INTEGER},
+      </if>
+      <if test="houseImg != null">
+        house_img = #{houseImg,jdbcType=VARCHAR},
+      </if>
+      <if test="houseIshide != null">
+        house_ishide = #{houseIshide,jdbcType=INTEGER},
+      </if>
+      <if test="houseNumber != null">
+        house_number = #{houseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="charaId != null">
+        chara_id = #{charaId,jdbcType=INTEGER},
+      </if>
+      <if test="goodId != null">
+        good_id = #{goodId,jdbcType=INTEGER},
+      </if>
+      <if test="houseUsersNo != null">
+        house_users_no = #{houseUsersNo,jdbcType=INTEGER},
+      </if>
+    </set>
+    where house_id = #{houseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.newhouse.NewHouse">
+    update new_house
+    set house_name = #{houseName,jdbcType=VARCHAR},
+      house_position = #{housePosition,jdbcType=VARCHAR},
+      house_address = #{houseAddress,jdbcType=VARCHAR},
+      house_property = #{houseProperty,jdbcType=VARCHAR},
+      house_area = #{houseArea,jdbcType=INTEGER},
+      house_characteristic = #{houseCharacteristic,jdbcType=VARCHAR},
+      house_price = #{housePrice,jdbcType=DOUBLE},
+      house_total_price = #{houseTotalPrice,jdbcType=DOUBLE},
+      house_developer = #{houseDeveloper,jdbcType=VARCHAR},
+      house_certificate = #{houseCertificate,jdbcType=VARCHAR},
+      house_certificate_time = #{houseCertificateTime,jdbcType=TIMESTAMP},
+      house_state = #{houseState,jdbcType=INTEGER},
+      house_img = #{houseImg,jdbcType=VARCHAR},
+      house_ishide = #{houseIshide,jdbcType=INTEGER},
+      house_number = #{houseNumber,jdbcType=INTEGER},
+      type_id = #{typeId,jdbcType=INTEGER},
+      chara_id = #{charaId,jdbcType=INTEGER},
+      good_id = #{goodId,jdbcType=INTEGER},
+      house_users_no = #{houseUsersNo,jdbcType=INTEGER}
+    where house_id = #{houseId,jdbcType=INTEGER}
+  </update>
+</mapper>

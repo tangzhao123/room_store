@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.newhouse.CharacteristicMapper">
+    <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.newhouse.Characteristic">
+        <id column="chara_id" jdbcType="INTEGER" property="charaId" />
+        <result column="chara_name" jdbcType="VARCHAR" property="charaName" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        chara_id,chara_name
+    </sql>
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from characteristic
+    </select>
+</mapper>

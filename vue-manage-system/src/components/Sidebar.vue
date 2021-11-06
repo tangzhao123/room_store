@@ -83,7 +83,21 @@
 							},
 						]
 					},
-
+					{
+						icon:"el-icon-s-home",
+						index:"4",
+						title:"新房",
+						subs:[
+							{
+							index:"newhouse",
+							title:"新房管理"
+						},
+						{
+							index:"house-collection",
+							title:'新房采集'
+						}
+						]
+					}
 
 				]
 			};
