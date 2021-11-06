@@ -11,7 +11,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class LoginService {
     @Autowired
     LoginMapper mapper;
-    public Users login(String name,String pass){
-        return mapper.login(name, pass);
+    public Users login(String phone,String pass) {
+        System.err.println(phone);
+        //查询次电话号码数据库是否存在
+        int sum = mapper.findIDPhone(phone);
+        System.out.println(sum);
+        if (sum == 0) {
+            System.out.println("进入一号");
+            return null;
+        } else {
+            System.out.println("进入二号");
+            return mapper.login(phone, pass);
+        }
     }
 }
+

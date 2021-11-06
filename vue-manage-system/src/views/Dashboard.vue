@@ -6,8 +6,8 @@
                     <div class="user-info">
                         <img src="../assets/img/img.jpg" class="user-avator" alt />
                         <div class="user-info-cont">
-                            <div class="user-info-name">{{ name }}</div>
-                            <div>{{ role }}</div>
+                           <div class="user-info-name">{{ name }}</div>
+                             <div>{{ role }}</div>
                         </div>
                     </div>
                     <div class="user-info-list">
@@ -123,7 +123,7 @@ export default {
     name: "dashboard",
     data() {
         return {
-            name: localStorage.getItem("ms_username"),
+           name: this.$store.state.token.userName,
             todoList: [
                 {
                     title: "今天要修复100个bug",
@@ -150,7 +150,7 @@ export default {
                     status: true
                 }
             ],
-            data: [
+/*            data: [
                 {
                     name: "2018/09/04",
                     value: 1083
@@ -179,7 +179,7 @@ export default {
                     name: "2018/09/10",
                     value: 1065
                 }
-            ],
+            ], */
             options: {
                 type: "bar",
                 title: {
@@ -231,18 +231,18 @@ export default {
     computed: {
         role() {
             return this.name === "admin" ? "超级管理员" : "普通用户";
-        }
+        } 
     },
 
     methods: {
-        changeDate() {
+       /* changeDate() {
             const now = new Date().getTime();
             this.data.forEach((item, index) => {
                 const date = new Date(now - (6 - index) * 86400000);
                 item.name = `${date.getFullYear()}/${date.getMonth() +
                     1}/${date.getDate()}`;
             });
-        }
+        } */
     }
 };
 </script>

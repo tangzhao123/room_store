@@ -7,4 +7,5 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface LoginMapper {
     Users login(@Param("phone")String phone,@Param("pass")String pass);
+    int findIDPhone(String phone);
 }
