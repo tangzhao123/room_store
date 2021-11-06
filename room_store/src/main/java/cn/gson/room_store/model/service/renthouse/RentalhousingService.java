@@ -1,5 +1,6 @@
 package cn.gson.room_store.model.service.renthouse;
 
+import cn.gson.room_store.model.mapper.renthouse.MultifileimageMapper;
 import cn.gson.room_store.model.mapper.renthouse.RentalhousingMapper;
 import cn.gson.room_store.model.pojos.renthouse.Rentalhousing;
 import org.apache.ibatis.annotations.Param;
@@ -19,9 +20,14 @@ public class RentalhousingService {
 
     @Autowired
     RentalhousingMapper rentalhousingMapper;
+    @Autowired
+    MultifileimageMapper multifileimageMapper;
 
     //修改租房房源
     public void updateRentalhousingByNumber(Rentalhousing rentalhousing){
+        multifileimageMapper.deleteMultifileimageByMuimFangyuanno(rentalhousing.getRehoNumber());
+        //循环新增多文件 multifileimageMapper.insertMultifileimage(multifileimage);
+
         rentalhousingMapper.updateRentalhousingByNumber(rentalhousing);
     }
 
@@ -32,6 +38,8 @@ public class RentalhousingService {
 
     //新增租房房源
     public void insertRentalhousing(Rentalhousing rentalhousing){
+        //循环新增多文件 multifileimageMapper.insertMultifileimage(multifileimage);
+
         rentalhousingMapper.insertRentalhousing(rentalhousing);
     }
 
