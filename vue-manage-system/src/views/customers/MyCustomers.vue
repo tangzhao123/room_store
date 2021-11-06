@@ -1,9 +1,153 @@
 <template>
-	我的客源
+	<div>
+		<el-form :model="screening" status-icon>
+			<el-row style="margin-left:30px;margin-top:20px;">
+				<el-col :span="6">
+					<div class="grid-content bg-purple">
+						<el-form-item label="客户电话:" :label-width="formLabelWidth">
+							<el-input v-model="screening.s" placeholder="请输入客户电话" clearable style="width:220px;">
+							</el-input>
+						</el-form-item>
+					</div>
+				</el-col>
+				<el-col :span="9">
+					<div class="grid-content bg-purple-light">
+						<el-form-item label="录入时间:" :label-width="formLabelWidth">
+							<el-date-picker v-model="screening.s" type="daterange" align="right" unlink-panels
+								range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"
+								:shortcuts="shortcuts">
+							</el-date-picker>
+						</el-form-item>
+					</div>
+				</el-col>
+				<el-col :span="8">
+					<div class="grid-content bg-purple">
+						<el-form-item label="客户意向:" :label-width="formLabelWidth">
+							<el-select placeholder="请选择意向" v-model="screening.s" value-key="">
+								<!-- <el-option v-for="item in titles" :key="item.titId" :label="item.titName" :value="item">
+					</el-option> -->
+							</el-select>
+						</el-form-item>
+					</div>
+				</el-col>
+			</el-row>
+
+			<el-row style="margin-left:30px;">
+				<el-col :span="6">
+					<div class="grid-content bg-purple">
+						<el-form-item label="客户来源:" :label-width="formLabelWidth">
+							<el-select placeholder="请选择来源" v-model="screening.s" value-key="">
+								<!-- <el-option v-for="item in titles" :key="item.titId" :label="item.titName" :value="item">
+						</el-option> -->
+							</el-select>
+						</el-form-item>
+					</div>
+				</el-col>
+				<el-col :span="9">
+					<div class="grid-content bg-purple-light">
+						<el-form-item label="客户状态:" :label-width="formLabelWidth">
+							<el-select placeholder="请选择状态" v-model="screening.s" value-key="">
+								<!-- <el-option v-for="item in depts" :key="item.deptId" :label="item.deptName" :value="item">
+						</el-option> -->
+							</el-select>
+						</el-form-item>
+					</div>
+				</el-col>
+			</el-row>
+
+			<el-row style="margin-left:30px;">
+				<el-col :span="6">
+					<div class="grid-content bg-purple">
+						<el-form-item label="客户等级:" :label-width="formLabelWidth">
+							<el-select placeholder="请选择等级" v-model="screening.s" value-key="">
+
+							</el-select>
+						</el-form-item>
+					</div>
+				</el-col>
+				<el-col :span="6">
+					<div class="grid-content bg-purple-light">
+						<el-form-item>
+							<el-button type="primary">搜索</el-button>
+						</el-form-item>
+					</div>
+				</el-col>
+			</el-row>
+		</el-form>
+		<el-button type="primary">客源录入</el-button>
+		<el-table :data="customersForm.slice((pageNo-1)*size,pageNo*size)" border style="width: 100%">
+			<el-table-column prop="empId" label="客户编号" min-width="100">
+			</el-table-column>
+			<el-table-column prop="empName" label="客户称呼" min-width="100">
+				<!--      <template v-slot:default="r">
+        <el-tag>{{r.row.empName}}</el-tag>
+      </template>-->
+			</el-table-column>
+			<el-table-column prop="useres.userAccount" label="性别" min-width="100">
+			</el-table-column>
+			<el-table-column prop="empPhone" label="手机号" min-width="120">
+			</el-table-column>
+			<el-table-column prop="empCard" label="等级" min-width="170">
+			</el-table-column>
+			<el-table-column prop="empInduction" label="意向" min-width="160">
+			</el-table-column>
+			<el-table-column prop="empDeparture" label="来源" min-width="160">
+			</el-table-column>
+			<el-table-column prop="titles.titName" label="用户状态" min-width="120">
+			</el-table-column>
+			<el-table-column prop="departmentByEmpDepar.depaName" label="录入日期" min-width="120">
+			</el-table-column>
+			<el-table-column prop="deptByEmpDept.deptName" label="公客池状态" min-width="120">
+			</el-table-column>
+		</el-table>
+	</div>
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+				formLabelWidth: '75px', //label宽度
+				shortcuts: [{
+					text: '最近一周',
+					value: (() => {
+						const end = new Date()
+						const start = new Date()
+						start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+						return [start, end]
+					})(),
+				}, {
+					text: '最近一个月',
+					value: (() => {
+						const end = new Date()
+						const start = new Date()
+						start.setTime(start.getTime() - 3600 * 1000 * 24 * 30)
+						return [start, end]
+					})(),
+				}, {
+					text: '最近三个月',
+					value: (() => {
+						const end = new Date()
+						const start = new Date()
+						start.setTime(start.getTime() - 3600 * 1000 * 24 * 90)
+						return [start, end]
+					})(),
+				}], //日期选择器格式
+				screening: {
+					s: ''
+				}, //筛选信息
+				customersForm: [], //客源表格显示
+				//分页
+				pageNo: 1, //当前页数
+				size: 5, //当前页显示的条数
+				total: 0, //总记录数
+			}
+		},
+		methods: {
+
+		},
+	}
 </script>
 
-<style>
+<style scoped>
 </style>

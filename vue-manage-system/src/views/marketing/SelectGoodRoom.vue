@@ -1,5 +1,7 @@
 <template>
-	精选好房
+	<div>
+		精选好房
+	</div>
 </template>
 
 <script>

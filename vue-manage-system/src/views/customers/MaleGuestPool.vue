@@ -1,5 +1,7 @@
 <template>
-	公客池
+	<div>
+		公客池
+	</div>
 </template>
 
 <script>
