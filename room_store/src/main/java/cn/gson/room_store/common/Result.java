@@ -1,4 +1,4 @@
-package cn.gson.room_store.model.common;
+package cn.gson.room_store.common;
 
 public class Result<T> {
     private String code;
@@ -32,20 +32,20 @@ public class Result<T> {
     public Result() {
     }
     public Result(T data){this.data=data;}
-    public static cn.gson.room_store.model.common.Result success(){
-        cn.gson.room_store.model.common.Result result =new cn.gson.room_store.model.common.Result<>();
+    public static cn.gson.room_store.common.Result success(){
+        cn.gson.room_store.common.Result result =new cn.gson.room_store.common.Result<>();
         result.setCode("0");
         result.setMsg("成功");
         return result;
     }
-    public static<T> cn.gson.room_store.model.common.Result<T> success(T data){
-        cn.gson.room_store.model.common.Result<T> result =new cn.gson.room_store.model.common.Result<>(data);
+    public static<T> cn.gson.room_store.common.Result<T> success(T data){
+        cn.gson.room_store.common.Result<T> result =new cn.gson.room_store.common.Result<>(data);
         result.setCode("0");
         result.setMsg("成功");
         return result;
     }
-    public static cn.gson.room_store.model.common.Result error(String code, String msg){
-        cn.gson.room_store.model.common.Result result = new cn.gson.room_store.model.common.Result();
+    public static cn.gson.room_store.common.Result error(String code, String msg){
+        cn.gson.room_store.common.Result result = new cn.gson.room_store.common.Result();
         result.setCode(code);
         result.setMsg(msg);
         return result;

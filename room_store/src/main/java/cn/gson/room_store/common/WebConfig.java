@@ -1,4 +1,4 @@
-package cn.gson.room_store.model.common;
+package cn.gson.room_store.common;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

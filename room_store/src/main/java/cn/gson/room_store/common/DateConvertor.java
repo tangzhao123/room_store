@@ -1,4 +1,4 @@
-package cn.gson.room_store.model.common;
+package cn.gson.room_store.common;
 
 import org.springframework.core.convert.converter.Converter;
 
