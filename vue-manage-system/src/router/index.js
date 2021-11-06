@@ -47,6 +47,33 @@ const routes = [{
 			component: () => import(
 				"../views/secondary/HandHouse.vue")
 		},
+		{
+			path: "/mycustomers",
+			name: "mycustomers",
+			meta: {
+				title: '我的客源'
+			},
+			component: () => import(
+				"../views/customers/MyCustomers.vue")
+		},
+		{
+			path: "/maleguestpool",
+			name: "maleguestpool",
+			meta: {
+				title: '公客池'
+			},
+			component: () => import(
+				"../views/customers/MaleGuestPool.vue")
+		},
+		{
+			path: "/selectgoodroom",
+			name: "selectgoodroom",
+			meta: {
+				title: '精选好房'
+			},
+			component: () => import(
+				"../views/marketing/SelectGoodRoom.vue")
+		}
 		
 	]
 }, {
