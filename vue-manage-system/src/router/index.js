@@ -83,6 +83,15 @@ const routes = [{
 			component: () => import(
 				"../views/marketing/SelectGoodRoom.vue")
 		},
+		{
+			path: "/publicpools",
+			name: "Publicpools",
+			meta: {
+				title: '公房池'
+			},
+			component: () => import(
+				"../views/renthouse/Publicpools.vue")
+		},
 		
 	]
 }, {
