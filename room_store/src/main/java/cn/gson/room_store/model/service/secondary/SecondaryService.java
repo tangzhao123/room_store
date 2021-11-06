@@ -1,0 +1,20 @@
+package cn.gson.room_store.model.service.secondary;
+
+import cn.gson.room_store.model.mapper.secondary.SecondaryMapper;
+import cn.gson.room_store.model.pojos.secondary.Secondary;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional
+public class SecondaryService {
+
+    @Autowired
+    SecondaryMapper secondaryMapper;
+
+    //新增二手房源
+    public void addSecondary(Secondary secondary){
+        secondaryMapper.addSecondary(secondary);
+    }
+}

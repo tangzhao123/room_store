@@ -3,15 +3,15 @@ package cn.gson.room_store.model.pojos.secondary;
 import java.util.Date;
 
 public class LookRecord {
-    private int lookId ;
-    private Date lookMake;
-    private Date lookEnd;
-    private String lookName;
-    private String lookPhone;
-    private int secondaryNumber;
-    private String lookTitle;
-    private int lookPicture;
-    private String lookState;
+    private int lookId ; //序号
+    private Date lookMake;//预约时间
+    private Date lookEnd;//结束时间
+    private String lookName;//客户姓名
+    private String lookPhone;//客户联系方式
+    private String secondaryNumber;//房源
+    private String lookTitle;//带看记录
+    private int lookPicture;//带看图片
+    private String lookState;//带看状态
 
     public int getLookId() {
         return lookId;
@@ -53,11 +53,11 @@ public class LookRecord {
         this.lookPhone = lookPhone;
     }
 
-    public int getSecondaryNumber() {
+    public String getSecondaryNumber() {
         return secondaryNumber;
     }
 
-    public void setSecondaryNumber(int secondaryNumber) {
+    public void setSecondaryNumber(String secondaryNumber) {
         this.secondaryNumber = secondaryNumber;
     }
 

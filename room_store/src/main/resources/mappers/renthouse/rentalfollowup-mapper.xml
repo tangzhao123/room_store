@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 租房跟进记录 -->
+<mapper namespace="cn.gson.room_store.model.mapper.renthouse.RentalfollowupMapper">
+    <resultMap id="rentalfollowup" type="cn.gson.room_store.model.pojos.renthouse.Rentalfollowup">
+        <id column="refo_no" property="refoNo" />
+        <result column="refo_img" property="refoImg" />
+        <result column="refo_name" property="refoName" />
+        <result column="refo_phone" property="refoPhone" />
+        <result column="refo_way" property="refoWay" />
+        <result column="refo_type" property="refoType" />
+        <result column="refo_date" property="refoDate" />
+        <result column="refo_nexttime" property="refoNexttime" />
+        <result column="refo_reho_no" property="refoRehoNo" />
+    </resultMap>
+
+    <!-- 查询单个跟进记录根据编号 -->
+    <select id="findRentalfollowupByNo" resultMap="rentalfollowup">
+        select * from rentalfollowup where refo_no = #{param}
+    </select>
+
+    <!-- 查询房源租房跟进记录 -->
+    <select id="findAllRentalfollowup" resultMap="rentalfollowup">
+        select * from rentalfollowup where refo_reho_no = #{param}
+    </select>
+
+    <!-- 新增租房跟进记录 -->
+    <insert id="insertRentalfollowup" parameterType="cn.gson.room_store.model.pojos.renthouse.Rentalfollowup">
+        insert into rentalfollowup(refo_img,refo_name,refo_phone,refo_way,refo_type,refo_nexttime,refo_reho_no) values
+        (#{refoImg},#{refoName},#{refoPhone},#{refoWay},#{refoType},#{refoNexttime},#{refoRehoNo})
+    </insert>
+
+
+
+
+</mapper>
