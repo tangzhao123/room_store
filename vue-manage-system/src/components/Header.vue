@@ -29,7 +29,6 @@
 	</div>
 </template>
 <script>
-<<<<<<< HEAD
 	export default {
 		data() {
 			return {
@@ -41,8 +40,8 @@
 		},
 		computed: {
 			username() {
-				this.users = JSON.parse(sessionStorage.getItem("token"));
-				let username = this.users.userName;
+				this.$store.state.token=sessionStorage.getItem('token')
+				let username = 'zzz';
 				//localStorage.getItem("ms_username");
 				return username ? username : this.name;
 			},
@@ -70,44 +69,6 @@
 			// }
 		}
 	};
-=======
-export default {
-    data() {
-        return {
-            fullscreen: false,
-            name: "linxin",
-            message: 2
-        };
-    },
-    computed: {
-        username() {
-            let username = localStorage.getItem("ms_username");
-            return username ? username : this.name;
-        },
-        collapse() {
-            return this.$store.state.collapse;
-        }
-    },
-    methods: {
-        // 用户名下拉菜单选择事件
-        handleCommand(command) {
-            if (command == "loginout") {
-                localStorage.removeItem("ms_username");
-                this.$router.push("/login");
-            }
-        },
-        // 侧边栏折叠
-        collapseChage() {
-            this.$store.commit("hadndleCollapse", !this.collapse);
-        }
-    },
-    mounted() {
-        if (document.body.clientWidth < 1500) {
-            this.collapseChage();
-        }
-    }
-};
->>>>>>> 17a386f87adb93ab979b4c26201f254a3c45eb24
 </script>
 <style scoped>
 	.header {
