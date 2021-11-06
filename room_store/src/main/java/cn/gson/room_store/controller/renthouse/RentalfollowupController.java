@@ -23,6 +23,13 @@ public class RentalfollowupController {
     @Autowired
     RentalfollowupService rentalfollowupService;
 
+
+    //查询单个跟进记录根据编号
+    @RequestMapping("findRentalfollowupByNo")
+    public Rentalfollowup findRentalfollowupByNo(int param){
+        return rentalfollowupService.findRentalfollowupByNo(param);
+    }
+
     //查询租房跟进记录
     @RequestMapping("findAllRentalfollowup")
     public List<Rentalfollowup> findAllRentalfollowup(String param){

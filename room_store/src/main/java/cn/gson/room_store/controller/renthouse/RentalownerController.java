@@ -25,7 +25,7 @@ public class RentalownerController {
 
     //查询租房业主信息
     @RequestMapping("findAllRentalfollowup")
-    public List<Rentalowner> findAllRentalowner(String param){
+    public Rentalowner findAllRentalowner(String param){
         return rentalownerService.findAllRentalowner(param);
     }
 

@@ -21,7 +21,7 @@ public class RentalownerService {
     RentalownerMapper rentalownerMapper;
 
     //查询租房业主信息
-    public List<Rentalowner> findAllRentalowner(String param){
+    public Rentalowner findAllRentalowner(String param){
         return rentalownerMapper.findAllRentalowner(param);
     }
 

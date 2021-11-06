@@ -13,8 +13,8 @@ public class Rentalfollowup {
     private String refoName;
     private String refoPhone;
     private String refoWay;
-    private Date refoType;
+    private String refoType;
     private Date refoDate;
-    private String refoNexttime;
+    private Date refoNexttime;
     private int refoRehoNo;
 }

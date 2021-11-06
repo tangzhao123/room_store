@@ -31,7 +31,4 @@
         where reow_no = #{reowNo}
     </insert>
 
-
-
-
 </mapper>

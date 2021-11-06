@@ -34,6 +34,8 @@
         <result column="reho_suppfacility" property="rehoSuppfacility" />
         <result column="reho_houslabel" property="rehoHouslabel" />
         <result column="reho_housremark" property="rehoHousremark" />
+        <result column="reho_genjindate" property="rehoGenjindate" />
+        <result column="reho_xcgenjindate" property="rehoXcgenjindate" />
         <result column="reho_date" property="rehoDate" />
         <result column="reho_shelf" property="rehoShelf" />
         <result column="reho_gfczt" property="rehoGfczt" />
@@ -47,13 +49,45 @@
         </collection>
     </resultMap>
 
-    <!-- 编号查询租房房源 -->
-    <select id="findRentalhousingBy" resultMap="rentalhousing">
+    <!-- 多条件模糊查询 -->
+
+    <!-- 修改租房房源 -->
+    <update id="updateRentalhousingByNumber" parameterType="cn.gson.room_store.model.pojos.renthouse.Rentalhousing">
+        update rentalhousing set reho_site = #{rehoSite} , reho_community = #{rehoCommunity} , reho_unit = #{rehoUnit} ,
+            reho_building = #{rehoBuilding} , reho_floornumber = #{rehoFloornumber} , reho_livefewfloor = #{rehoLivefewfloor} ,
+            reho_roomnumber = #{rehoRoomnumber} , reho_coveredarea = #{rehoCoveredarea} , reho_insidespace = #{rehoInsidespace} ,
+            reho_housetype = #{rehoHousetype} , reho_orientation = #{rehoOrientation} , reho_elevator = #{rehoElevator} ,
+            reho_housingtypes = #{rehoHousingtypes} , reho_ladder = #{rehoLadder} , reho_households = #{rehoHouseholds} ,
+            reho_certcate_cover = #{rehoCertcateCover} , reho_certcate_backcover = #{rehoCertcateBackcover} ,
+            reho_certcate_qsy = #{rehoCertcateQsy} , reho_certcate_familypage = #{rehoCertcateFamilypage} ,
+            reho_rentouttitle = #{rehoRentouttitle} , reho_rent = #{rehoRent} , reho_payway = #{rehoPayway} ,
+            reho_fitmenttype = #{rehoFitmenttype} , reho_shortestlease = #{rehoShortestlease} , reho_suppfacility = #{rehoSuppfacility} ,
+            reho_houslabel = #{rehoHouslabel} , reho_housremark = #{rehoHousremark} where
+            reho_number = #{rehoNumber}
+    </update>
+
+    <!-- 修改租房房源最近跟进时间和预计下次跟进时间 -->
+    <update id="updateRentalhousingDateByNumber" parameterType="cn.gson.room_store.model.pojos.renthouse.Rentalhousing">
+        update rentalhousing set reho_genjindate = #{rehoGenjindate} , reho_xcgenjindate = #{rehoXcgenjindate} where reho_no = #{rehoNo}
+    </update>
+
+    <!-- 修改租房房源公房池状态 -->
+    <update id="updateRentalhousingRehoGfcztByNumber" parameterType="cn.gson.room_store.model.pojos.renthouse.Rentalhousing">
+        update rentalhousing set reho_gfczt = #{rehoGfczt} where reho_number = #{rehoNumber}
+    </update>
+
+    <!-- 编号查询租房房源(为了修改，用于回显) -->
+    <select id="findRentalhousingByNumber" resultMap="rentalhousing">
         select * from rentalhousing r left join multifileimage m on r.reho_number = m.muim_fangyuanno
         where r.reho_number = #{param}
     </select>
 
-    <!-- 查询所有租房房源 -->
+    <!-- 修改租房房源上下架状态 -->
+    <update id="updateRentalhousingRehoShelfByNumber" parameterType="cn.gson.room_store.model.pojos.renthouse.Rentalhousing">
+        update rentalhousing set reho_shelf = #{rehoShelf} where reho_number = #{rehoNumber}
+    </update>
+
+    <!-- 查询所有租房房源(删除) -->
     <select id="findAllRentalhousing" resultMap="rentalhousing">
         select * from rentalhousing
     </select>
@@ -71,8 +105,4 @@
          #{rehoFitmenttype},#{rehoShortestlease},#{rehoSuppfacility},#{rehoHouslabel},#{rehoHousremark},#{rehoGoodRoom},#{rehoUsersNo}
         )
     </insert>
-
-
-
-
 </mapper>

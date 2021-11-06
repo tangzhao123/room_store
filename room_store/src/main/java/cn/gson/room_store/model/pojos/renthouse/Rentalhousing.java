@@ -39,6 +39,8 @@ public class Rentalhousing {
     private String rehoSuppfacility;
     private String rehoHouslabel;
     private String rehoHousremark;
+    private Date rehoGenjindate;
+    private Date rehoXcgenjindate;
     private Date rehoDate;
     private int rehoShelf;
     private int rehoGfczt;
@@ -46,4 +48,6 @@ public class Rentalhousing {
     private int rehoUsersNo;
 
     private List<Multifileimage> multifileimagesList;
+
+    private Rentalowner rentalowner;
 }

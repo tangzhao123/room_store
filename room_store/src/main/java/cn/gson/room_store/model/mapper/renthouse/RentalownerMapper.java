@@ -13,10 +13,11 @@ import java.util.List;
 public interface RentalownerMapper {
 
     //查询租房业主信息
-    List<Rentalowner> findAllRentalowner(String param);
+    Rentalowner findAllRentalowner(String param);
 
     //新增租房业主信息
     void insertRentalowner(Rentalowner rentalowner);
+
     //修改租房业主信息
     void updateRentalowner(Rentalowner rentalowner);
 }

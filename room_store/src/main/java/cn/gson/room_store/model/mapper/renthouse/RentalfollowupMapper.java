@@ -12,6 +12,9 @@ import java.util.List;
 * */
 public interface RentalfollowupMapper {
 
+    //查询单个跟进记录根据编号
+    Rentalfollowup findRentalfollowupByNo(int param);
+
     //查询租房跟进记录
     List<Rentalfollowup> findAllRentalfollowup(String param);
 

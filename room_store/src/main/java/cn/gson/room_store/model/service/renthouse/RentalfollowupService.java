@@ -19,6 +19,8 @@ public class RentalfollowupService {
 
     @Autowired
     RentalfollowupMapper rentalfollowupMapper;
+    @Autowired
+    RentalhousingMapper rentalhousingMapper;
 
     //查询租房跟进记录
     public List<Rentalfollowup> findAllRentalfollowup(String param){
@@ -27,7 +29,12 @@ public class RentalfollowupService {
 
     //新增租房跟进记录
     public void insertRentalfollowup(Rentalfollowup rentalfollowup){
+        rentalhousingMapper.updateRentalhousingDateByNumber(rentalfollowup.getRefoDate(),rentalfollowup.getRefoNexttime(),rentalfollowup.getRefoRehoNo());
         rentalfollowupMapper.insertRentalfollowup(rentalfollowup);
     }
 
+    //查询单个跟进记录根据编号
+    public Rentalfollowup findRentalfollowupByNo(int param){
+        return rentalfollowupMapper.findRentalfollowupByNo(param);
+    }
 }

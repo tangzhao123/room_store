@@ -16,7 +16,12 @@
         <result column="refo_reho_no" property="refoRehoNo" />
     </resultMap>
 
-    <!-- 查询租房跟进记录 -->
+    <!-- 查询单个跟进记录根据编号 -->
+    <select id="findRentalfollowupByNo" resultMap="rentalfollowup">
+        select * from rentalfollowup where refo_no = #{param}
+    </select>
+
+    <!-- 查询房源租房跟进记录 -->
     <select id="findAllRentalfollowup" resultMap="rentalfollowup">
         select * from rentalfollowup where refo_reho_no = #{param}
     </select>
