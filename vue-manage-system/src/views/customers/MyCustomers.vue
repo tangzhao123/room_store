@@ -1,18 +1,19 @@
 <template>
 	<div>
+		<!-- 筛选开始 -->
 		<el-form :model="screening" status-icon>
 			<el-row style="margin-left:30px;margin-top:20px;">
 				<el-col :span="6">
 					<div class="grid-content bg-purple">
-						<el-form-item label="客户电话:" :label-width="formLabelWidth">
-							<el-input v-model="screening.s" placeholder="请输入客户电话" clearable style="width:220px;">
+						<el-form-item label="客户电话" :label-width="formLabelWidth">
+							<el-input v-model="screening.s" placeholder="客户电话" clearable style="width:220px;">
 							</el-input>
 						</el-form-item>
 					</div>
 				</el-col>
 				<el-col :span="9">
 					<div class="grid-content bg-purple-light">
-						<el-form-item label="录入时间:" :label-width="formLabelWidth">
+						<el-form-item label="录入时间" :label-width="formLabelWidth">
 							<el-date-picker v-model="screening.s" type="daterange" align="right" unlink-panels
 								range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"
 								:shortcuts="shortcuts">
@@ -22,8 +23,8 @@
 				</el-col>
 				<el-col :span="8">
 					<div class="grid-content bg-purple">
-						<el-form-item label="客户意向:" :label-width="formLabelWidth">
-							<el-select placeholder="请选择意向" v-model="screening.s" value-key="">
+						<el-form-item label="客户意向" :label-width="formLabelWidth">
+							<el-select placeholder="客户意向" v-model="screening.s" value-key="">
 								<!-- <el-option v-for="item in titles" :key="item.titId" :label="item.titName" :value="item">
 					</el-option> -->
 							</el-select>
@@ -35,8 +36,8 @@
 			<el-row style="margin-left:30px;">
 				<el-col :span="6">
 					<div class="grid-content bg-purple">
-						<el-form-item label="客户来源:" :label-width="formLabelWidth">
-							<el-select placeholder="请选择来源" v-model="screening.s" value-key="">
+						<el-form-item label="客户来源" :label-width="formLabelWidth">
+							<el-select placeholder="客户来源" v-model="screening.s" value-key="">
 								<!-- <el-option v-for="item in titles" :key="item.titId" :label="item.titName" :value="item">
 						</el-option> -->
 							</el-select>
@@ -45,8 +46,8 @@
 				</el-col>
 				<el-col :span="9">
 					<div class="grid-content bg-purple-light">
-						<el-form-item label="客户状态:" :label-width="formLabelWidth">
-							<el-select placeholder="请选择状态" v-model="screening.s" value-key="">
+						<el-form-item label="客户状态" :label-width="formLabelWidth">
+							<el-select placeholder="客户状态" v-model="screening.s" value-key="">
 								<!-- <el-option v-for="item in depts" :key="item.deptId" :label="item.deptName" :value="item">
 						</el-option> -->
 							</el-select>
@@ -58,8 +59,8 @@
 			<el-row style="margin-left:30px;">
 				<el-col :span="6">
 					<div class="grid-content bg-purple">
-						<el-form-item label="客户等级:" :label-width="formLabelWidth">
-							<el-select placeholder="请选择等级" v-model="screening.s" value-key="">
+						<el-form-item label="客户等级" :label-width="formLabelWidth">
+							<el-select placeholder="客户等级" v-model="screening.s" value-key="">
 
 							</el-select>
 						</el-form-item>
@@ -74,7 +75,12 @@
 				</el-col>
 			</el-row>
 		</el-form>
-		<el-button type="primary">客源录入</el-button>
+		<router-link :to="{path:'/addcustomers'}">
+			<el-button type="primary"> 客源录入</el-button>
+		</router-link>
+		<!--   筛选结束   -->
+
+		<!--  表格开始    -->
 		<el-table :data="customersForm.slice((pageNo-1)*size,pageNo*size)" border style="width: 100%">
 			<el-table-column prop="empId" label="客户编号" min-width="100">
 			</el-table-column>
@@ -100,6 +106,16 @@
 			<el-table-column prop="deptByEmpDept.deptName" label="公客池状态" min-width="120">
 			</el-table-column>
 		</el-table>
+		<!--  表格结束  -->
+
+		<!-- 分页开始   -->
+		<div style="text-align: center;margin-top: 10px;">
+			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNo"
+				:page-sizes="[5, 10, 15, 20]" :page-size="size" layout="total, sizes, prev, pager, next, jumper"
+				:total="customersForm.length">
+			</el-pagination>
+		</div>
+		<!--  分页结束  -->
 	</div>
 </template>
 
@@ -144,8 +160,18 @@
 			}
 		},
 		methods: {
-
+			/*分页*/
+			handleSizeChange(val) {
+				console.log(`每页 ${val} 条`);
+				this.pageNo = 1;
+				this.size = val;
+			},
+			handleCurrentChange(val) {
+				console.log(`当前页: ${val}`);
+				this.pageNo = val;
+			},
 		},
+		created() {}
 	}
 </script>
 

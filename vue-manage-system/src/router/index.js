@@ -83,6 +83,15 @@ const routes = [{
 			component: () => import(
 				"../views/marketing/SelectGoodRoom.vue")
 		},
+		{
+			path: "/addcustomers",
+			name: "addcustomers",
+			meta: {
+				title: '录入客源'
+			},
+			component: () => import(
+				"../views/customers/AddCustomers.vue")
+		},
 		
 	]
 }, {
