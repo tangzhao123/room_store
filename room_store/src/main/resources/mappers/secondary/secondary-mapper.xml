@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.secondary.SecondaryMapper">
+
+    <!--  新增二手房房源  -->
+    <insert id="addSecondary">
+        insert into secondary values (0,#{secondaryNumber},#{secondaryCity},#{secondaryVillage},#{secondaryFloor},#{secondaryLayer},#{secondaryUnit},#{secondaryBuilding},
+            #{secondaryRoom},#{secondaryArea},#{secondaryWithin},#{secondaryModel},#{secondaryToward},#{secondaryYear},#{secondaryUse},#{secondaryLadder},#{secondaryElevator},
+            #{secondaryCover},#{secondaryBack},#{secondaryPage},#{secondaryFamily},#{secondaryTitle},#{secondaryPrice},#{secondaryType},#{secondaryAccess},#{secondaryLable},
+            #{secondaryPower},#{secondaryRights},#{secondaryBuy},#{secondaryOnly},#{secondaryHousing},#{secondaryCommunity},#{secondarySchool},#{secondaryAdvantage},
+            #{secondaryOwner},0,1,current_timestamp ,0,#{userId}
+        )
+    </insert>
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 多文件图片 -->
+<mapper namespace="cn.gson.room_store.model.mapper.renthouse.MultifileimageMapper">
+    <resultMap id="multifileimage" type="cn.gson.room_store.model.pojos.renthouse.Multifileimage">
+        <id column="muim_no" property="muimNo" />
+        <result column="muim_name" property="muimName" />
+        <result column="muim_fangyuanno" property="muimFangyuanno" />
+        <result column="muim_type" property="muimType" />
+    </resultMap>
+
+
+    <!-- 新增多文件图片 -->
+    <insert id="insertMultifileimage" parameterType="cn.gson.room_store.model.pojos.renthouse.Multifileimage">
+        insert into multifileimage(muim_name,muim_fangyuanno,muim_type) values
+        (#{muimName},#{muimFangyuanno},#{muimType})
+    </insert>
+
+    <!-- 删除多文件图片 -->
+    <delete id="deleteMultifileimageByMuimFangyuanno" parameterType="cn.gson.room_store.model.pojos.renthouse.Multifileimage">
+        delete from multifileimage where muim_fangyuanno = #{muimFangyuanno}
+    </delete>
+
+</mapper>

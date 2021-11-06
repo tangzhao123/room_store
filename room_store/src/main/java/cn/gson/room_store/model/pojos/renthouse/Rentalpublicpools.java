@@ -10,7 +10,7 @@ import java.util.Date;
 * */
 public class Rentalpublicpools {
     private int reppNo;
-    private int reppRehoNo;
+    private String reppRehoNo;
     private double reppMoney;
     private Date reppDate;
 }

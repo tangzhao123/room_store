@@ -57,23 +57,52 @@ const routes = [{
 				"../views/secondary/IntoHousing.vue")
 		},
 		{
-			path: "/newhouse",
-			name: "newhouse",
+			path: "/mycustomers",
+			name: "mycustomers",
 			meta: {
-				title: '新房管理'
+				title: '我的客源'
 			},
 			component: () => import(
-				"../views/newhouse/NewHouse.vue")
+				"../views/customers/MyCustomers.vue")
 		},
 		{
-			path: "/house-collection",
-			name: "house-collection",
+			path: "/maleguestpool",
+			name: "maleguestpool",
 			meta: {
-				title: '新房采集'
+				title: '公客池'
 			},
 			component: () => import(
-				"../views/newhouse/HouseCollection.vue")
-		}
+				"../views/customers/MaleGuestPool.vue")
+		},
+		{
+			path: "/selectgoodroom",
+			name: "selectgoodroom",
+			meta: {
+				title: '精选好房'
+			},
+			component: () => import(
+				"../views/marketing/SelectGoodRoom.vue")
+		},
+		{
+			path: "/addcustomers",
+			name: "addcustomers",
+			meta: {
+				title: '录入客源'
+			},
+			component: () => import(
+				"../views/customers/AddCustomers.vue")
+
+		},
+		{
+			path: "/publicpools",
+			name: "Publicpools",
+			meta: {
+				title: '公房池'
+			},
+			component: () => import(
+				"../views/renthouse/Publicpools.vue")
+		},
+		
 	]
 }, {
 	path: "/login",
