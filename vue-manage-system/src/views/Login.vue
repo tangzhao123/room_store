@@ -79,13 +79,11 @@
 								this.$message.success("登录成功");
 								this.$store.state.token = response.data;
 								const users = JSON.stringify(response.data)
-								//sessionStorage.setItem("token",response.data);
 								localStorage.setItem("token", users);
-								//sessionStorage.setItem('token', users)
 								this.$router.push("/dashboard");
 							}
 							this.loading = false
-							//console.log(this.$store.state.token.userName)
+							console.log(this.$store.state.token.userName)
 						})
 					} else {
 						this.$message.error("请输入账号和密码");

@@ -33,16 +33,14 @@
 		data() {
 			return {
 				fullscreen: false,
-				name: "linxin",
 				message: 2
 			};
 		},
 		computed: {
 			username() {
-				this.$store.state.token=sessionStorage.getItem('token');
-				let username = this.$store.state.token.userName;
-				//localStorage.getItem("ms_username");
-				return username ? username : this.name;
+				//this.$store.state.token=sessionStorage.getItem('token');
+				let username =this.$store.state.token.userName;
+				return username;
 			},
 			collapse() {
 				return this.$store.state.collapse;
@@ -53,7 +51,6 @@
 			handleCommand(command) {
 				if (command == "loginout") {
 					localStorage.removeItem("token");
-					//this.$store.state.token='',
 					this.$router.push("/login");
 				}
 			},
