@@ -55,13 +55,13 @@ export default {
                 delItem.path === this.$route.fullPath &&
                     this.$router.push(item.path);
             } else {
-                this.$router.push("/");
+                this.$router.push("/dashboard");
             }
         },
         // 关闭全部标签
         closeAll() {
             this.$store.commit("clearTags");
-            this.$router.push("/");
+            this.$router.push("/dashboard");
         },
         // 关闭其他标签
         closeOther() {
