@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.gson.room_store.model.mapper.renthouse.RentalhousingMapper">
 
+<!-- 租房房源 -->
+<mapper namespace="cn.gson.room_store.model.mapper.renthouse.RentalhousingMapper">
     <resultMap id="rentalhousing" type="cn.gson.room_store.model.pojos.renthouse.Rentalhousing">
         <id column="reho_no" property="rehoNo" />
         <result column="reho_number" property="rehoNumber" />
@@ -38,12 +39,26 @@
         <result column="reho_gfczt" property="rehoGfczt" />
         <result column="reho_good_room" property="rehoGoodRoom" />
         <result column="reho_users_no" property="rehoUsersNo" />
+        <collection property="multifileimagesList" ofType="cn.gson.room_store.model.pojos.renthouse.Multifileimage">
+            <id column="muim_no" property="muimNo" />
+            <result column="muim_name" property="muimName" />
+            <result column="muim_fangyuanno" property="muimFangyuanno" />
+            <result column="muim_type" property="muimType" />
+        </collection>
     </resultMap>
 
+    <!-- 编号查询租房房源 -->
+    <select id="findRentalhousingBy" resultMap="rentalhousing">
+        select * from rentalhousing r left join multifileimage m on r.reho_number = m.muim_fangyuanno
+        where r.reho_number = #{param}
+    </select>
+
+    <!-- 查询所有租房房源 -->
     <select id="findAllRentalhousing" resultMap="rentalhousing">
         select * from rentalhousing
     </select>
 
+    <!-- 新增租房房源 -->
     <insert id="insertRentalhousing" parameterType="cn.gson.room_store.model.pojos.renthouse.Rentalhousing">
         insert into rentalhousing(reho_number,reho_site,reho_community,reho_unit,reho_building,reho_floornumber,reho_livefewfloor,reho_roomnumber,
                                   reho_coveredarea,reho_insidespace,reho_housetype,reho_orientation,reho_elevator,reho_housingtypes,reho_ladder,reho_households,

@@ -3,6 +3,7 @@ package cn.gson.room_store.model.pojos.renthouse;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 /*
@@ -43,4 +44,6 @@ public class Rentalhousing {
     private int rehoGfczt;
     private int rehoGoodRoom;
     private int rehoUsersNo;
+
+    private List<Multifileimage> multifileimagesList;
 }
