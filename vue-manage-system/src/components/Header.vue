@@ -32,7 +32,6 @@
 	export default {
 		data() {
 			return {
-				users: '',
 				fullscreen: false,
 				name: "linxin",
 				message: 2
@@ -40,8 +39,8 @@
 		},
 		computed: {
 			username() {
-				this.$store.state.token=sessionStorage.getItem('token')
-				let username = 'zzz';
+				this.$store.state.token=sessionStorage.getItem('token');
+				let username = this.$store.state.token.userName;
 				//localStorage.getItem("ms_username");
 				return username ? username : this.name;
 			},
