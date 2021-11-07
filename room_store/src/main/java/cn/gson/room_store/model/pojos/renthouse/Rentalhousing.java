@@ -1,5 +1,6 @@
 package cn.gson.room_store.model.pojos.renthouse;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -39,8 +40,13 @@ public class Rentalhousing {
     private String rehoSuppfacility;
     private String rehoHouslabel;
     private String rehoHousremark;
+    private String rehoZhutu;
+    private String rehoWeito;
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date rehoGenjindate;
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date rehoXcgenjindate;
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date rehoDate;
     private int rehoShelf;
     private int rehoGfczt;
