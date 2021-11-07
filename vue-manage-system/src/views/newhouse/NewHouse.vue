@@ -30,12 +30,12 @@
     </el-table>
 	<div style="margin: 10px 0;">
 		<el-pagination
-		     @size-change="handleSizeChange"
-		     @current-change="handleCurrentChange"
-		     :page-sizes="[5, 10, 20]"
-		     layout="total, sizes, prev, pager, next, jumper"
-		     :total="total">
-		   </el-pagination>
+			@size-change="handleSizeChange"
+			@current-change="handleCurrentChange"
+			:page-sizes="[5, 10, 20]"
+			layout="total, sizes, prev, pager, next, jumper"
+			:total="total">
+		</el-pagination>
 	</div>
 </div>
 </template>

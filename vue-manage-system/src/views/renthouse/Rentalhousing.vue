@@ -102,11 +102,16 @@
 			</el-row>
 			<el-row>
 				<el-form label-width="80px">
-					<el-form-item label="装修">
+					<el-form-item label="标签">
 						<el-col span="2">
-							<el-checkbox v-model="value" label="毛坯房"></el-checkbox>
-							<el-checkbox v-model="value" label="普通装修"></el-checkbox>
-							<el-checkbox v-model="value" label="精装修"></el-checkbox>
+							<el-checkbox v-model="value" label="临近地铁"></el-checkbox>
+							<el-checkbox v-model="value" label="停车场"></el-checkbox>
+							<el-checkbox v-model="value" label="南北通透"></el-checkbox>
+							<el-checkbox v-model="value" label="出行方便"></el-checkbox>
+							<el-checkbox v-model="value" label="家电齐全"></el-checkbox>
+							<el-checkbox v-model="value" label="拎包入住"></el-checkbox>
+							<el-checkbox v-model="value" label="随时起租"></el-checkbox>
+							<el-checkbox v-model="value" label="采光十足"></el-checkbox>
 						</el-col>
 					</el-form-item>
 				</el-form>
