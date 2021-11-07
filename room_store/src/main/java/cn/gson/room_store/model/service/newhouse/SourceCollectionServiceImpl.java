@@ -8,6 +8,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class SourceCollectionServiceImpl implements SourceCollectionService {
     @Autowired
@@ -26,6 +28,9 @@ public class SourceCollectionServiceImpl implements SourceCollectionService {
 
     @Override
     public int insert(SourceCollection record) {
+        if(record.getSourceTime()==null){
+            record.setSourceTime(new Date());
+        }
         return sourceCollectionMapper.insert(record);
     }
 

@@ -9,7 +9,28 @@
             #{secondaryRoom},#{secondaryArea},#{secondaryWithin},#{secondaryModel},#{secondaryToward},#{secondaryYear},#{secondaryUse},#{secondaryLadder},#{secondaryElevator},
             #{secondaryCover},#{secondaryBack},#{secondaryPage},#{secondaryFamily},#{secondaryTitle},#{secondaryPrice},#{secondaryType},#{secondaryAccess},#{secondaryLable},
             #{secondaryPower},#{secondaryRights},#{secondaryBuy},#{secondaryOnly},#{secondaryHousing},#{secondaryCommunity},#{secondarySchool},#{secondaryAdvantage},
-            #{secondaryOwner},0,1,current_timestamp ,0,#{userId}
+            #{secondaryOwner},0,0,current_timestamp ,0,#{userId},#{secondaryEntrust},#{secondaryPicture}
         )
     </insert>
+
+    <!-- 查询二手房源根据用户 -->
+    <select id="findAllSecondary" resultType="cn.gson.room_store.model.pojos.secondary.Secondary">
+        select secondary_id,secondary_number,secondary_village,secondary_unit,secondary_building,secondary_room,secondary_model,secondary_toward,secondary_type,secondary_price,secondary_title,secondary_state,secondary_pools_access,secondary_use,secondary_availability,secondary_picture,secondary_city,secondary_model from secondary
+        <where>
+            <if test="secondaryVillage !=null and '' !=secondaryVillage">
+                secondary_village like '%${secondaryVillage}%'
+            </if>
+            and user_id = #{userId}
+        </where>
+    </select>
+    
+    <!-- 根据编号修改状态（下架） -->
+    <update id="shelves">
+        update secondary set secondary_state = 1 where secondary_number = #{secondaryNumber}
+    </update>
+
+    <!-- 根据编号修改状态（上架架） -->
+    <update id="theShelves">
+        update secondary set secondary_state = 0 where secondary_number = #{secondaryNumber}
+    </update>
 </mapper>

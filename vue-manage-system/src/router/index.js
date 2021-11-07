@@ -91,7 +91,15 @@ const routes = [{
 			},
 			component: () => import(
 				"../views/customers/AddCustomers.vue")
-
+		},
+		{
+			path: "/publicpools",
+			name: "Publicpools",
+			meta: {
+				title: '公房池'
+			},
+			component: () => import(
+				"../views/renthouse/Publicpools.vue")
 		},
 		{
 			path: "/rentalhousing",
@@ -103,13 +111,40 @@ const routes = [{
 				"../views/renthouse/Rentalhousing.vue")
 		},
 		{
-			path: "/publicpools",
-			name: "Publicpools",
+			path: "/add-rentalhous",
+			name: "AddRentalhous",
 			meta: {
-				title: '租房公房池'
+				title: '租房新增'
 			},
 			component: () => import(
-				"../views/renthouse/Publicpools.vue")
+				"../views/renthouse/AddRentalhous.vue")
+		},
+		{
+			path: "/add-rentalfollowup",
+			name: "AddRentalfollowup",
+			meta: {
+				title: '新增跟进记录'
+			},
+			component: () => import(
+				"../views/renthouse/AddRentalfollowup.vue")
+		},
+		{
+			path: "/rentalfollowup",
+			name: "Rentalfollowup",
+			meta: {
+				title: '跟进记录'
+			},
+			component: () => import(
+				"../views/renthouse/Rentalfollowup.vue")
+		},
+		{
+			path: "/rentalowner",
+			name: "Rentalowner",
+			meta: {
+				title: '业主信息'
+			},
+			component: () => import(
+				"../views/renthouse/Rentalowner.vue")
 		},
 		{
 			path: "/newhouse",
@@ -125,18 +160,34 @@ const routes = [{
 			name: "house-collection",
 			meta: {
 				title: '新房采集'
-		},
+			},
 			component: () => import(
 				"../views/newhouse/HouseCollection.vue")
 		},
 		{
-			path: "/add-rentalhous",
-			name: "AddRentalhous",
+			path: "/house_type",
+			name: "house-type",
 			meta: {
-				title: '录入租房房源'
-		},
+				title: '户型管理'
+			},
 			component: () => import(
-				"../views/renthouse/AddRentalhous.vue")
+				"../views/newhouse/HouseType.vue")
+		},{
+			path: "/myInformation",
+			name: "myInformation",
+			meta: {
+				tiele: '我的信息'
+			},
+			component: () => import(
+				"../views/statistical/MyInformation.vue")
+		}, {
+			path: "/changePass",
+			name: "changePass",
+			meta: {
+				tiele: '修改密码'
+			},
+			component: () => import(
+				"../views/statistical/ChangePass.vue")
 		}
 	]
 }, {

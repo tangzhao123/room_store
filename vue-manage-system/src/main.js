@@ -6,7 +6,9 @@ import installElementPlus from './plugins/element'
 import './assets/css/icon.css'
 //导库
 import VueAxios from 'vue-axios'
+import locale from "element-plus/lib/locale/lang/zh-cn"
 import axios from 'axios'
+import Element from 'element-plus'
 
 //统一的跨域前缀
 axios.defaults.baseURL = 'http://localhost:8889/';
@@ -18,5 +20,6 @@ installElementPlus(app)
 app
     .use(store)
     .use(router)
+	.use(Element,{locale})
 	.use(VueAxios, axios)
     .mount('#app')

@@ -3,24 +3,23 @@
 		<div>
 			<el-form :inline="true" v-model="selectParams">
 				<el-form-item label="楼盘名称">
-					<el-input v-model="selectParams.houseName" placeholder="请输入楼盘名称" style="width: 170px;" clearable>
-					</el-input>
+					<el-input v-model="selectParams.houseName" placeholder="请输入楼盘名称" style="width: 170px;" clearable></el-input>
 				</el-form-item>
 				<el-form-item label="楼盘编号">
-					<el-input v-model="selectParams.houseNumber" placeholder="请输入楼盘编号" style="width: 170px;" clearable>
-					</el-input>
+					<el-input v-model="selectParams.houseNumber" placeholder="请输入楼盘编号" style="width: 170px;" clearable></el-input>
 				</el-form-item>
 				<el-form-item label="楼盘状态">
 					<el-select v-model="value">
-						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-						</el-option>
+						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item>
-					<el-button type="primary" @click="onsumbit()" icon="el-icon-search" style="margin-left: 20px;">查询
-					</el-button>
+					<el-button type="primary" @click="onsumbit()" icon="el-icon-search" style="margin-left: 20px;">查询</el-button>
 				</el-form-item>
 			</el-form>
+		</div>
+		<div>
+			<el-button @click="add">新增房源</el-button>
 		</div>
 		<el-table :data="tableData" style="width: 100%">
 			<el-table-column prop="houseName" label="楼盘名称"></el-table-column>

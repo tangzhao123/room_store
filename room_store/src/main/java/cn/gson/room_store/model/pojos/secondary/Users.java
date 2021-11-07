@@ -6,9 +6,11 @@ public class Users {
     //用户名
     private String userName;
     //用户电话号码
-    private String UserPhone;
+    private String userPhone;
     //账号密码
     private String userPass;
+    //修改密码用
+    private String userPass2;
     //店铺名
     private String userShopName;
     //用户头像
@@ -20,6 +22,14 @@ public class Users {
     //用户所在市
     private String userCity;
 
+
+    public String getUserPass2() {
+        return userPass2;
+    }
+
+    public void setUserPass2(String userPass2) {
+        this.userPass2 = userPass2;
+    }
     public int getUserID() {
         return userID;
     }
@@ -37,11 +47,11 @@ public class Users {
     }
 
     public String getUserPhone() {
-        return UserPhone;
+        return userPhone;
     }
 
     public void setUserPhone(String userPhone) {
-        UserPhone = userPhone;
+        this.userPhone = userPhone;
     }
 
     public String getUserPass() {

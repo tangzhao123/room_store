@@ -1,8 +1,10 @@
 package cn.gson.room_store.model.pojos.secondary;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Secondary {
@@ -43,7 +45,12 @@ public class Secondary {
    private String secondaryOwner;//业主心态
    private int secondaryState;//上下架状态
    private int secondaryPoolsAccess;//公房池状态
+   @JsonFormat(pattern = "yyyy-MM-dd HH:ss:mm", timezone = "GMT+8")
    private Date secondaryAvailability;//房源发布时间
    private int goodRoom; //好房外键
    private int userId;//用户外键
+   private String secondaryEntrust;//委托协议
+   private String secondaryPicture;//房源图片
+   private Integer pageNo;
+   private Integer size;
 }

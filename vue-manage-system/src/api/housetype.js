@@ -1,21 +1,21 @@
 import request from '../utils/request.js';
 export function getList(data){
 	return request({
-		url:'/house/select',
+		url:'/type/select',
 		method:'post',
 		data
 	})
 }
 export function addall(data){
   return request({
-    url:'/house/save',
+    url:'/type/insert',
     method:'post',
     data
   })
 }
 export function enit(data){
   return request({
-    url:'/house/update',
+    url:'/type/update',
     method:'put',
     data
   })

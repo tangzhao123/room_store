@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.statistical.LoginMapper">
+    <resultMap id="usersMapper" type="cn.gson.room_store.model.pojos.secondary.Users">
+        <id column="user_id" property="userID"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_phone" property="userPhone"/>
+        <result column="user_pass" property="userPass"/>
+        <result column="user_shop_name" property="userShopName"/>
+        <result column="user_portait" property="userPortait"/>
+        <result column="user_card" property="userCard"/>
+        <result column="user_province" property="userProvince"/>
+        <result column="user_city" property="userCity"/>
+    </resultMap>
+    <!-- 用户登录 -->
+    <select id="login" resultMap="usersMapper">
+        select * from users where user_phone=#{phone} and user_pass=#{pass}
+    </select>
+    <select id="edits" resultType="_int">
+        select count(*) from users where user_phone= #{userPhone} and user_pass=#{userPass}
+    </select>
+    <!--查询电话号码是否存在-->
+    <select id="findIDPhone" resultType="_int">
+        select count(*) from users where user_phone=#{phone}
+    </select>
+    <!--用户注册-->
+    <insert id="addUsers" parameterType="cn.gson.room_store.model.pojos.secondary.Users">
+        insert into users(user_name,user_phone,user_pass,user_province,user_city)
+        VALUES(#{userName},#{userPhone},#{userPass},#{userProvince},#{userCity})
+    </insert>
+    <!--修改用户基本信息,名字,头像等-->
+    <update id="editMessage" parameterType="cn.gson.room_store.model.pojos.secondary.Users">
+        UPDATE users set user_name=#{userName},user_portait=#{userPortait},user_card=#{userCard} where user_phone=#{userPhone}
+    </update>
+    <!--修改密码-->
+    <update id="editPassWord" parameterType="cn.gson.room_store.model.pojos.secondary.Users">
+        update users set user_pass=#{userPass2} where user_phone=#{userPhone}
+    </update>
+
+</mapper>

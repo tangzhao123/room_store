@@ -4,6 +4,7 @@ import cn.gson.room_store.model.pojos.renthouse.Rentalhousing;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,4 +34,13 @@ public interface RentalhousingMapper {
 
 //    修改租房房源上下架状态
     void updateRentalhousingRehoShelfByNumber(@Param("rehoShelf") int rehoShelf,@Param("rehoNumber") String rehoNumber);
+
+    List<Rentalhousing>  findRentalhousingMultiple(@Param("list")ArrayList<int[]> list,
+                                                   @Param("biaoqians")String[] biaoqians,
+                                                   @Param("zhifus")String[] zhifus,
+                                                   @Param("leixings") String[] leixings,
+                                                   @Param("quyus") String[] quyus,
+                                                   @Param("name") String name,
+                                                   @Param("yezhu") String yezhu,
+    @Param("fyzt") int fyzt, @Param("xiao")double xiao, @Param("da")double da);
 }

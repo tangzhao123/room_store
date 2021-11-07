@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class SecondaryService {
@@ -16,5 +18,20 @@ public class SecondaryService {
     //新增二手房源
     public void addSecondary(Secondary secondary){
         secondaryMapper.addSecondary(secondary);
+    }
+
+    //根据用户查询二手房源
+    public Object findAllSecondaryByPage(Integer pageNo,Integer size,Secondary secondary){
+        return secondaryMapper.findAllSecondary(secondary);
+    }
+
+    //上架
+    public void shelves(String secondaryNumber){
+        secondaryMapper.shelves(secondaryNumber);
+    }
+
+    //下架
+    public void theShelves(String secondaryNumber){
+        secondaryMapper.theShelves(secondaryNumber);
     }
 }
