@@ -2,6 +2,8 @@ package cn.gson.room_store.model.pojos.newhouse;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -63,6 +65,7 @@ public class SourceCollection implements Serializable {
     /**
      * 采集时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GKT+8")
     private Date sourceTime;
 
     /**

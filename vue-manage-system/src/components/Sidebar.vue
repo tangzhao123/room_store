@@ -95,6 +95,10 @@
 						{
 							index:"house-collection",
 							title:'新房采集'
+						},
+						{
+							index:'house_type',
+							title:'户型管理'
 						}
 						]
 					},

@@ -43,6 +43,22 @@ public class HouseType implements Serializable {
      * 户型描述
      */
     private String typeDescribe;
+    /*
+    * 室
+    * */
+    private String typeRoom;
+    /*
+     * 厨
+     * */
+    private String typeKitchen;
+    /*
+     * 厅
+     * */
+    private String typeOffice;
+    /*
+     * 卫
+     * */
+    private String typeGuard;
 
     private static final long serialVersionUID = 1L;
 }

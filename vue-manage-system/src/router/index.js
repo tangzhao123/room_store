@@ -136,19 +136,28 @@ const routes = [{
 			},
 			component: () => import(
 				"../views/newhouse/HouseCollection.vue")
+		},
+		{
+			path: "/house_type",
+			name: "house-type",
+			meta: {
+				title: '户型管理'
+			},
+			component: () => import(
+				"../views/newhouse/HouseType.vue")
 		},{
-			path:"/myInformation",
-			name:"myInformation",
-			meta:{
-				tiele:'我的信息'
+			path: "/myInformation",
+			name: "myInformation",
+			meta: {
+				tiele: '我的信息'
 			},
 			component: () => import(
 				"../views/statistical/MyInformation.vue")
-		},{
-			path:"/changePass",
-			name:"changePass",
-			meta:{
-				tiele:'修改密码'
+		}, {
+			path: "/changePass",
+			name: "changePass",
+			meta: {
+				tiele: '修改密码'
 			},
 			component: () => import(
 				"../views/statistical/ChangePass.vue")

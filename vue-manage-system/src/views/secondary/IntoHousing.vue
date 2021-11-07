@@ -790,7 +790,9 @@
 					secondaryPoolsAccess: '', //公房池状态
 					secondaryAvailability: '', //房源发布时间
 					goodRoom: '', //好房外键
-					userId: '' //用户外键
+					userId: '' ,//用户外键
+					secondaryEntrust:'',//委托协议
+					secondaryPicture:'',//房源图片
 				},
 				room: '', //室
 				hall: '', //厅
@@ -798,8 +800,7 @@
 				ladder: '', //梯
 				households: '', //户
 				checkList: [], //标签
-				imgBase64Array: [], //图片列表
-				doorModelBase: [], //委托协议
+				
 			}
 		},
 		methods: {
@@ -823,7 +824,7 @@
 				reader.onload = function() {
 					let img_base64 = this.result
 					console.log(img_base64)
-					self.imgBase64Array.push(img_base64)
+					self.secondary.secondaryPicture = img_base64;
 				}
 				console.log(file)
 				console.log(this.imgBase64Array)
@@ -836,7 +837,6 @@
 				reader.onload = function() {
 					let img_base64 = this.result
 					console.log(img_base64)
-					//self.imgBase64Array.push(img_base64)
 					self.secondary.secondaryCover = img_base64;
 				}
 				console.log(file)
@@ -850,7 +850,6 @@
 				reader.onload = function() {
 					let img_base64 = this.result
 					console.log(img_base64)
-					//self.imgBase64Array.push(img_base64)
 					self.secondary.secondaryBack = img_base64;
 				}
 				console.log(file)
@@ -864,7 +863,6 @@
 				reader.onload = function() {
 					let img_base64 = this.result
 					console.log(img_base64)
-					//self.imgBase64Array.push(img_base64)
 					self.secondary.secondaryPage = img_base64;
 				}
 				console.log(file)
@@ -878,7 +876,6 @@
 				reader.onload = function() {
 					let img_base64 = this.result
 					console.log(img_base64)
-					//self.imgBase64Array.push(img_base64)
 					self.secondary.secondaryFamily = img_base64;
 				}
 				console.log(file)
@@ -892,7 +889,7 @@
 				reader.onload = function() {
 					let img_base64 = this.result
 					console.log(img_base64)
-					self.doorModelBase.push(img_base64)
+					self.secondary.secondaryEntrust = img_base64;
 				}
 				console.log(file)
 				console.log(this.doorModelBase)
@@ -934,14 +931,12 @@
 				console.log(this.secondary);
 				//执行新增
 				this.axios.post("/Secondary/add-secondary", this.secondary).then((res) => {
-					console.log(res)
-					// if (res.data == 'ok') {
-
-					// 	this.getData();
-					// 	this.$message.success("新增成功！");
-					// } else {
-					// 	this.$message.error("新增失败！")
-					// }
+					if (res.data == 'ok') {
+						this.$message.success("新增成功！");
+						this.$router.push("/secondary");
+					} else {
+						this.$message.error("新增失败！")
+					}
 				}).catch(() => {
 					this.$message.error("新增失败！")
 				})
