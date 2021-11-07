@@ -14,7 +14,7 @@
 				</el-select>
 			</el-form-item>
 			<el-form-item>
-				<el-button type="primary" @click="onsumbit" icon="el-icon-search" style="margin-left: 20px;">查询</el-button>
+				<el-button type="primary" @click="onsumbit()" icon="el-icon-search" style="margin-left: 20px;">查询</el-button>
 			</el-form-item>
 		</el-form>
 	</div>
@@ -32,9 +32,7 @@
 		<el-pagination
 		     @size-change="handleSizeChange"
 		     @current-change="handleCurrentChange"
-		     :current-page="currentPage"
 		     :page-sizes="[5, 10, 20]"
-		     :page-size="pageSize"
 		     layout="total, sizes, prev, pager, next, jumper"
 		     :total="total">
 		   </el-pagination>
@@ -43,13 +41,12 @@
 </template>
 
 <script>
+	import {getList} from '../../api/newhouse.js'
 	export default{
 		data(){
 			return{
 				selectParams:{},
-				total:10,
-				pageSize:10,
-				currentPage:1,
+				total:0,
 				tableData:[],
 				options: [{
 						value: '全部',
@@ -72,7 +69,30 @@
 			}
 		},
 		methods:{
-			
+			async load(){
+				let{
+					pageNum,
+					pageSize,
+					keyword,
+					houseName
+				}=this.selectParams;
+				const{data:Listres}=await getList({
+					pageNum:pageNum,
+					pageSize:pageSize,
+					keyword:keyword,
+					houseName:houseName
+				});
+				this.tableData=Listres.list
+				this.total=Listres.total
+			},
+			onsumbit(){
+				this.load()
+			},
+		},
+		created(){
+			this.selectParams.pageNum=1;
+			this.selectParams.pageSize=10;
+			this.load()
 		}
 	}
 </script>
