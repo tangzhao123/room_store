@@ -5,17 +5,17 @@
 				<el-col :span="8" v-bind:class="{ 'active': isActive }">
 					基本信息
 				</el-col>
-				<el-col :span="8" v-bind:class="{ 'more': isMore }">
+				<el-col :span="8">
 					出租信息
 				</el-col>
-				<el-col :span="8" v-bind:class="{ 'picture': isPicture }">
+				<el-col :span="8">
 					房源图片
 				</el-col>
 			</el-row>
 		</div>
 		<el-row>
 			<!-- 基本信息填写的Div -->
-			<div style="padding: 20px;"  v-if="flag">
+			<div style="padding: 20px;" >
 				<el-input v-model="rentalhousing.rehoNo" type="hidden"></el-input>
 				<el-input v-model="rentalhousing.rehoNumber" style="display:none;"></el-input>
 				<el-row>
@@ -330,12 +330,12 @@
 				</el-row>
 				<el-row>
 					<el-col :push="15">
-						<el-button type="primary" size="medium" @click="showMore()">下一步</el-button>
+						<el-button type="primary" size="medium">下一步</el-button>
 					</el-col>
 				</el-row>
 			</div>
 			<!-- 更多信息填写的Div -->
-			<div style="padding: 20px;"  v-if="flag1">
+			<div style="padding: 20px;" >
 				<el-row>
 					<el-form label-width="80px">
 						<el-form-item label="出售标题">
@@ -446,14 +446,8 @@
 						</el-form-item>
 					</el-form>
 				</el-row>
-				<el-row>
-					<el-col :push="15">
-						<el-button type="primary" size="medium" @click="showBasic()">上一步</el-button>
-						<el-button type="primary" size="medium" @click="showHousing()">下一步</el-button>
-					</el-col>
-				</el-row>
 			</div>
-			<div style="padding: 10px;" v-if="flag2">
+			<div style="padding: 10px;">
 				<el-row style="font-size: 16px ; font-weight:bold ">
 					<div style="border-bottom: 2px solid #CCCCCC; width: 1240px; padding: 10px;">
 						请上传房源图片
@@ -471,8 +465,8 @@
 				</el-row>
 				<el-row>
 					<el-col :push="10">
-						<el-button type="primary" size="medium" @click="showMores()">上一步</el-button>
-						<el-button type="primary" size="medium" @click="addSecondary()">保存</el-button>
+						<el-button type="primary" size="medium">上一步</el-button>
+						<el-button type="primary" size="medium" @click="baocun()">保存</el-button>
 					</el-col>
 				</el-row>
 			</div>
@@ -486,13 +480,6 @@
 	export default {
 		data() {
 			return {
-				isActive: true, //基本信息样式
-				isMore: false, //更多信息样式
-				isPicture: false, //房源图片样式
-				flag: true, //基本信息Div显示隐藏
-				flag1: false, //更多信息Div显示隐藏
-				flag2: false, //房源图片Div显示隐藏
-
 				rentalhousing:{
 					rehoNo:"",//编号
 					rehoNumber:"",//租房房源编号(生成)
@@ -542,37 +529,10 @@
 			}
 		},
 		methods: {
-			//点击下一步显示更多信息
-			showMore() {
-				this.flag = false;
-				this.flag1 = true;
-				this.isActive = false;
-				this.isMore = true;
-			},
-			//点击更多信息上一步显示基本信息
-			showBasic() {
-				this.flag1 = false;
-				this.flag = true;
-				this.isMore = false;
-				this.isActive = true;
-			},
-			//点击下一步显示房源图片界面
-			showHousing() {
-				this.flag1 = false;
-				this.flag2 = true;
-				this.isMore = false;
-				this.isPicture = true;
-			},
-			//点击房源上一步显示更多信息
-			showMores() {
-				this.flag2 = false;
-				this.flag1 = true;
-				this.isPicture = false;
-				this.isMore = true;
-			},	
-
 			baocun(){
 				//判断是否有房源图
+
+
 				this.rentalhousing.rehoSite = "用户省加市"+this.quname;
 
 				var a = "";

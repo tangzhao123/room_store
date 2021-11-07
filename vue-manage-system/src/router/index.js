@@ -91,7 +91,6 @@ const routes = [{
 			},
 			component: () => import(
 				"../views/customers/AddCustomers.vue")
-
 		},
 		{
 			path: "/publicpools",
@@ -101,6 +100,24 @@ const routes = [{
 			},
 			component: () => import(
 				"../views/renthouse/Publicpools.vue")
+		},
+		{
+			path: "/rentalhousing",
+			name: "Rentalhousing",
+			meta: {
+				title: '租房管理'
+			},
+			component: () => import(
+				"../views/renthouse/Rentalhousing.vue")
+		},
+		{
+			path: "/add-rentalhous",
+			name: "AddRentalhous",
+			meta: {
+				title: '租房新增'
+			},
+			component: () => import(
+				"../views/renthouse/AddRentalhous.vue")
 		},
 		{
 			path: "/newhouse",
@@ -116,7 +133,7 @@ const routes = [{
 			name: "house-collection",
 			meta: {
 				title: '新房采集'
-		},
+			},
 			component: () => import(
 				"../views/newhouse/HouseCollection.vue")
 		}
