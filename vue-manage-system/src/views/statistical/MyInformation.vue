@@ -29,7 +29,7 @@ sss<template>
 				</el-form-item>
 			</el-form>
 			<el-button type="primary" style="margin-right: 50px;margin-top: 20px;" @click="editmassage()">
-				添加药品
+				确定
 			</el-button>
 		</div>
 	</div>

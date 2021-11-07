@@ -9,6 +9,8 @@ public class Users {
     private String userPhone;
     //账号密码
     private String userPass;
+    //修改密码用
+    private String userPass2;
     //店铺名
     private String userShopName;
     //用户头像
@@ -20,6 +22,14 @@ public class Users {
     //用户所在市
     private String userCity;
 
+
+    public String getUserPass2() {
+        return userPass2;
+    }
+
+    public void setUserPass2(String userPass2) {
+        this.userPass2 = userPass2;
+    }
     public int getUserID() {
         return userID;
     }
