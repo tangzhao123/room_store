@@ -128,6 +128,15 @@ const routes = [{
 		},
 			component: () => import(
 				"../views/newhouse/HouseCollection.vue")
+		},
+		{
+			path: "/add-rentalhous",
+			name: "AddRentalhous",
+			meta: {
+				title: '录入租房房源'
+		},
+			component: () => import(
+				"../views/renthouse/AddRentalhous.vue")
 		}
 	]
 }, {
