@@ -112,11 +112,13 @@
 					<el-table-column prop="secondaryAvailability" label="发布时间" width="150"> </el-table-column>
 					<el-table-column  label="操作" width="400">
 						<template v-slot:default="r">
-							<el-button type="success" size="medium" @click="">查看详情</el-button>
-							<el-button type="danger" size="medium" @click="" v-if="r.row.secondaryState == 0">下架</el-button>
-							<el-button type="danger" size="medium" @click="" v-if="r.row.secondaryState == 1">上架</el-button>
+							<el-button type="primary" size="medium" >查看详情</el-button>
+							<el-button type="danger" size="medium"  v-if="r.row.secondaryState == 0">下架</el-button>
+							<el-button type="primary" size="medium"  v-if="r.row.secondaryState == 1">上架</el-button>
 							
-							<el-button type="info" size="medium" @click="">移入公房池</el-button>
+							<el-button type="primary" size="medium" v-if="r.row.secondaryPoolsAccess==0">移入公房池</el-button>
+							<el-button type="danger" size="medium" v-if="r.row.secondaryPoolsAccess==1">移出公房池</el-button>
+							
 						</template>
 					</el-table-column>
 				</el-table>
@@ -266,6 +268,10 @@
 				}).catch(function() {
 
 				});
+			},
+			//下架
+			shelves(){
+				
 			},
 		},
 		created() {

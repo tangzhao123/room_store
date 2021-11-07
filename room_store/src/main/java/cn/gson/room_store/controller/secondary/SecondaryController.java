@@ -51,4 +51,29 @@ public class SecondaryController {
     public Object findAllSecondary(@RequestBody Secondary secondary){
         return secondaryService.findAllSecondaryByPage(secondary.getPageNo(), secondary.getSize(),secondary);
     }
+
+    //上架
+    @RequestMapping("shelves")
+    public String
+    shelves(String secondaryNumber){
+        try {
+            secondaryService.shelves(secondaryNumber);
+            return "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
+    //下架
+    @RequestMapping("the-shelves")
+    public String theShelves(String secondaryNumber){
+        try {
+            secondaryService.theShelves(secondaryNumber);
+            return "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
 }

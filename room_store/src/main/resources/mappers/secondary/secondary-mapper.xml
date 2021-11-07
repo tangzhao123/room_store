@@ -20,8 +20,17 @@
             <if test="secondaryVillage !=null and '' !=secondaryVillage">
                 secondary_village like '%${secondaryVillage}%'
             </if>
-
             and user_id = #{userId}
         </where>
     </select>
+    
+    <!-- 根据编号修改状态（下架） -->
+    <update id="shelves">
+        update secondary set secondary_state = 1 where secondary_number = #{secondaryNumber}
+    </update>
+
+    <!-- 根据编号修改状态（上架架） -->
+    <update id="theShelves">
+        update secondary set secondary_state = 0 where secondary_number = #{secondaryNumber}
+    </update>
 </mapper>

@@ -24,4 +24,14 @@ public class SecondaryService {
     public Object findAllSecondaryByPage(Integer pageNo,Integer size,Secondary secondary){
         return secondaryMapper.findAllSecondary(secondary);
     }
+
+    //上架
+    public void shelves(String secondaryNumber){
+        secondaryMapper.shelves(secondaryNumber);
+    }
+
+    //下架
+    public void theShelves(String secondaryNumber){
+        secondaryMapper.theShelves(secondaryNumber);
+    }
 }
