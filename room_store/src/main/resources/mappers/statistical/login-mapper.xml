@@ -5,7 +5,7 @@
 <resultMap id="usersMapper" type="cn.gson.room_store.model.pojos.secondary.Users">
     <id column="user_id" property="userID"/>
     <result column="user_name" property="userName"/>
-    <result column="user_phone" property="UserPhone"/>
+    <result column="user_phone" property="userPhone"/>
     <result column="user_pass" property="userPass"/>
     <result column="user_shop_name" property="userShopName"/>
     <result column="user_portait" property="userPortait"/>
@@ -20,4 +20,8 @@
     <select id="findIDPhone" resultType="_int">
         select count(*) from users where user_phone=#{phone}
     </select>
+    <insert id="addUsers" parameterType="cn.gson.room_store.model.pojos.secondary.Users">
+        insert into users(user_name,user_phone,user_pass,user_province,user_city)
+        VALUES(#{userName},#{userPhone},#{userPass},#{userProvince},#{userCity})
+    </insert>
 </mapper>

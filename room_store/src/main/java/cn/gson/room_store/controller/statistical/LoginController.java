@@ -17,6 +17,15 @@ public class LoginController {
     public Users login(@RequestBody Map<String,String> map){
         String phone = map.get("phone");
         String pass = map.get("pass");
-            return service.login(phone,pass);
+        return service.login(phone,pass);
+    }
+    @RequestMapping("addusers")
+    public String addUsers(@RequestBody Users users){
+        try {
+            return service.addUsers(users);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
     }
 }

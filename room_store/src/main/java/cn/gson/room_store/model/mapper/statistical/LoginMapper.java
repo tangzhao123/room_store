@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Param;
 public interface LoginMapper {
     Users login(@Param("phone")String phone,@Param("pass")String pass);
     int findIDPhone(String phone);
+    void addUsers(Users users);
 }
