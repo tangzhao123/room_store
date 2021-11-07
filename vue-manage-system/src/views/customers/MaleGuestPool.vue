@@ -105,40 +105,57 @@
 
 		<!--  表格开始    -->
 		<el-table :data="demandForm.slice((pageNo-1)*size,pageNo*size)" border style="width: 100%;margin-top: 30px;">
-			<el-table-column prop="empId" label="意向区域" min-width="100">
+			<el-table-column prop="demandIntention.demandArea" label="意向区域" min-width="100">
 			</el-table-column>
-			<el-table-column prop="empName" label="意向小区" min-width="100">
+			<el-table-column prop="demandIntention.villageName" label="意向小区" min-width="100">
 				<!--      <template v-slot:default="r">
         <el-tag>{{r.row.empName}}</el-tag>
       </template>-->
 			</el-table-column>
-			<el-table-column prop="useres.userAccount" label="客户等级" min-width="100">
+			<el-table-column prop="level.levelName" label="客户等级" min-width="100">
 			</el-table-column>
-			<el-table-column prop="empPhone" label="客户需求" min-width="120">
+			<el-table-column prop="rentalIntention.rentalName" label="客户需求" min-width="120">
 			</el-table-column>
-			<el-table-column prop="empCard" label="户型" min-width="170">
+			<el-table-column prop="demandIntention.minPrice" label="最低价格" min-width="160">
 			</el-table-column>
-			<el-table-column prop="empInduction" label="价格区间" min-width="160">
+			<el-table-column prop="demandIntention.maxPrice" label="最高价格" min-width="160">
 			</el-table-column>
-			<el-table-column prop="empDeparture" label="面积区间" min-width="160">
+			<el-table-column prop="demandIntention.minArea" label="最低面积" min-width="160">
 			</el-table-column>
-			<el-table-column prop="titles.titName" label="装修类型" min-width="120">
+			<el-table-column prop="demandIntention.maxArea" label="最大面积" min-width="160">
 			</el-table-column>
-			<el-table-column prop="departmentByEmpDepar.depaName" label="成交奖励" min-width="120">
-			</el-table-column>
-			<el-table-column prop="deptByEmpDept.deptName" label="进入公客池时间" min-width="120">
+			<el-table-column label="操作" fixed="right" width="120">
+				<!--        <template>
+          <el-link type="primary" @click="tigong()">提供新房房源</el-link>
+        </template>-->
 			</el-table-column>
 		</el-table>
 		<!--  表格结束  -->
 
-    <!-- 分页开始   -->
-    <div style="text-align: center;margin-top: 10px;">
-      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNo"
-                     :page-sizes="[5, 10, 15, 20]" :page-size="size" layout="total, sizes, prev, pager, next, jumper"
-                     :total="demandForm.length">
-      </el-pagination>
-    </div>
-    <!--  分页结束  -->
+		<!-- 分页开始   -->
+		<div style="text-align: center;margin-top: 10px;">
+			<el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="pageNo"
+				:page-sizes="[5, 10, 15, 20]" :page-size="size" layout="total, sizes, prev, pager, next, jumper"
+				:total="demandForm.length">
+			</el-pagination>
+		</div>
+		<!--  分页结束  -->
+
+
+		<el-dialog v-model="fangDialog" title="选择房源">
+			<el-table :data="tableData.slice((pageNo-1)*size,pageNo*size)" border @selection-change="xuan"
+				style="width: 100%">
+				<el-table-column fixed="left" type="selection" width="55">
+				</el-table-column>
+				<el-table-column prop="deptId" label="编号" width="180">
+				</el-table-column>
+				<el-table-column prop="deptName" label="部门" width="180">
+				</el-table-column>
+				<el-table-column prop="deptCreate" label="创建时间">
+				</el-table-column>
+			</el-table>
+		</el-dialog>
+
 	</div>
 </template>
 
@@ -154,20 +171,41 @@
 				pageNo: 1, //当前页数
 				size: 5, //当前页显示的条数
 				total: 0, //总记录数
+				fangDialog: true,
+				xinfan: [], //新房
+				ershoufan: [], //二手房
 			}
 		},
-    methods:{
-      /*分页*/
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-        this.pageNo = 1;
-        this.size = val;
-      },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-        this.pageNo = val;
-      },
-    }
+		methods: {
+			/*分页*/
+			handleSizeChange(val) {
+				console.log(`每页 ${val} 条`);
+				this.pageNo = 1;
+				this.size = val;
+			},
+			handleCurrentChange(val) {
+				console.log(`当前页: ${val}`);
+				this.pageNo = val;
+			},
+			allCustomersBymaleState() {
+				this.axios.get("Customerss/AllCustomersBymaleState").then((v) => {
+					this.demandForm = v.data;
+				});
+			},
+			HousSelectAll() {
+				this.axios.get("Hous/selectAll").then((v) => {
+					this.xinfan = v.data;
+				});
+			},
+			SeconSelectAll() {
+				this.axios.get("Secon/selectAll").then((v) => {
+					this.ershoufan = v.data;
+				});
+			},
+		},
+		created() {
+			this.allCustomersBymaleState();
+		}
 	}
 </script>
 

@@ -82,28 +82,38 @@
 
 		<!--  表格开始    -->
 		<el-table :data="customersForm.slice((pageNo-1)*size,pageNo*size)" border style="width: 100%">
-			<el-table-column prop="empId" label="客户编号" min-width="100">
+			<el-table-column prop="cusId" label="客户编号" min-width="100">
 			</el-table-column>
-			<el-table-column prop="empName" label="客户称呼" min-width="100">
-				<!--      <template v-slot:default="r">
-        <el-tag>{{r.row.empName}}</el-tag>
-      </template>-->
+			<el-table-column prop="cusName" label="客户称呼" min-width="100">
 			</el-table-column>
-			<el-table-column prop="useres.userAccount" label="性别" min-width="100">
+			<el-table-column prop="cusSex" label="性别" min-width="100">
 			</el-table-column>
-			<el-table-column prop="empPhone" label="手机号" min-width="120">
+			<el-table-column prop="cusPhone" label="手机号" min-width="120">
 			</el-table-column>
-			<el-table-column prop="empCard" label="等级" min-width="170">
+			<el-table-column prop="level.levelName" label="等级" min-width="170">
 			</el-table-column>
-			<el-table-column prop="empInduction" label="意向" min-width="160">
+			<el-table-column prop="rentalIntention.rentalName" label="意向" min-width="160">
 			</el-table-column>
-			<el-table-column prop="empDeparture" label="来源" min-width="160">
+			<el-table-column prop="source.souName" label="来源" min-width="160">
 			</el-table-column>
-			<el-table-column prop="titles.titName" label="用户状态" min-width="120">
+			<el-table-column prop="state.stateName" label="用户状态" min-width="120">
 			</el-table-column>
-			<el-table-column prop="departmentByEmpDepar.depaName" label="录入日期" min-width="120">
+			<el-table-column prop="cusEntry" label="录入日期" min-width="120">
 			</el-table-column>
-			<el-table-column prop="deptByEmpDept.deptName" label="公客池状态" min-width="120">
+			<el-table-column prop="maleState" label="公客池状态" min-width="120">
+			</el-table-column>
+			<el-table-column label="操作" fixed="right" width="120">
+				<template v-slot:default="r">
+					<router-link :to="{path: '/addcustomers',query:{cusId:r.row.cusId}}">
+						<el-link type="primary">编辑</el-link>
+					</router-link>
+					<template v-if="r.row.maleState=='不在公客池'">
+            <el-link type="primary" @click="update(r.row)">移入公客池</el-link>
+          </template>
+          <template v-if="r.row.maleState=='已在公客池'">
+            <el-link type="primary" @click="update(r.row)">移出公客池</el-link>
+          </template>
+				</template>
 			</el-table-column>
 		</el-table>
 		<!--  表格结束  -->
@@ -120,6 +130,9 @@
 </template>
 
 <script>
+	import {
+		ElMessage
+	} from 'element-plus'
 	export default {
 		data() {
 			return {
@@ -170,8 +183,26 @@
 				console.log(`当前页: ${val}`);
 				this.pageNo = val;
 			},
+			allCustomers() {
+				this.axios.get("Customerss/allCustomers").then((v) => {
+					this.customersForm = v.data;
+				});
+			},
+			update(row) {
+				if (row.maleState == "已在公客池") {
+					row.maleState = "不在公客池"
+				} else {
+					row.maleState = "已在公客池"
+				}
+				this.axios.post("Customerss/update", row).then((v) => {
+					this.allCustomers();
+					ElMessage(v.data);
+				});
+			},
 		},
-		created() {}
+		created() {
+			this.allCustomers();
+		}
 	}
 </script>
 

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.customers.MaleGuestMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.customers.MaleGuest">
+    <id column="male_id" jdbcType="INTEGER" property="maleId" />
+    <result column="housing_offer_price" jdbcType="DECIMAL" property="housingOfferPrice" />
+    <result column="male_date" jdbcType="TIMESTAMP" property="maleDate" />
+    <result column="male_cus" jdbcType="INTEGER" property="maleCus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    male_id, housing_offer_price, male_date, male_cus
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from male_guest
+    where male_id = #{maleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from male_guest
+    where male_id = #{maleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="male_id" keyProperty="maleId" parameterType="cn.gson.room_store.model.pojos.customers.MaleGuest" useGeneratedKeys="true">
+    insert into male_guest (housing_offer_price, male_date, male_cus
+      )
+    values (#{housingOfferPrice,jdbcType=DECIMAL}, #{maleDate,jdbcType=TIMESTAMP}, #{maleCus,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="male_id" keyProperty="maleId" parameterType="cn.gson.room_store.model.pojos.customers.MaleGuest" useGeneratedKeys="true">
+    insert into male_guest
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="housingOfferPrice != null">
+        housing_offer_price,
+      </if>
+      <if test="maleDate != null">
+        male_date,
+      </if>
+      <if test="maleCus != null">
+        male_cus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="housingOfferPrice != null">
+        #{housingOfferPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="maleDate != null">
+        #{maleDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maleCus != null">
+        #{maleCus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.gson.room_store.model.pojos.customers.MaleGuest">
+    update male_guest
+    <set>
+      <if test="housingOfferPrice != null">
+        housing_offer_price = #{housingOfferPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="maleDate != null">
+        male_date = #{maleDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="maleCus != null">
+        male_cus = #{maleCus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where male_id = #{maleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.customers.MaleGuest">
+    update male_guest
+    set housing_offer_price = #{housingOfferPrice,jdbcType=DECIMAL},
+      male_date = #{maleDate,jdbcType=TIMESTAMP},
+      male_cus = #{maleCus,jdbcType=INTEGER}
+    where male_id = #{maleId,jdbcType=INTEGER}
+  </update>
+</mapper>

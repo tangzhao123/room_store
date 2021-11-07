@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.customers.RentalIntentionMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.customers.RentalIntention">
+    <id column="rental_id" jdbcType="INTEGER" property="rentalId" />
+    <result column="rental_name" jdbcType="VARCHAR" property="rentalName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rental_id, rental_name
+  </sql>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rental_intention
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rental_intention
+    where rental_id = #{rentalId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rental_intention
+    where rental_id = #{rentalId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="rental_id" keyProperty="rentalId" parameterType="cn.gson.room_store.model.pojos.customers.RentalIntention" useGeneratedKeys="true">
+    insert into rental_intention (rental_name)
+    values (#{rentalName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="rental_id" keyProperty="rentalId" parameterType="cn.gson.room_store.model.pojos.customers.RentalIntention" useGeneratedKeys="true">
+    insert into rental_intention
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rentalName != null">
+        rental_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rentalName != null">
+        #{rentalName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.gson.room_store.model.pojos.customers.RentalIntention">
+    update rental_intention
+    <set>
+      <if test="rentalName != null">
+        rental_name = #{rentalName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rental_id = #{rentalId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.customers.RentalIntention">
+    update rental_intention
+    set rental_name = #{rentalName,jdbcType=VARCHAR}
+    where rental_id = #{rentalId,jdbcType=INTEGER}
+  </update>
+</mapper>

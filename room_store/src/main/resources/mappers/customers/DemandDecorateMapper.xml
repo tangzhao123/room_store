@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.customers.DemandDecorateMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.customers.DemandDecorateKey">
+    <id column="decor_id" jdbcType="INTEGER" property="decorId" />
+    <id column="demand_id" jdbcType="INTEGER" property="demandId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.customers.DemandDecorateKey">
+    delete from demand_decorate
+    where decor_id = #{decorId,jdbcType=INTEGER}
+      and demand_id = #{demandId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="decor_id" keyProperty="decorId" parameterType="cn.gson.room_store.model.pojos.customers.DemandDecorateKey" useGeneratedKeys="true">
+    insert into demand_decorate (demand_id)
+    values (#{demandId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="decor_id" keyProperty="decorId" parameterType="cn.gson.room_store.model.pojos.customers.DemandDecorateKey" useGeneratedKeys="true">
+    insert into demand_decorate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="demandId != null">
+        demand_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="demandId != null">
+        #{demandId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="batchAdd" parameterType="java.util.List">
+    insert into demand_decorate values
+    <foreach collection="list" item="p" index="i" separator=",">
+      (#{p.decorId},#{p.demandId})
+    </foreach>
+  </insert>
+  <select id="SelectedDecorateIntentionList" resultType="java.lang.Integer">
+    select decor_id from demand_decorate where demand_id=#{demandId}
+  </select>
+
+  <delete id="deleteBydemandId">
+    delete from demand_decorate
+    where demand_id = #{demandId,jdbcType=INTEGER}
+  </delete>
+</mapper>
