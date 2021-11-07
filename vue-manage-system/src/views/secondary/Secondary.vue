@@ -115,33 +115,58 @@
 	export default {
 		data() {
 			return {
-				options: [{
-						value: '选项1',
-						label: '黄金糕',
-					},
-					{
-						value: '选项2',
-						label: '双皮奶',
-					},
-					{
-						value: '选项3',
-						label: '蚵仔煎',
-					},
-					{
-						value: '选项4',
-						label: '龙须面',
-					},
-					{
-						value: '选项5',
-						label: '北京烤鸭',
-					},
-				],
+				pageNo:1,//页码
+				size:5,//页大小
+				total:0,//总记录数
+				options: [],
+				secondary: { //二手房对象
+					secondaryId: '', //序号
+					secondaryNumber: '', //房源编号
+					secondaryCity: '', //城市/区域
+					secondaryVillage: '', //小区名称
+					secondaryFloor: '', //总楼层
+					secondaryLayer: '', //所在层
+					secondaryUnit: '', //单元
+					secondaryBuilding: '', //楼栋
+					secondaryRoom: '', //房号
+					secondaryArea: '', //建筑面积
+					secondaryWithin: '', //套内面积
+					secondaryModel: '', //户型
+					secondaryToward: '', //朝向
+					secondaryYear: '', //建筑年代
+					secondaryUse: '', //房屋用途
+					secondaryLadder: '', //梯户比例
+					secondaryElevator: '', //有无电梯
+					secondaryCover: '', //封面照片
+					secondaryBack: '', //封底照片
+					secondaryPage: '', //权属页照片
+					secondaryFamily: '', //户型页照片
+					secondaryTitle: '', //出售标题
+					secondaryPrice: '', //价格
+					secondaryType: '', //装修类型
+					secondaryAccess: '', //房源获取渠道
+					secondaryLable: '', //房屋标签
+					secondaryPower: '', //权力性质
+					secondaryRights: '', //产权年限
+					secondaryBuy: '', //购买年限
+					secondaryOnly: '', //是否唯一
+					secondaryHousing: '', //房屋介绍
+					secondaryCommunity: '', //小区介绍
+					secondarySchool: '', //附近学校
+					secondaryAdvantage: '', //房源优势
+					secondaryOwner: '', //业主心态
+					secondaryState: '', //上下架状态
+					secondaryPoolsAccess: '', //公房池状态
+					secondaryAvailability: '', //房源发布时间
+					goodRoom: '', //好房外键
+					userId: '' //用户外键
+				},
 				value: '',
 			}
 		},
 		methods: {
 			//跳转到新增房源的界面
-			intoHousing(){
+			intoHousing() {
 				this.$router.push("/into_housing");
 			},
 		},
