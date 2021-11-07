@@ -2,7 +2,7 @@
 	<div class="login-wrap">
 		<div class="ms-login">
 			<div class="ms-title">后台管理系统</div>
-			<el-form :model="param" :rules="rules" ref="login" label-width="0px" class="ms-content">
+			<el-form :model="param" v-if="conceal" :rules="rules1" ref="login" label-width="0px" class="ms-content">
 				<el-form-item prop="username">
 					<el-input v-model="param.username" placeholder="手机号">
 						<template #prepend>
@@ -17,8 +17,55 @@
 						</template>
 					</el-input>
 				</el-form-item>
-				<div class="login-btn">
+				<span style="font-size:12px;text-align:center;display:block;">没有账号?
+					<el-button @click="conceal=!conceal" type="text" size="small">点击注册</el-button>
+				</span>
+				<div class="login-btn" style="margin-top: 10px;">
 					<el-button type="primary" :loading="loading" @click="submitForm()">登录</el-button>
+				</div>
+			</el-form>
+			<el-form :model="register" v-if="!conceal" :rules="rules2" ref="register" label-width="0px"
+				class="ms-content">
+				<el-form-item prop="userName">
+					<el-input v-model="register.userName" placeholder="用户名">
+						<template #prepend>
+							<el-button icon="el-icon-user"></el-button>
+						</template>
+					</el-input>
+				</el-form-item>
+				<el-form-item prop="userPhone">
+					<el-input v-model="register.userPhone" placeholder="手机号">
+						<template #prepend>
+							<el-button icon="el-icon-user"></el-button>
+						</template>
+					</el-input>
+				</el-form-item>
+				<el-form-item prop="userPass">
+					<el-input type="password" placeholder="请输入密码" v-model="register.userPass"
+						@keyup.enter="submitForm()">
+						<template #prepend>
+							<el-button icon="el-icon-lock"></el-button>
+						</template>
+					</el-input>
+				</el-form-item>
+				<el-form-item prop="password2">
+					<el-input type="password" placeholder="请再次输入密码" v-model="register.password2"
+						@keyup.enter="submitForm()">
+						<template #prepend>
+							<el-button icon="el-icon-lock"></el-button>
+						</template>
+					</el-input>
+				</el-form-item>
+				<el-input disabled=false v-model="dizhi" placeholder="用户所在地">
+					<template #prepend>
+						<el-button icon="el-icon-user"></el-button>
+					</template>
+				</el-input>
+				<span style="font-size:12px;text-align:center;display:block;">已有账号?
+					<el-button @click="conceal=!conceal" type="text" size="small">点击登录</el-button>
+				</span>
+				<div class="login-btn" style="margin-top: 10px;">
+					<el-button type="primary" :loading="loading" @click="registers()">注册</el-button>
 				</div>
 			</el-form>
 		</div>
@@ -35,16 +82,33 @@
 					callback()
 				}
 			}
+			const passWords = (rule, value, callback) => {
+				if (!(/^(?=.*\d)(?=.*[a-zA-Z])[a-z0-9]{8,12}$/.test(value))) {
+					callback(new Error('密码格式字母和数字的组合,八至十二位'))
+				} else {
+					callback()
+				}
+			}
 			return {
+				conceal: true,
 				loading: false,
 				param: {
 					username: "17673977795",
 					password: "hjm123456789"
 				},
-				rules: {
+				register: {
+					userName: "",
+					userPhone: "",
+					userPass: "",
+					password2: "",
+					userProvince: "湖南省",
+					userCity: "长沙市",
+				},
+				dizhi: "湖南省长沙市",
+				rules1: {
 					username: [{
 							required: true,
-							message: "请输入用户名",
+							message: "请输入电话号码",
 							trigger: "blur"
 						},
 						{
@@ -57,6 +121,43 @@
 						message: "请输入密码",
 						trigger: "blur"
 					}]
+				},
+				rules2: {
+					userName: [{
+						required: true,
+						message: "请输入名字",
+						trigger: "blur"
+					}],
+					userPhone: [{
+							required: true,
+							message: "请输入电话号码",
+							trigger: "blur"
+						},
+						{
+							validator: validatePhone,
+							trigger: 'blur'
+						}
+					],
+					userPass: [{
+							required: true,
+							message: "请输入密码",
+							trigger: "blur"
+						},
+						{
+							validator: passWords,
+							trigger: 'blur'
+						},
+					],
+					password2: [{
+							required: true,
+							message: "请输入密码",
+							trigger: "blur"
+						},
+						{
+							validator: passWords,
+							trigger: 'blur'
+						},
+					]
 				}
 			};
 		},
@@ -90,7 +191,42 @@
 						return false;
 					}
 				});
-			}
+			},
+			rest() {
+				this.register = {
+					userName: "",
+					userPhone: "",
+					userPass: "",
+					password2: "",
+					userProvince: "湖南省",
+					userCity: "长沙市",
+				}
+			},
+			registers() {
+				this.$refs.register.validate(valid => {
+					if (valid) {
+						if (this.register.password1 == this.register.password1) {
+							this.loading = true;
+							this.axios.post('addusers', this.register).then(response => {
+								if (response.data == 'ok') {
+									this.$message.success("注册成功!请登录");
+									this.rest();
+								} else if (response.data == null || response.data == '') {
+									this.$message.warning("账户已存在");
+								} else {
+									this.$message.error("注册失败");
+								}
+								this.loading = false
+							})
+						} else {
+							this.$message.warning("请保证两次输入的密码一致");
+						}
+					} else {
+						this.$message.error("请输入账号和密码");
+						return false;
+					}
+				});
+			},
 		}
 	};
 </script>

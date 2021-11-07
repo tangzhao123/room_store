@@ -6,7 +6,7 @@ public class Users {
     //用户名
     private String userName;
     //用户电话号码
-    private String UserPhone;
+    private String userPhone;
     //账号密码
     private String userPass;
     //店铺名
@@ -37,11 +37,11 @@ public class Users {
     }
 
     public String getUserPhone() {
-        return UserPhone;
+        return userPhone;
     }
 
     public void setUserPhone(String userPhone) {
-        UserPhone = userPhone;
+        this.userPhone = userPhone;
     }
 
     public String getUserPass() {

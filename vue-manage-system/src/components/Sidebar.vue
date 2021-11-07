@@ -114,6 +114,18 @@
 								title: "租房公房池"
 							},
 						]
+					},{
+						icon: "el-icon-lx-calendar",
+						index: "7",
+						title: "个人中心",
+						subs: [{
+								index: "myInformation",
+								title: "我的信息"
+							},{
+								index: "changePass",
+								title: "修改密码"
+							},
+						]
 					},
 
 				]
