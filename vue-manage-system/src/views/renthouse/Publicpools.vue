@@ -41,31 +41,50 @@
 				</el-form>
 			</el-row>
 			<el-row>
-				<el-form label-width="80px">
-					<el-form-item label="租金">
-						<el-col span="2">
-							<el-checkbox v-model="value" label="一室"></el-checkbox>
-							<el-checkbox v-model="value" label="二室"></el-checkbox>
-							<el-checkbox v-model="value" label="三室"></el-checkbox>
-							<el-checkbox v-model="value" label="四室"></el-checkbox>
-							<el-checkbox v-model="value" label="五室及以上"></el-checkbox>
-						</el-col>
-					</el-form-item>
-				</el-form>
+				<el-col :span="4">
+					<el-form label-width="80px">
+						<el-form-item label="租金">
+							<el-input v-model="input" placeholder="最低资金" />
+						</el-form-item>
+					</el-form>
+				</el-col>
+				<el-col :span="3">
+					<el-form label-width="30px">
+						<el-form-item label="-">
+							<el-input v-model="input" placeholder="最高资金" />
+						</el-form-item>
+					</el-form>
+				</el-col>
+				<el-col :span="3">
+					<el-form label-width="50px">
+						<el-form-item label="元/月">
+							<el-button>确定</el-button>
+						</el-form-item>
+					</el-form>
+				</el-col>
 			</el-row>
 			<el-row>
-				<el-form label-width="80px">
-					<el-form-item label="建筑面积">
-						<el-col span="2">
-							<el-checkbox v-model="value" label="朝东"></el-checkbox>
-							<el-checkbox v-model="value" label="朝南"></el-checkbox>
-							<el-checkbox v-model="value" label="朝西"></el-checkbox>
-							<el-checkbox v-model="value" label="朝北"></el-checkbox>
-							<el-checkbox v-model="value" label="南北"></el-checkbox>
-							<el-checkbox v-model="value" label="其他"></el-checkbox>
-						</el-col>
-					</el-form-item>
-				</el-form>
+				<el-col :span="4">
+					<el-form label-width="80px">
+						<el-form-item label="建筑面积">
+							<el-input v-model="input" placeholder="最小面积" />
+						</el-form-item>
+					</el-form>
+				</el-col>
+				<el-col :span="3">
+					<el-form label-width="30px">
+						<el-form-item label="-">
+							<el-input v-model="input" placeholder="最大面积" />
+						</el-form-item>
+					</el-form>
+				</el-col>
+				<el-col :span="3">
+					<el-form label-width="50px">
+						<el-form-item label="m²">
+							<el-button>确定</el-button>
+						</el-form-item>
+					</el-form>
+				</el-col>
 			</el-row>
 		</div>
 	</div>

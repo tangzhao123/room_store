@@ -91,7 +91,6 @@ const routes = [{
 			},
 			component: () => import(
 				"../views/customers/AddCustomers.vue")
-
 		},
 		{
 			path: "/publicpools",
@@ -102,7 +101,42 @@ const routes = [{
 			component: () => import(
 				"../views/renthouse/Publicpools.vue")
 		},
-		
+		{
+			path: "/rentalhousing",
+			name: "Rentalhousing",
+			meta: {
+				title: '租房管理'
+			},
+			component: () => import(
+				"../views/renthouse/Rentalhousing.vue")
+		},
+		{
+			path: "/add-rentalhous",
+			name: "AddRentalhous",
+			meta: {
+				title: '租房新增'
+			},
+			component: () => import(
+				"../views/renthouse/AddRentalhous.vue")
+		},
+		{
+			path: "/newhouse",
+			name: "newhouse",
+			meta: {
+				title: '新房管理'
+			},
+			component: () => import(
+				"../views/newhouse/NewHouse.vue")
+		},
+		{
+			path: "/house-collection",
+			name: "house-collection",
+			meta: {
+				title: '新房采集'
+			},
+			component: () => import(
+				"../views/newhouse/HouseCollection.vue")
+		}
 	]
 }, {
 	path: "/login",
@@ -127,9 +161,9 @@ router.beforeEach((to, from, next) => {
 		next('/login');
 	} else if (to.meta.permission) {
 		// 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已
-		//role === 'admin' ?
-			next()
-		//	next('/403');
+		role === 'admin' ?
+			next() :
+			next('/403');
 	} else {
 		next();
 	}

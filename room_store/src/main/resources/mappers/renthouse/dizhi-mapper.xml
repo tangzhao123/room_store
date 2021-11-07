@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 市区，小区 -->
+<mapper namespace="cn.gson.room_store.model.mapper.renthouse.DizhiMapper">
+    <resultMap id="city" type="cn.gson.room_store.model.pojos.renthouse.City">
+        <id column="city_id" property="cityId" />
+        <result column="city_name" property="cityName" />
+        <result column="city_belong" property="cityBelong" />
+    </resultMap>
+    <resultMap id="county" type="cn.gson.room_store.model.pojos.renthouse.County">
+        <id column="county_id" property="countyId" />
+        <result column="county_name" property="countyName" />
+        <result column="county_belong" property="countyBelong" />
+    </resultMap>
+    <resultMap id="uptown" type="cn.gson.room_store.model.pojos.renthouse.Uptown">
+        <id column="uptown_id" property="uptownId" />
+        <result column="uptown_name" property="uptownName" />
+        <result column="uptown_belong" property="uptownBelong" />
+    </resultMap>
+
+
+    <!-- 查询市 -->
+    <select id="findAllCity" resultMap="city">
+        select * from city
+    </select>
+
+    <!-- 查询区，根市id -->
+    <select id="findAllCountyByCountyBelong" resultMap="county">
+        select * from county where county_belong = #{countyBelong}
+    </select>
+
+    <!-- 查询小区，根据区id -->
+    <select id="findAllUptownByUptownBelong" resultMap="uptown">
+        select * from uptown where uptown_belong = #{uptownBelong}
+    </select>
+
+</mapper>

@@ -85,7 +85,7 @@
 					},
 					{
 						icon:"el-icon-s-home",
-						index:"4",
+						index:"5",
 						title:"新房",
 						subs:[
 							{
@@ -97,7 +97,20 @@
 							title:'新房采集'
 						}
 						]
-					}
+					},
+					{
+						icon: "el-icon-lx-calendar",
+						index: "6",
+						title: "租房",
+						subs: [{
+								index: "rentalhousing",
+								title: "租房管理"
+							},{
+								index: "publicpools",
+								title: "租房公房池"
+							},
+						]
+					},
 
 				]
 			};
