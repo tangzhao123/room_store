@@ -145,7 +145,7 @@ const routes = [{
 			},
 			component: () => import(
 				"../views/newhouse/HouseType.vue")
-		} {
+		},{
 			path: "/myInformation",
 			name: "myInformation",
 			meta: {
