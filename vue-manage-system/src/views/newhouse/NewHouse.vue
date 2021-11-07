@@ -149,9 +149,9 @@
 				this.form = {}
 			},
 			save() {
-				if (this.form.id) {
+				if (this.form.houseId) {
 					enit(this.form).then(res => {
-						if (res.code == 200) {
+						if (res.code == 0) {
 							this.$message({
 								message: '修改成功',
 								type: 'success'
@@ -169,7 +169,7 @@
 					this.$refs['form'].validate((valid) => {
 						if (valid) {
 							addall(this.form).then(res => {
-								if (res.code == 200) {
+								if (res.code == 0) {
 									this.$message({
 										message: '新增成功',
 										type: 'success'
@@ -215,6 +215,14 @@
 				this.load()
 			},
 		},
+			handleSizeChange(pageSize) {
+				this.selectParams.pageSize = pageSize;
+				this.load();
+			},
+			handleCurrentChange(pageNum) {
+				this.selectParams.pageNum = pageNum;
+				this.load();
+			},
 		created() {
 			this.selectParams.pageNum = 1;
 			this.selectParams.pageSize = 10;

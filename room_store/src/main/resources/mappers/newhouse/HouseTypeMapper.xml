@@ -9,9 +9,15 @@
     <result column="type_label" jdbcType="VARCHAR" property="typeLabel" />
     <result column="type_img" jdbcType="VARCHAR" property="typeImg" />
     <result column="type_describe" jdbcType="VARCHAR" property="typeDescribe" />
+    <result column="type_room" jdbcType="VARCHAR" property="typeRoom"/>
+    <result column="type_office" jdbcType="VARCHAR" property="typeOffice"/>
+    <result column="type_kitchen" jdbcType="VARCHAR" property="typeKitchen"/>
+    <result column="type_guard" jdbcType="VARCHAR" property="typeGuard"/>
   </resultMap>
   <sql id="Base_Column_List">
-    type_id, type_name, type_structure, type_area, type_label, type_img, type_describe
+    type_id, type_name, type_structure, type_area, type_label, type_img, type_describe,type_room,type_office,type_kitchen,
+    type_guard
+
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -35,10 +41,12 @@
   </delete>
   <insert id="insert" keyColumn="type_id" keyProperty="typeId" parameterType="cn.gson.room_store.model.pojos.newhouse.HouseType" useGeneratedKeys="true">
     insert into house_type (type_name, type_structure, type_area, 
-      type_label, type_img, type_describe
+      type_label, type_img, type_describe,type_room,type_office,type_kitchen,type_guard
       )
     values (#{typeName,jdbcType=VARCHAR}, #{typeStructure,jdbcType=VARCHAR}, #{typeArea,jdbcType=INTEGER}, 
-      #{typeLabel,jdbcType=VARCHAR}, #{typeImg,jdbcType=VARCHAR}, #{typeDescribe,jdbcType=VARCHAR}
+      #{typeLabel,jdbcType=VARCHAR}, #{typeImg,jdbcType=VARCHAR}, #{typeDescribe,jdbcType=VARCHAR},
+      #{typeRoom,jdbcType=VARCHAR},#{typeOffice,jdbcType=VARCHAR},#{typeKitchen,jdbcType=VARCHAR},
+      #{typeGuard,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="type_id" keyProperty="typeId" parameterType="cn.gson.room_store.model.pojos.newhouse.HouseType" useGeneratedKeys="true">
@@ -62,6 +70,18 @@
       <if test="typeDescribe != null">
         type_describe,
       </if>
+      <if test="typeRoom != null">
+        type_room,
+      </if>
+      <if test="typeOffice != null">
+        type_office,
+      </if>
+      <if test="typeKitchen != null">
+        type_kitchen,
+      </if>
+      <if test="typeGuard != null">
+        type_guard,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="typeName != null">
@@ -81,6 +101,18 @@
       </if>
       <if test="typeDescribe != null">
         #{typeDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="typeRoom != null">
+        #{typeRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="typeOffice != null">
+        #{typeOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="typeKitchen != null">
+        #{typeKitchen,jdbcType=VARCHAR},
+      </if>
+      <if test="typeGuard != null">
+        #{typeGuard,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -104,6 +136,18 @@
       </if>
       <if test="typeDescribe != null">
         type_describe = #{typeDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="typeRoom != null">
+        type_room = #{typeRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="typeOffice != null">
+        type_office = #{typeOffice,jdbcType=VARCHAR},
+      </if>
+      <if test="typeKitchen != null">
+        type_kitchen = #{typeKitchen,jdbcType=VARCHAR},
+      </if>
+      <if test="typeGuard != null">
+        type_guard = #{typeGuard,jdbcType=VARCHAR},
       </if>
     </set>
     where type_id = #{typeId,jdbcType=INTEGER}

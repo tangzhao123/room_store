@@ -119,7 +119,7 @@ const routes = [{
 		},
 			component: () => import(
 				"../views/newhouse/HouseCollection.vue")
-		}
+		},
 	]
 }, {
 	path: "/login",
