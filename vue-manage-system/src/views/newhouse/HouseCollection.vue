@@ -49,7 +49,80 @@
 			}
 		},
 		methods: {
+			handleEdit(row) {
+				this.form = JSON.parse(JSON.stringify(row))
+				this.dialogVisible = true
+			},
+			add() {
+				this.dialogVisible = true;
+				this.form = {}
+			},
+			save() {
+				if (this.form.id) {
+					enit(this.form).then(res => {
+						if (res.code == 200) {
+							this.$message({
+								message: '修改成功',
+								type: 'success'
+							})
+						} else {
+							this.$message({
+								message: res.message,
+								type: 'error'
+							})
+						}
+						this.dialogVisible = false
+						this.load()
+					})
+				} else {
+					this.$refs['form'].validate((valid) => {
+						if (valid) {
+							addall(this.form).then(res => {
+								if (res.code == 200) {
+									this.$message({
+										message: '新增成功',
+										type: 'success'
+									})
+								} else {
+									this.$message({
+										message: res.message,
+										type: 'error'
+									})
+								}
+								this.dialogVisible = false
+								this.load()
+							})
+						}
+					})
 
+				}
+
+			},
+			async load() {
+				let {
+					pageNum,
+					pageSize,
+					keyword,
+					houseName,
+					houseNumber,
+					houseState
+				} = this.selectParams;
+				const {
+					data: Listres
+				} = await getList({
+					pageNum: pageNum,
+					pageSize: pageSize,
+					keyword: keyword,
+					houseName: houseName,
+					houseNumber: houseNumber,
+					houseState: houseState
+				});
+				this.tableData = Listres.list
+				this.total = Listres.total
+			},
+			onsumbit() {
+				this.load()
+			},
 		},
 	}
 </script>
