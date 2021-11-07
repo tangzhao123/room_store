@@ -28,4 +28,24 @@ public class LoginController {
             return "fail";
         }
     }
+    @RequestMapping("editmassage")
+    public String editMessage(@RequestBody Users users){
+        try {
+            service.editMessage(users);
+            return "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+    @RequestMapping("edituserpass")
+    public String eaitPassWord(@RequestBody Users users){
+        try {
+            service.editPassWord(users);
+            return "ok";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "fail";
+        }
+    }
 }
