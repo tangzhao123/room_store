@@ -1,4 +1,5 @@
 <template>
+	zzz
 </template>
 
 <script>
