@@ -57,6 +57,15 @@ const routes = [{
 				"../views/secondary/IntoHousing.vue")
 		},
 		{
+			path: "/details",
+			name: "details",
+			meta: {
+				title: '房源详情'
+			},
+			component: () => import(
+				"../views/secondary/Details.vue")
+		},
+		{
 			path: "/mycustomers",
 			name: "mycustomers",
 			meta: {
