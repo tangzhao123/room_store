@@ -9,17 +9,26 @@
                                                                               DATE_FORMAT(good_date ,'%Y%m')= DATE_FORMAT( CURDATE( ) , '%Y%m' )
                                                                       ) t  group by t.Good_type
     </select>
+    <!--查询客源人数-->
+    <select id="statistics2" resultType="_int">
+        SELECT count(*) from customers
+    </select>
     <!--查询租房房源信息-->
     <select id="statistics3" resultType="map">
         select count(t.reho_shelf) as 'number',reho_shelf as 'type' from(
                                                                             select reho_shelf from rentalhousing
                                                                         ) t  group by t.reho_shelf </select>
-    <select id="statistics2" resultType="_int">
-        select id="statistics3" resultType="map">
-        select count(t.reho_shelf) as 'number',reho_shelf as 'type' from(
-                                                                            select reho_shelf from rentalhousing
-                                                                        ) t  group by t.reho_shelf </select>
-    <select id="statistics2" resultType="_int">
-        SELECT count(*) from customers
+    <!--查询二手房数据-->
+    <select id="statistics4" resultType="_int">
+        select count(t.secondary_state) as 'number',secondary_state as 'type' from(
+                                                                                      select secondary_state from secondary
+                                                                                  ) t  group by t.secondary_state
     </select>
+    <!--查询新房数据-->
+    <select id="statistics5" resultType="_int">
+        select count(t.house_state) as 'number',house_state as 'type' from(
+                                                                              select house_state from new_house
+                                                                          ) t  group by t.house_state
+    </select>
+
 </mapper>
