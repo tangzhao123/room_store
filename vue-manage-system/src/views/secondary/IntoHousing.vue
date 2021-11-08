@@ -18,25 +18,11 @@
 			<div style="padding: 20px;" v-if="flag">
 				<el-row>
 					<el-form label-width="80px">
-						<el-form-item label="城市/区域">
+						<el-form-item label="区">
 							<el-col style="padding-left: 5px;">
-								<el-select v-model="province" placeholder="请选择省">
-									<el-option v-for="item in provinces" :key="item.label" :label="item.label"
-										:value="item.label">
-									</el-option>
-								</el-select>
-							</el-col>
-							<el-col style="padding-left: 5px;">
-								<el-select v-model="city" placeholder="请选择市">
-									<el-option v-for="item in citys" :key="item.label" :label="item.label"
-										:value="item.label">
-									</el-option>
-								</el-select>
-							</el-col>
-							<el-col style="padding-left: 5px;">
-								<el-select v-model="area" placeholder="请选择区">
-									<el-option v-for="item in areas" :key="item.label" :label="item.label"
-										:value="item.label">
+								<el-select v-model="quid" placeholder="请选择区" @change="getUptown()">
+									<el-option v-for="item in qu" :key="item.countyId" :label="item.countyName"
+										:value="item.countyId">
 									</el-option>
 								</el-select>
 							</el-col>
@@ -47,8 +33,11 @@
 					<el-form label-width="80px">
 						<el-form-item label="小区名称">
 							<el-col style="padding-left: 5px;">
-								<el-input v-model="secondary.secondaryVillage" placeholder="请输入小区名称"
-									style="width: 660px;"></el-input>
+								<el-select v-model="xquid" placeholder="请选择小区" @change="getDizi()">
+									<el-option v-for="item in xqu" :key="item.uptownId" :label="item.uptownName"
+										:value="item.uptownName">
+									</el-option>
+								</el-select>
 							</el-col>
 						</el-form-item>
 					</el-form>
@@ -462,6 +451,10 @@
 	export default {
 		data() {
 			return {
+				qu:[],
+				quid:"",
+				xqu:[],//xiao区数据
+				xquid:"",//区
 				isActive: true, //基本信息样式
 				isMore: false, //更多信息样式
 				isPicture: false, //房源图片样式
@@ -472,7 +465,12 @@
 				citys: [{
 					value: '1',
 					label: '株洲市',
-				}, ], //市
+				}, 
+				{
+					value: '2',
+					label: '长沙市',
+				}
+				], //市
 				areas: [{
 					value: '1',
 					label: '荷塘区',
@@ -925,6 +923,9 @@
 			},
 			//新增二手房源
 			addSecondary() {
+				this.secondary.userId = this.$store.state.token.userID;
+				this.province = this.$store.state.token.userProvince;
+				this.city = this.$store.state.token.userCity;
 				this.secondary.secondaryCity = this.province + ',' + this.city + ',' + this.area;
 				this.secondary.secondaryModel = this.room + ',' + this.hall + ',' + this.who;
 				this.secondary.secondaryLadder = this.ladder + ',' + this.households;
@@ -960,7 +961,39 @@
 				})
 			},
 			//
+			getDizi(){
+				this.qu.forEach((key)=>{
+					if(key.countyId == this.quid){
+						this.area = key.countyName;	
+						this.secondary.secondaryVillage = this.xquid;
+					}
+				});
+			},
+			getUptown(){
+				this.xquid = ""
+				this.axios({
+					url: 'Renthouse/findAllUptownByUptownBelong',
+					params:{
+						uptownBelong:this.quid
+					}
+				}).then((v) => {
+					this.xqu = v.data
+				}).catch()
+			},
+			getCounty(){
+				this.axios({
+					url: 'Renthouse/findAllCountyByCountyBelong',
+					params:{
+						countyBelong:2
+					}
+				}).then((v) => {
+					this.qu = v.data
+				}).catch()
+			},
 		},
+		created(){
+			this.getCounty();
+		}
 	}
 </script>
 

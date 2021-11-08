@@ -17,6 +17,7 @@ public class LookRecord {
     private String lookTitle;//带看记录
     private String lookPicture;//带看图片
     private String lookState;//带看状态
+    private int userId;
 
     public int getLookId() {
         return lookId;
@@ -96,6 +97,14 @@ public class LookRecord {
 
     public void setSecondaryVillage(String secondaryVillage) {
         this.secondaryVillage = secondaryVillage;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override

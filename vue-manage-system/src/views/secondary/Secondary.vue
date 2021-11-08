@@ -119,9 +119,11 @@
 							<el-button type="primary" size="medium" @click="theShelves(r.row)"
 								v-if="r.row.secondaryState == 1">上架</el-button>
 
-							<el-button type="primary" size="medium" v-if="r.row.secondaryPoolsAccess==0">移入公房池
+							<el-button type="primary" size="medium" v-if="r.row.secondaryPoolsAccess==0"
+								@click='dialogFormVisible= true,showHouse(r.row)'>移入公房池
 							</el-button>
-							<el-button type="danger" size="medium" v-if="r.row.secondaryPoolsAccess==1">移出公房池
+							<el-button type="danger" size="medium" v-if="r.row.secondaryPoolsAccess==1"
+								@click="removeHandHouse(r.row)">移出公房池
 							</el-button>
 
 						</template>
@@ -132,7 +134,25 @@
 				</el-pagination>
 			</el-row>
 		</div>
-
+		<el-dialog title="移入公房池设置" v-model="dialogFormVisible">
+			<el-form>
+				<el-form-item label="房源编号">
+					{{handHouse.secondaryNumber}}
+				</el-form-item>
+				<el-form-item label="房源标题">
+					{{name}}
+				</el-form-item>
+				<el-form-item label="客源提供方奖励:">
+					<el-input placeholder="请输入奖励金额" style="width: 200px;" v-model="handHouse.housePrice"></el-input>
+				</el-form-item>
+			</el-form>
+			<template #footer>
+				<span class="dialog-footer">
+					<el-button @click="dialogFormVisible = false">取 消</el-button>
+					<el-button type="primary" @click="dialogFormVisible = false,addHandHouse()">确 定</el-button>
+				</span>
+			</template>
+		</el-dialog>
 	</div>
 </template>
 
@@ -194,6 +214,12 @@
 				modelList: [], //户型
 				towardList: [], //朝向
 				dialogVisible: false, //详情的弹框
+				dialogFormVisible: false, //移入公房池弹框
+				name: '', //房源标题
+				handHouse: {
+					secondaryNumber: '', //房源编号
+					housePrice: '' //客源奖励
+				}
 			}
 		},
 		methods: {
@@ -320,6 +346,54 @@
 				}).catch(function() {
 
 				})
+			},
+			//移入公房池弹框显示信息
+			showHouse(row) {
+				this.handHouse.secondaryNumber = row.secondaryNumber;
+				this.name = row.secondaryTitle;
+			},
+			//移入公房池
+			addHandHouse() {
+				//执行新增
+				this.axios.post("Secondary/add-handHouse", this.handHouse).then((res) => {
+					if (res.data == 'ok') {
+						this.$message.success("移入成功！");
+						this.findByUser();
+					} else {
+						this.$message.error("移入失败！")
+					}
+				}).catch(() => {
+					this.$message.error("移入失败！")
+				})
+			},
+			//移出公房池
+			removeHandHouse(row) {
+				this.$confirm('您确定移除公房池么?', '提示', {
+						confirmButtonText: '确定',
+						cancelButtonText: '取消',
+						type: 'warning',
+					})
+					.then(() => {
+						this.axios({
+							url: 'Secondary/remove-handHouse',
+							params: {
+								secondaryNumber: row.secondaryNumber
+							}
+						}).then((v) => {
+							if (v.data == 'ok') {
+								this.$message.success("移出成功！");
+								this.findByUser();
+							} else {
+								this.$message.error("移出失败！")
+							}
+						}).catch(function() {
+
+						})
+					})
+					.catch(() => {
+						this.$message.error("取消操作！")
+					})
+
 			},
 		},
 		created() {

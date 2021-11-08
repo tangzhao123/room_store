@@ -22,6 +22,7 @@
             </if>
             and user_id = #{userId}
         </where>
+        order by secondary_availability desc
     </select>
 
     <!-- 查询二手房源根据用户 -->

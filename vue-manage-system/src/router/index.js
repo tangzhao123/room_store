@@ -65,6 +65,7 @@ const routes = [{
 			component: () => import(
 				"../views/secondary/Details.vue")
 		},
+		
 		{
 			path: "/mycustomers",
 			name: "mycustomers",

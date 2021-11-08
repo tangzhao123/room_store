@@ -16,13 +16,13 @@ public class LookRecordService {
     LookRecordMapper lookRecordMapper;
 
     //查询二手房带看记录 根据房源编号查询
-    public List<LookRecord> findAllLookRecord(int look_id){
-        return lookRecordMapper.findAllLookRecord(look_id);
+    public LookRecord findAllLookRecord(int lookId){
+        return lookRecordMapper.findAllLookRecord(lookId);
     }
 
     //查询二手房带看记录 根据房源编号查询
-    public List<LookRecord> allLookRecord(){
-        return lookRecordMapper.allLookRecord();
+    public List<LookRecord> allLookRecord(String keyWord,int userId){
+        return lookRecordMapper.allLookRecord(keyWord,userId);
     }
 
     //新增带看记录

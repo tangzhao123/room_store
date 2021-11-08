@@ -2,12 +2,12 @@
 	<div>
 		<el-row>
 			<el-form label-width="80px">
-				<el-form-item label="手机号">
-					<el-input placeholder="请输入手机号" v-model="phone" clearable></el-input>
+				<el-form-item label="智能检索">
+					<el-input placeholder="请输入手机号/姓名等" v-model="keyWord" clearable></el-input>
 				</el-form-item>
 			</el-form>
 			<el-col :span="2" :push="2">
-				<el-button type="primary" size="medium" @click="findByUser()">查询</el-button>
+				<el-button type="primary" size="medium" @click="findAllLookRecord()">查询</el-button>
 			</el-col>
 		</el-row>
 		<el-row style="margin: 10px;">
@@ -24,7 +24,7 @@
 			<el-table-column prop="lookState" label="看房状态"> </el-table-column>
 			<el-table-column prop="address" label="操作">
 				<template v-slot:default="r">
-					<el-button type="primary" size="medium" @click="details(r.row)">查看详情</el-button>
+					<el-button type="primary" size="medium" @click="lookDetails(r.row)">查看详情</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -133,6 +133,85 @@
 				layout="total,prev, pager, next,jumper" :page-size="size" :total="total">>
 			</el-pagination>
 		</el-dialog>
+		<el-dialog title="带看详情" v-model="dialogTableVisible1" width="60%">
+			<div style="border-bottom: 2px solid #CCCCCC; width: 800px; padding: 10px;">
+				二手房带看详情
+			</div>
+			<el-row>
+				<el-col :push="1" style="font-size: 20px; font-weight: bold;">
+					客户信息
+				</el-col>
+			</el-row>
+			<br />
+			<el-row>
+				<el-col :push="1" >
+					带看人姓名:{{details.lookName}}
+				</el-col>
+			</el-row>
+			<br />
+			<el-row>
+				<el-col :push="1" >
+					带看人手机号:{{details.lookPhone}}
+				</el-col>
+			</el-row>
+			<el-row>
+				<el-col :push="1" style="font-size: 20px; font-weight: bold;">
+					房源信息
+				</el-col>
+			</el-row>
+			<br />
+			<el-row>
+				<el-col :push="1" >
+					房源编号:{{details.secondaryNumber}}
+				</el-col>
+			</el-row>
+			<br />
+			<el-row>
+				<el-col :push="1" >
+					房源名称:{{details.secondaryVillage}}
+				</el-col>
+			</el-row>
+			<br />
+			<el-row>
+				<el-col :push="1" >
+					看房状态:{{details.lookState}}
+				</el-col>
+			</el-row>
+			<el-row>
+				<el-col :push="1" style="font-size: 20px; font-weight: bold;">
+					带看信息
+				</el-col>
+			</el-row>
+			<br />
+			<el-row>
+				<el-col :push="1" >
+					看房时间:{{details.lookMake}}
+				</el-col>
+			</el-row>
+			<br />
+			<el-row>
+				<el-col :push="1" >
+					结束时间:{{details.lookEnd}}
+				</el-col>
+			</el-row>
+			<br />
+			<el-row>
+				<el-col :push="1" >
+					看房意向:{{details.lookTitle}}
+				</el-col>
+			</el-row>
+			<br />
+			<el-row>
+				<el-col :push="1" >
+					带看图片:<img :src="details.lookPicture" width="200" height="150"/>
+				</el-col>
+			</el-row>
+			<template #footer>
+				<span class="dialog-footer">
+					<el-button @click="dialogTableVisible1 = false">取 消</el-button>
+				</span>
+			</template>
+		</el-dialog>
 	</div>
 </template>
 
@@ -156,12 +235,16 @@
 					lookTitle: '', //带看记录
 					lookPicture: '', //带看图片
 					lookState: '', //带看状态
+					userId:'',//用户编号
 				},
 				secondaryData: [], //二手房源表格
 				secondary:{
 					userId:'',
 				},
 				dialogTableVisible: false,
+				dialogTableVisible1:false,
+				details:{},//带看详情对象
+				keyWord:'',//模糊查询
 			}
 		},
 		methods: {
@@ -204,6 +287,7 @@
 			},
 			//新增带看记录
 			addLookRecord(){
+				this.lookRecord.userId = this.$store.state.token.userID;
 				console.log(this.lookRecord);
 				//执行新增
 				this.axios.post("/Secondary/add-look-record", this.lookRecord).then((res) => {
@@ -219,12 +303,32 @@
 			},
 			//查询所有的带看记录
 			findAllLookRecord(){
-				this.axios.get('/Secondary/record-list').then((v) => {
+				this.lookRecord.userId = this.$store.state.token.userID;
+				this.axios({url:'/Secondary/record-list',params:
+				{
+					keyWord:this.keyWord,
+					userId:this.lookRecord.userId},
+				}).then((v) => {
 					console.log(v.data)
 					this.lookData = v.data;
 				}).catch(function() {
 				
 				});
+			},
+			//查询带看详情
+			lookDetails(row){
+				this.dialogTableVisible1 = true;
+				this.axios({
+					url: 'Secondary/look-record-list',
+					params: {
+						lookId: row.lookId
+					}
+				}).then((v) => {
+					this.details = v.data;
+					console.log(this.details)
+				}).catch(function() {
+				
+				})
 			},
 		},
 		created() {
