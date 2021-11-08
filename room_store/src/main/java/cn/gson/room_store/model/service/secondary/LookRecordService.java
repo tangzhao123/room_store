@@ -16,7 +16,17 @@ public class LookRecordService {
     LookRecordMapper lookRecordMapper;
 
     //查询二手房带看记录 根据房源编号查询
-    public List<LookRecord> findAllLookRecord(){
-        return lookRecordMapper.findAllLookRecord();
+    public List<LookRecord> findAllLookRecord(int look_id){
+        return lookRecordMapper.findAllLookRecord(look_id);
+    }
+
+    //查询二手房带看记录 根据房源编号查询
+    public List<LookRecord> allLookRecord(){
+        return lookRecordMapper.allLookRecord();
+    }
+
+    //新增带看记录
+    public void addLookRecord(LookRecord lookRecord){
+        lookRecordMapper.addLookRecord(lookRecord);
     }
 }

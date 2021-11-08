@@ -8,11 +8,6 @@
 				<el-form-item label="楼盘编号">
 					<el-input v-model="selectParams.houseNumber" placeholder="请输入楼盘编号" style="width: 170px;" clearable></el-input>
 				</el-form-item>
-				<el-form-item label="楼盘状态">
-					<el-select v-model="value">
-						<el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
-					</el-select>
-				</el-form-item>
 				<el-form-item>
 					<el-button type="primary" @click="onsumbit()" icon="el-icon-search" style="margin-left: 20px;">查询</el-button>
 				</el-form-item>
@@ -21,8 +16,32 @@
 		<div>
 			<el-button @click="add">新增房源</el-button>
 		</div>
+		<div>
+			<el-row>
+				<el-form label-width="80px">
+					<el-form-item label="位置">
+						<el-radio label="1" v-model="values">株洲市</el-radio>
+					</el-form-item>
+				</el-form>
+			</el-row>
+		</div>
 		<el-table :data="tableData" style="width: 100%">
-			<el-table-column prop="houseName" label="楼盘名称"></el-table-column>
+			<el-table-column label="楼盘名称" width="450px">
+				<template v-slot:default="r">
+					<el-row>
+						<el-col :span="12">
+							<img :src="r.row.houseImg" width="200" height="100" />
+						</el-col>
+						<el-col :span="10">
+							<span style="font-size: 25px;">{{r.row.houseName}}</span>
+							<br />
+							<span>建面:{{r.row.houseArea}}㎡</span>
+							<br />
+							<span>{{r.row.houseCharacteristic}}</span>
+						</el-col>
+					</el-row>
+				</template>
+			</el-table-column>
 			<el-table-column prop="houseProperty" label="物业类型"></el-table-column>
 			<el-table-column prop="" label="户型数"></el-table-column>
 			<el-table-column prop="houseIshide" label="前端是否显示"></el-table-column>
@@ -50,9 +69,15 @@
 				<el-form-item label="小区名称" prop="houseName">
 					<el-input v-model="form.houseName" placeholder="小区名称" style="width: 240px;"></el-input>
 				</el-form-item>
-				<el-form-item label="小区位置" prop="housePosition">
-					<el-input v-model="form.housePosition" placeholder="小区位置" style="width: 240px;"></el-input>
-				</el-form-item>
+						<el-form-item label="小区位置">
+							<el-col style="padding-left: 5px;">
+								<el-select v-model="form.housePosition" placeholder="请选择区">
+									<el-option v-for="item in qu" :key="item.countyId" :label="item.countyName"
+										:value="item.countyName">
+									</el-option>
+								</el-select>
+							</el-col>
+						</el-form-item>
 				<el-form-item label="小区地址" prop="houseAddress">
 					<el-input v-model="form.houseAddress" placeholder="小区地址" style="width: 240px;"></el-input>
 				</el-form-item>
@@ -89,12 +114,19 @@
 					clearable></el-date-picker>
 				</el-form-item>
 				<el-form-item label="销售状态" prop="houseState">
-					<el-radio v-model="form.houseState" label="0">待收</el-radio>
-					<el-radio v-model="form.houseState" label="1">在售</el-radio>
-					<el-radio v-model="form.houseState" label="2">售罄</el-radio>
+					<el-radio v-model="form.houseState" label="待收">待收</el-radio>
+					<el-radio v-model="form.houseState" label="在售">在售</el-radio>
+					<el-radio v-model="form.houseState" label="售罄">售罄</el-radio>
 				</el-form-item>
 				<el-form-item label="楼盘编号" prop="houseNumber">
 					<el-input v-model="form.houseNumber" placeholder="楼盘编号" style="width: 240px;"></el-input>
+				</el-form-item>
+				<el-form-item label="房源图片" prop="houseImg">
+						<el-upload v-model="form.houseImg" class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
+							:on-change="handleFileUploaderChange">
+							<i class="el-icon-upload"></i>
+							<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+						</el-upload>
 				</el-form-item>
 			</el-form>
 			<span class="dialog-footer">
@@ -117,6 +149,12 @@
 				selectParams: {},
 				total: 0,
 				form: {},
+				values:'1',
+				quid:"",//区
+				quname:"",
+				qu:[],
+				xqu:[],//xiao区数据
+				xquid:"",//区
 				dialogVisible: false,
 				tableData: [],
 				options: [{
@@ -124,15 +162,15 @@
 						label: '全部',
 					},
 					{
-						value: '0',
+						value: '待收',
 						label: '待收',
 					},
 					{
-						value: '1',
+						value: '在售',
 						label: '在售',
 					},
 					{
-						value: '2',
+						value: '售罄',
 						label: '售罄',
 					},
 				],
@@ -140,6 +178,30 @@
 			}
 		},
 		methods: {
+			//房源图片
+			handleFileUploaderChange(file) {
+				const self = this
+				let reader = new FileReader()
+				reader.readAsDataURL(file.raw)
+				reader.onload = function() {
+					let img_base64 = this.result
+					console.log(img_base64)
+					self.form.houseImg = img_base64;
+				}
+				console.log(file)
+				console.log(this.imgBase64Array)
+			},
+			getCounty(){
+				this.axios({
+					url: 'Renthouse/findAllCountyByCountyBelong',
+					params:{
+						countyBelong:2
+					}
+				}).then((v) => {
+					this.qu = v.data
+					console.log(this.qu);
+				}).catch()
+			},
 			handleEdit(row) {
 				this.form = JSON.parse(JSON.stringify(row))
 				this.dialogVisible = true
@@ -196,7 +258,6 @@
 					keyword,
 					houseName,
 					houseNumber,
-					houseState
 				} = this.selectParams;
 				const {
 					data: Listres
@@ -206,7 +267,6 @@
 					keyword: keyword,
 					houseName: houseName,
 					houseNumber: houseNumber,
-					houseState: houseState
 				});
 				this.tableData = Listres.list
 				this.total = Listres.total
@@ -227,6 +287,7 @@
 			this.selectParams.pageNum = 1;
 			this.selectParams.pageSize = 10;
 			this.load()
+			this.getCounty();
 		}
 	}
 </script>

@@ -1,16 +1,21 @@
 package cn.gson.room_store.model.pojos.secondary;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class LookRecord {
     private int lookId ; //序号
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date lookMake;//预约时间
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date lookEnd;//结束时间
     private String lookName;//客户姓名
     private String lookPhone;//客户联系方式
     private String secondaryNumber;//房源
+    private String secondaryVillage;//小区名称
     private String lookTitle;//带看记录
-    private int lookPicture;//带看图片
+    private String lookPicture;//带看图片
     private String lookState;//带看状态
 
     public int getLookId() {
@@ -69,11 +74,11 @@ public class LookRecord {
         this.lookTitle = lookTitle;
     }
 
-    public int getLookPicture() {
+    public String getLookPicture() {
         return lookPicture;
     }
 
-    public void setLookPicture(int lookPicture) {
+    public void setLookPicture(String lookPicture) {
         this.lookPicture = lookPicture;
     }
 
@@ -85,6 +90,14 @@ public class LookRecord {
         this.lookState = lookState;
     }
 
+    public String getSecondaryVillage() {
+        return secondaryVillage;
+    }
+
+    public void setSecondaryVillage(String secondaryVillage) {
+        this.secondaryVillage = secondaryVillage;
+    }
+
     @Override
     public String toString() {
         return "LookRecord{" +
@@ -93,9 +106,10 @@ public class LookRecord {
                 ", lookEnd=" + lookEnd +
                 ", lookName='" + lookName + '\'' +
                 ", lookPhone='" + lookPhone + '\'' +
-                ", secondaryNumber=" + secondaryNumber +
+                ", secondaryNumber='" + secondaryNumber + '\'' +
+                ", secondaryVillage='" + secondaryVillage + '\'' +
                 ", lookTitle='" + lookTitle + '\'' +
-                ", lookPicture=" + lookPicture +
+                ", lookPicture='" + lookPicture + '\'' +
                 ", lookState='" + lookState + '\'' +
                 '}';
     }

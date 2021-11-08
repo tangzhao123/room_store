@@ -76,4 +76,10 @@ public class SecondaryController {
             return "fail";
         }
     }
+
+    //根据房源编号查询
+    @RequestMapping("secondary-list-user")
+    public Secondary findAllSecondaryByUser(String secondaryNumber){
+        return secondaryService.findAllSecondary(secondaryNumber);
+    }
 }

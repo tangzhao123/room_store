@@ -16,7 +16,10 @@
 		<el-table :data="tableData" style="width: 100%">
 			<el-table-column prop="typeName" label="户型名称"></el-table-column>
 			<el-table-column prop="typeArea" label="户型面积"></el-table-column>
-			<el-table-column prop="sourceProperty" label="户型编号"></el-table-column>
+			<el-table-column prop="typeRoom" label="室"></el-table-column>
+			<el-table-column prop="typeOffice" label="厅"></el-table-column>
+			<el-table-column prop="typeKitchen" label="厨"></el-table-column>
+			<el-table-column prop="typeGuard" label="卫"></el-table-column>
 			<el-table-column label="操作">
 				<template #default="scope">
 					<el-row :gutter="20">
@@ -34,6 +37,11 @@
 		</div>
 		<el-dialog title="提示" v-model="dialogVisible" width="1200px" :before-close="handleClose">
 			<el-form :model="form" label-width="100px" :rules="rules" ref="form">
+<!-- 				<el-form-item label="小区名称" prop="nameHouse">
+					<el-select v-model="form.nameHouse" placeholder="请选择小区名称">
+						<el-option v-for="item in name" :key="item.houseId" :label="item.houseName" :value="item.houseName"></el-option>
+					</el-select>
+				</el-form-item> -->
 				<el-form-item label="户型名称" prop="typeName">
 					<el-input v-model="form.typeName" placeholder="小区名称" style="width: 240px;"></el-input>
 				</el-form-item>
@@ -45,17 +53,17 @@
 					</el-col>
 					<el-col :span="6">
 						<el-form-item label="厅" prop="typeOffice">
-							<el-input v-model="form.typeOffice" placeholder="室" style="width: 120px;"></el-input>
+							<el-input v-model="form.typeOffice" placeholder="厅" style="width: 120px;"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="6">
 						<el-form-item label="厨" prop="typeKitchen">
-							<el-input v-model="form.typeKitchen" placeholder="室" style="width: 120px;"></el-input>
+							<el-input v-model="form.typeKitchen" placeholder="厨" style="width: 120px;"></el-input>
 						</el-form-item>
 					</el-col>
 					<el-col :span="6">
 						<el-form-item label="卫" prop="typeGuard">
-							<el-input v-model="form.typeGuard" placeholder="室" style="width: 120px;"></el-input>
+							<el-input v-model="form.typeGuard" placeholder="卫" style="width: 120px;"></el-input>
 						</el-form-item>
 					</el-col>
 				</el-row>
@@ -72,8 +80,12 @@
 					<el-radio v-model="form.typeLabel" label="采光好">采光好</el-radio>
 					<el-radio v-model="form.typeLabel" label="户型放纵">户型放纵</el-radio>
 				</el-form-item>
-				<el-form-item label="户型图" prop="typeImg">
-					<el-input v-model="form.typeImg" placeholder="户型图" style="width: 240px;"></el-input>
+				<el-form-item label="房源图片" prop="typeImg">
+						<el-upload v-model="form.typeImg" class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
+							:on-change="handleFileUploaderChange">
+							<i class="el-icon-upload"></i>
+							<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+						</el-upload>
 				</el-form-item>
 				<el-form-item label="户型描述" prop="typeDescribe">
 					<el-input :rows="10" type="textarea" v-model="form.typeDescribe" placeholder="户型描述" style="width: 600px;"></el-input>
@@ -91,7 +103,7 @@
 	import {
 		getList,
 		enit,
-		addall
+		addall,
 	} from '../../api/housetype.js'
 	export default {
 		data() {
@@ -99,11 +111,31 @@
 				selectParams: {},
 				tableData: [],
 				form: {},
+				// name:[],
 				dialogVisible: false,
 				total: 0,
 			}
 		},
 		methods: {
+			//房源图片
+			handleFileUploaderChange(file) {
+				const self = this
+				let reader = new FileReader()
+				reader.readAsDataURL(file.raw)
+				reader.onload = function() {
+					let img_base64 = this.result
+					console.log(img_base64)
+					self.form.typeImg = img_base64;
+				}
+				console.log(file)
+				console.log(this.imgBase64Array)
+			},
+			// find(){
+			// 	selectMap().then(res=>{
+			// 		this.name=res.data
+			// 		console.log(res.data)
+			// 	})
+			// },
 			handleEdit(row) {
 				this.form = JSON.parse(JSON.stringify(row))
 				this.dialogVisible = true
@@ -187,7 +219,11 @@
 			this.selectParams.pageNum = 1;
 			this.selectParams.pageSize = 10;
 			this.load()
-		}
+			// this.find()
+		},
+		// mounted(){
+		// 	this.find()
+		// }
 	}
 </script>
 

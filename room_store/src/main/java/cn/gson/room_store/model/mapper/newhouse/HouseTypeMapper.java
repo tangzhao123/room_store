@@ -5,6 +5,7 @@ import cn.gson.room_store.vo.newhouse.HouseTypeSearchVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface HouseTypeMapper {
@@ -21,4 +22,6 @@ public interface HouseTypeMapper {
     int updateByPrimaryKey(HouseType record);
     //分页模糊查询列表
     List<HouseType> selectByAll(HouseTypeSearchVo houseTypeSearchVo);
+    //连表查询新房名称
+//    List<Map> selectMap();
 }

@@ -43,7 +43,7 @@
 						title: "系统首页"
 					},
 					{
-						icon: "el-icon-lx-calendar",
+						icon: "el-icon-s-home",
 						index: "1",
 						title: "二手房",
 						subs: [{
