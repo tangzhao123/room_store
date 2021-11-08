@@ -1,17 +1,17 @@
 <template>
 	<div>
-		<div class="user-info" style="width: 100%;margin-top: 10px;">
+		<!-- <div class="user-info" style="width: 100%;margin-top: 10px;">
 			<div class="user-info-cont">
 				本月统计
 			</div>
 			<span>{{beginDate}} - {{nowDate}}</span>
-		</div>
+		</div> -->
 		<div class="div1">
 			<div class="div2" style="background: linear-gradient(1turn, #8ed3ff, #55a8fd)">
 				<div>
 					<span class="span1">{{house}}</span>
 				</div>
-				<span class="span2">新增房源 (套）</span>
+				<span class="span2">精选好房 (套）</span>
 				<div class="div3">
 					<div class="div4" style="width: 30%;">
 						<span class="span3">{{statistics1[0].number}}</span>
@@ -41,125 +41,106 @@
 			</div>
 			<div class="div2" style="background: linear-gradient(1turn,#c2b5f4,#8f7ee5)">
 				<div>
-					<span class="span1">{{house}}</span>
+					<span class="span1">{{statistics3}}</span>
 				</div>
-				<span class="span2"> 新增带看 (次）</span>
+				<span class="span2"> 新增跟进 (次）</span>
 				<div class="div3">
-					<div class="div4" style="width: 30%;">
-						<span class="span3">{{statistics1[0].number}}</span>
-						<span class="span3">{{statistics1[0].type}}</span>
-					</div>
-					<div class="div4" style="width: 30%;">
-						<span class="span3">{{statistics1[1].number}}</span>
-						<span class="span3">{{statistics1[1].type}}</span>
-					</div>
-					<div class="div4" style="width: 30%;">
-						<span class="span3">{{statistics1[1].number}}</span>
-						<span class="span3">{{statistics1[1].type}}</span>
+					<div class="div4" style="width: 100%;">
+						<span class="span3">{{statistics3}}</span>
+						<span class="span3">全部带看</span>
 					</div>
 				</div>
 			</div>
 			<div class="div2" style="background: linear-gradient(1turn,#83eeb2,#4cd87a)">
 				<div>
-					<span class="span1">{{house}}</span>
+					<span class="span1">{{statistics4}}</span>
 				</div>
-				<span class="span2"> 新增跟进 (次）</span>
+				<span class="span2"> 新增带看 (次） </span>
 				<div class="div3">
-					<div class="div4" style="width: 50%;">
-						<span class="span3">{{statistics1[0].number}}</span>
-						<span class="span3">{{statistics1[0].type}}</span>
-					</div>
-					<div class="div4" style="width: 50%;">
-						<span class="span3">{{statistics1[1].number}}</span>
-						<span class="span3">{{statistics1[1].type}}</span>
+					<div class="div4" style="width: 100%;">
+						<span class="span3">{{statistics4}}</span>
+						<span class="span3">全部跟进</span>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- <el-row :gutter="20">
-			<el-col :span="12">
-				<el-card shadow="hover">
-					<schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
-				</el-card>
-			</el-col>
-			<el-col :span="12">
-				<el-card shadow="hover">
-					<schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
-				</el-card>
-			</el-col>
-		</el-row> -->
+		<div>
+			<span style="color: #DF3A01;">   租房房源   </span>
+			<span style="color: #0174DF;">   客源   </span>
+			<span style="color: #298A08;">   租房跟进   </span>
+			<div id="broken" style="width: 100%;height: 300px;float: left"></div>
+		</div>
 	</div>
 </template>
 
 <script>
-	//import Schart from "vue-schart";
 	import echarts from 'echarts';
 	export default {
 		name: "dashboard",
 		data() {
 			return {
+				/* statistics2: [{
+					"number": 1,
+					"type": "二手房"
+				}, {
+					"number": 1,
+					"type": "出租房"
+				}, {
+					"number": 3,
+					"type": "新房"
+				}], */
 				house: 0,
 				test1: "",
-				beginDate: '', //开始日期
-				nowDate: '', //现在日期
 				name: this.$store.state.token.userName,
 				statistics1: [0, 1, 2],
 				statistics2: 0,
-				options: {
-					type: "bar",
-					title: {
-						text: "最近一周各品类销售图"
-					},
-
-					xRorate: 25,
-					labels: ["周一", "周二", "周三", "周四", "周五"],
-					datasets: [{
-							label: "家电",
-							data: [234, 278, 270, 190, 230]
-						},
-						{
-							label: "百货",
-							data: [164, 178, 190, 135, 160]
-						},
-						{
-							label: "食品",
-							data: [144, 198, 150, 235, 120]
-						}
-					]
-				},
-				options2: {
-					type: "line",
-					title: {
-						text: "最近几个月各品类销售趋势图"
-					},
-					labels: ["6月", "7月", "8月", "9月", "10月"],
-					datasets: [{
-							label: "家电",
-							data: [234, 278, 270, 190, 230]
-						},
-						{
-							label: "百货",
-							data: [164, 178, 150, 135, 160]
-						},
-						{
-							label: "食品",
-							data: [74, 118, 200, 235, 90]
-						}
-					]
-				}
+				statistics3: 0,
+				statistics4: 0,
+				data1: [],
+				data2: [],
+				data3: [],
+				data4: [],
 			};
 		},
-		components: {
-
-			//Schart
+		mounted() {
+			this.ss();
 		},
-		computed: {
-			role() {
-				return this.name === "admin" ? "超级管理员" : "普通用户";
-			}
-		},
-
 		methods: {
+			ss: async function() {
+				await this.getDate4();
+				// 基于准备好的dom，初始化echarts实例
+				let broken = echarts.init(document.getElementById('broken'));
+				// 绘制图表
+				/**
+				 * 折线图
+				 */
+				broken.setOption({
+					xAxis: {
+						type: 'category',
+						data: this.data3
+					},
+					yAxis: {
+						type: 'value'
+					},
+
+					series: [{
+							data: this.data2,
+							type: 'bar',
+							color: '#DF3A01',
+						},
+						{
+							type: 'bar',
+							data: this.data1,
+							color: '#0174DF',
+						},
+						{
+							type: 'bar',
+							data: this.data4,
+							color: '#298A08',
+						}
+					]
+				})
+			},
 			times() {
 				var aData = new Date();
 				this.nowDate = aData.getFullYear() + "-" + (aData.getMonth() + 1) + "-" + aData
@@ -180,6 +161,42 @@
 				}).catch()
 				this.axios.get("statistics2").then((res) => {
 					this.statistics2 = res.data;
+				}).catch()
+				this.axios.get("statistics6").then((res) => {
+					this.statistics3 = res.data;
+				}).catch()
+				this.axios.get("statistics7").then((res) => {
+					this.statistics4 = res.data;
+				}).catch()
+			},
+			getDate4: async function() {
+				await this.axios.get("statistics8").then((res) => {
+					res.data.forEach(d => {
+						this.data3.push(d.click_date)
+						if (d.count == null || d.count == '') {
+							this.data2.push(0)
+						} else {
+							this.data2.push(d.count);
+						}
+					})
+				}).catch()
+				await this.axios.get("statistics9").then((res) => {
+					res.data.forEach(d => {
+						if (d.count == null || d.count == '') {
+							this.data1.push(0)
+						} else {
+							this.data1.push(d.count);
+						}
+					})
+				}).catch()
+				await this.axios.get("statistics10").then((res) => {
+					res.data.forEach(d => {
+						if (d.count == null || d.count == '') {
+							this.data4.push(0)
+						} else {
+							this.data4.push(d.count);
+						}
+					})
 				}).catch()
 			},
 		},
