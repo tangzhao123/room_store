@@ -37,6 +37,21 @@
       <result column="newhouse_id"  property="newhouseId"/>
     </collection>
   </resultMap>
+  <resultMap id="BaseColumnMap" type="cn.gson.room_store.model.pojos.newhouse.HouseType">
+    <id column="type_id" property="typeId"></id>
+    <result column="type_name" property="typeName" />
+    <result column="type_address"  property="typeAddress"/>
+    <result column="type_structure"  property="typeStructure" />
+    <result column="type_area"  property="typeArea" />
+    <result column="type_label"  property="typeLabel" />
+    <result column="type_img"  property="typeImg" />
+    <result column="type_describe"  property="typeDescribe" />
+    <result column="type_room"  property="typeRoom"/>
+    <result column="type_office"  property="typeOffice"/>
+    <result column="type_kitchen"  property="typeKitchen"/>
+    <result column="type_guard"  property="typeGuard"/>
+    <result column="newhouse_id"  property="newhouseId"/>
+  </resultMap>
   <sql id="Base_Column_List">
     house_id, house_name, house_position, house_address, house_property, house_area, 
     house_characteristic, house_price, house_total_price, house_developer, house_certificate, 
@@ -52,10 +67,15 @@
     house_certificate_time, house_state, house_img, house_ishide, house_number,
   </sql>
   <sql id="Base_Column_Tails">
-    type_id,type_name,type_address,type_area,type_label,type_img,type_describe,type_room,type_offic,type_kitchen,type_guard,newhouse_id
+    type_id,type_name,type_address,type_area,type_label,type_img,type_describe,type_room,type_office,type_kitchen,type_guard,newhouse_id
   </sql>
   <select id="selectAllDetails" resultMap="BaseResultMap">
 select * FROM new_house o LEFT JOIN house_type s on o.house_id=s.newhouse_id WHERE o.house_id=s.newhouse_id
+  </select>
+  <select id="selecttwo" resultMap="BaseColumnMap" >
+    select
+    <include refid="Base_Column_Tails"></include>
+    from house_type where newhouse_id=#{newhouseId}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

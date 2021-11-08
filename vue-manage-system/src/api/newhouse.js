@@ -38,3 +38,9 @@ export function selectDetails(data){
 		data
 	})
 }
+export function selecttwo(data){
+	return request({
+		url:`/house/selecttwo/${data}`,
+		data
+	})
+}
