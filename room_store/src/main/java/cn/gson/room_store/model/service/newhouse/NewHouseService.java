@@ -1,5 +1,6 @@
 package cn.gson.room_store.model.service.newhouse;
 
+import cn.gson.room_store.model.pojos.newhouse.HouseType;
 import cn.gson.room_store.model.pojos.newhouse.NewHouse;
 import cn.gson.room_store.vo.newhouse.NewHouseSerachVo;
 import com.github.pagehelper.PageInfo;
@@ -24,4 +25,6 @@ public interface NewHouseService {
 
     //连接查询
     List<NewHouse> selectAllDetails(Integer houseId);
+
+    List<HouseType> selecttwo(Integer newhouseId);
 }

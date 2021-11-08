@@ -1,5 +1,6 @@
 package cn.gson.room_store.model.mapper.newhouse;
 
+import cn.gson.room_store.model.pojos.newhouse.HouseType;
 import cn.gson.room_store.model.pojos.newhouse.NewHouse;
 import cn.gson.room_store.vo.newhouse.NewHouseSerachVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -30,4 +31,6 @@ public interface NewHouseMapper {
 
     //连接查询
     List<NewHouse> selectAllDetails(Integer houseId);
+
+    List<HouseType> selecttwo(Integer newhouseId);
 }

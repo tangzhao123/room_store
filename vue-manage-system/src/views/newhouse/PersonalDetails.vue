@@ -28,15 +28,15 @@
 			楼盘户型
 		</div>
 	</el-row>
-	<div>
-		<img :src="data.typeImg"  width="300" height="200"/>
+	<div v-for="item in dataHuXing" :key="item.typeId">
+		<img :src="item.typeImg"  width="300" height="200"/>
 		<br />
-		<span>{{data.typeName}}</span>
+		<span>{{item.typeName}}</span>
 		<br />
-		<span>{{data.typeRoom}}室</span>
-		<span>{{data.typeOffice}}厅</span>
-		<span>{{data.typeGuard}}卫</span>
-		<span>|{{data.typeArea}}㎡</span>
+		<span>{{item.typeRoom}}室</span>
+		<span>{{item.typeOffice}}厅</span>
+		<span>{{item.typeGuard}}卫</span>
+		<span>|{{item.typeArea}}㎡</span>
 	</div>
 </div>
 
@@ -45,7 +45,8 @@
 <script>
 	import {
 		selectByOne,
-		selectDetails
+		// selectDetails,
+		// selecttwo
 	} from '../../api/newhouse.js'
 export default{
 	data(){
@@ -53,6 +54,7 @@ export default{
 			tableData:[],
 			listData:[],
 			data:{},
+			dataHuXing:[]
 		}
 	},
 	methods:{
@@ -63,23 +65,41 @@ export default{
 			console.log(routerParams)
 			selectByOne(routerParams).then(res=>{
 				this.tableData=res.data;
-				console.log(this.tableData)
+				// console.log(this.tableData)
 			})
 		},
-		details(){
-			console.log(this.$route)
+		// details(){
+		// 	console.log(this.$route)
+		// 	var routerParams=this.$route.params.id
+		// 	this.id=routerParams
+		// 	selectDetails(routerParams).then(res=>{
+		// 		this.listData=res.data
+		// 		this.data = this.listData[0].houseTypes[0];
+		// 		console.log(this.listData[0].houseTypes[0])
+		// 	})
+		// },
+		selectTwo(){
 			var routerParams=this.$route.params.id
 			this.id=routerParams
-			selectDetails(routerParams).then(res=>{
-				this.listData=res.data
-				this.data = this.listData[0].houseTypes[0];
-				console.log(this.listData[0].houseTypes[0])
-			})
+			// selecttwo(routerParams:newHouseId).then(res=>{
+			// 	this.dataHuXing=res.data
+			// 	console.log(res.data)
+			// })
+			this.axios({
+				url: 'house/selecttwo',
+				params:{
+					newHouseId:this.id
+				}
+			}).then((v) => {
+				this.dataHuXing=v.data.data
+				console.log(this.dataHuXing)
+			}).catch()
 		}
 	},
 	created(){
 		this.thern()
-		this.details()
+		// this.details()
+		this.selectTwo()
 	}
 }
 </script>

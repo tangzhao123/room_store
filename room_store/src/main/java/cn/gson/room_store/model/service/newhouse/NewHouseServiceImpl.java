@@ -1,6 +1,7 @@
 package cn.gson.room_store.model.service.newhouse;
 
 import cn.gson.room_store.model.mapper.newhouse.NewHouseMapper;
+import cn.gson.room_store.model.pojos.newhouse.HouseType;
 import cn.gson.room_store.model.pojos.newhouse.NewHouse;
 import cn.gson.room_store.vo.newhouse.NewHouseSerachVo;
 import com.github.pagehelper.PageHelper;
@@ -59,6 +60,11 @@ public class NewHouseServiceImpl implements NewHouseService {
     @Override
     public List<NewHouse> selectAllDetails(Integer houseId) {
         return newHouseMapper.selectAllDetails(houseId);
+    }
+
+    @Override
+    public List<HouseType> selecttwo(Integer newhouseId) {
+        return newHouseMapper.selecttwo(newhouseId);
     }
 
 

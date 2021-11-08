@@ -1,6 +1,7 @@
 package cn.gson.room_store.controller.newhouse;
 
 import cn.gson.room_store.common.Result;
+import cn.gson.room_store.model.pojos.newhouse.HouseType;
 import cn.gson.room_store.model.pojos.newhouse.NewHouse;
 import cn.gson.room_store.model.service.newhouse.NewHouseService;
 import cn.gson.room_store.vo.newhouse.NewHouseSerachVo;
@@ -51,5 +52,10 @@ public class NewHouseController {
         List<NewHouse> newHouses = newHouseService.selectAllDetails(houseId);
         System.err.println(newHouses);
         return Result.success(newHouses);
+    }
+    @GetMapping("/selecttwo")
+    public Result selecttwo(Integer newHouseId){
+        List<HouseType> selecttwo = newHouseService.selecttwo(newHouseId);
+        return Result.success(selecttwo);
     }
 }
