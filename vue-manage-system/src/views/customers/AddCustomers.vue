@@ -228,7 +228,7 @@
 				});
 			},
 			AddCustomers() {
-				this.customers.userId = 1;
+				this.customers.userId = this.$store.state.token.userID;
 				var customer = JSON.stringify({
 					customers: this.customers,
 					demand: this.demand,

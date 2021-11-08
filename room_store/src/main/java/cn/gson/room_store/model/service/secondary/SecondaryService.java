@@ -41,7 +41,7 @@ public class SecondaryService {
         secondaryMapper.theShelves(secondaryNumber);
     }
 
-    public List<Secondary> selectAll(){
-        return secondaryMapper.selectAll();
+    public List<Secondary> selectAll(Integer userId){
+        return secondaryMapper.selectAll(userId);
     }
 }

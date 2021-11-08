@@ -202,7 +202,6 @@
 		positiom: absolute;
 		width: 20%;
 		height: 200px;
-
 	}
 
 	.div3 {

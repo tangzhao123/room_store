@@ -29,5 +29,11 @@ public interface RentalpublicpoolsMapper {
 //    移入公房池
     void insertRentalpublicpools(Rentalpublicpools rentalpublicpools);
 
-    List<Rentalpublicpools> findAllRentalpublicpools();
+    List<Rentalpublicpools> findAllRentalpublicpools(@Param("zhuangxiu")String[] zhuangxiu,
+                                                     @Param("maxm2")double maxm2,
+                                                     @Param("minm2")double minm2,
+                                                     @Param("maxje") double maxje,
+                                                     @Param("minje") double minje,
+                                                     @Param("chegshi")String chegshi,
+                                                     @Param("xiaoqu")String xiaoqu);
 }

@@ -1,34 +1,29 @@
 <template>
 	<div>
-		<!-- <h4>查看详情</h4>
+		<h4>查看详情</h4>
 		<hr>
-		<div>
-			<el-table :data="tableData">
-				<el-table-column prop="customersId" label="编号">
-					<template  v-slot:default="v">
-						<div style="float: left;">
-							<img :src="v.row.rentalhousing.rehoZhutu" style="width:100px;height:100px">
-							</div>
-							<div style="float:left;margin-left: 5px;">
-								<div style="height: 10px;">
-								<span style="font-size: 20px;color:#333; float: left;">
-									{{v.row.rentalhousing.rehoCommunity}}{{v.row.rentalhousing.rehoBuilding}}{{v.row.rentalhousing.rehoUnit}}{{v.row.rentalhousing.rehoRoomnumber}}</span>
-								</div>
-								<div style="height: 33px;">
-								<br>
-								<span style="font-size: 14px;float: left;">
-									{{v.row.rentalhousing.rehoHousetype}} {{v.row.rentalhousing.rehoOrientation}} {{v.row.rentalhousing.rehoFitmenttype}} {{v.row.rentalhousing.rehoPayway}}</span>
-								</div>
-								<br>
-								<div>
-								<span style="color: #f23036;font-size: 22px;margin-right:5px;float: left;">{{v.row.rentalhousing.rehoRent}}元/月</span>&nbsp;&nbsp;
-								<span style="font-size: 17px;float: left;">{{v.row.rentalhousing.rehoCoveredarea}}㎡</span>
-								</div>
-							</div>
-					</template>
-				</el-table-column>
-			</el-table>
-		</div> -->
+		<div style="margin:30px">
+			<div style="float: left;">
+				<img :src="housing.rehoZhutu" style="width:100px;height:100px">
+			</div>
+			<div style="float:left;margin-left: 5px;">
+				<div style="height: 10px;">
+				<span style="font-size: 20px;color:#333; float: left;">
+					{{housing.rehoCommunity}}{{housing.rehoBuilding}}{{housing.rehoUnit}}{{housing.rehoRoomnumber}}</span>
+				</div>
+				<div style="height: 33px;">
+				<br>
+				<span style="font-size: 14px;float: left;">
+					{{housing.rehoHousetype}} {{housing.rehoOrientation}} {{housing.rehoFitmenttype}} {{housing.rehoPayway}}</span>
+				</div>
+				<br>
+				<div>
+				<span style="color: #f23036;font-size: 22px;margin-right:5px;float: left;">{{housing.rehoRent}}元/月</span>&nbsp;&nbsp;
+				<span style="font-size: 17px;float: left;">{{housing.rehoCoveredarea}}㎡</span>
+				</div>
+			</div>
+		</div>
+		<br><br><br><br><br><br>
 		<h4  style="margin-top:30px">推荐客源</h4>
 		<hr>
 		<el-table :data="tableData">
@@ -63,6 +58,8 @@ export default {
 			return {
 				tableData:[],
 				no:"",
+				tableData1:[],
+				housing:{}
 			}
 		},
 		methods: {
@@ -113,7 +110,16 @@ export default {
 					}
 				}).then((v) => {
 					this.tableData = v.data
-					console.log(this.tableData[0])
+					console.log(this.tableData)
+				}).catch()
+				this.axios({
+					url: 'Renthouse/findRentalhousingByNumber',
+					params:{
+						param:this.no
+					}
+				}).then((v) => {
+					this.tableData1 = v.data
+					this.housing = this.tableData1[0]
 				}).catch()
 			},
 			chakan(row){

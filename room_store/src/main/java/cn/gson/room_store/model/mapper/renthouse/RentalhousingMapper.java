@@ -42,5 +42,5 @@ public interface RentalhousingMapper {
                                                    @Param("quyus") String[] quyus,
                                                    @Param("name") String name,
                                                    @Param("yezhu") String yezhu,
-    @Param("fyzt") int fyzt, @Param("xiao")double xiao, @Param("da")double da);
+    @Param("fyzt") int fyzt, @Param("xiao")double xiao, @Param("da")double da,@Param("userid")String userid);
 }

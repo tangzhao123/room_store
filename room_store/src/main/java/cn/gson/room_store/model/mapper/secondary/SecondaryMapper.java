@@ -17,7 +17,7 @@ public interface SecondaryMapper {
     //根据房源编号查询
     public Secondary findAllSecondaryByUser(String secondaryNumber);
 
-    public List<Secondary> selectAll();
+    public List<Secondary> selectAll(Integer userId);
 
     //上架
     public void shelves(String secondaryNumber);

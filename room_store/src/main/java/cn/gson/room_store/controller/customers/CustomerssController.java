@@ -7,6 +7,7 @@ import org.springframework.data.relational.core.sql.In;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,8 @@ public class CustomerssController {
     }
 
     @GetMapping("/allCustomers")
-    public List<Customerss> allCustomers(){
-        return service.allCustomers();
+    public List<Customerss> allCustomers(@RequestParam("userId") Integer userId ,@RequestParam("cusPhone") String cusPhone,@RequestParam("rentalId") String rentalId,@RequestParam("souId") String souId,@RequestParam("stateId") String stateId,@RequestParam("levelId") String levelId ){
+        return service.allCustomers(userId,cusPhone,rentalId,souId,stateId,levelId);
     }
 
     @GetMapping("/getallCustomers")

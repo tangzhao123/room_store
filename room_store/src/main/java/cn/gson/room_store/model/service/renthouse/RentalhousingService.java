@@ -54,14 +54,7 @@ public class RentalhousingService {
         rentalhousingMapper.updateRentalhousingRehoShelfByNumber(rehoShelf,rehoNumber);
     }
 
-    public List<Rentalhousing> findRentalhousingMultiple(String name, String yezhu, int fyzt, String[] zhifus, String[] biaoqians, String[] leixings, double xiao, double da, ArrayList<int[]> list, String[] quyus) {
-        System.out.println(list);
-        for(int i = 0 ; i < list.size() ; i++){
-            System.out.println(list.get(i));
-            for(int a = 0;a<list.get(i).length;a++){
-                System.out.println(list.get(i)[a]);
-            }
-        }
-        return rentalhousingMapper.findRentalhousingMultiple(list,biaoqians,zhifus,leixings,quyus,name,yezhu,fyzt,xiao,da);
+    public List<Rentalhousing> findRentalhousingMultiple(String name, String yezhu, int fyzt, String[] zhifus, String[] biaoqians, String[] leixings, double xiao, double da, ArrayList<int[]> list, String[] quyus,String userid) {
+        return rentalhousingMapper.findRentalhousingMultiple(list,biaoqians,zhifus,leixings,quyus,name,yezhu,fyzt,xiao,da,userid);
     }
 }
