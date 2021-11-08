@@ -29,6 +29,9 @@ public class NewHouseServiceImpl implements NewHouseService {
 
     @Override
     public int insert(NewHouse record) {
+        if(record.getHouseIshide()==null){
+            record.setHouseIshide("显示");
+        }
         return newHouseMapper.insert(record);
     }
 

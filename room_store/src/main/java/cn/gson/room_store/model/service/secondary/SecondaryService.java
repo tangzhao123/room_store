@@ -25,6 +25,12 @@ public class SecondaryService {
         return secondaryMapper.findAllSecondary(secondary);
     }
 
+    //根据房源编号查询
+    public Secondary findAllSecondary(String secondaryNumber){
+        return secondaryMapper.findAllSecondaryByUser(secondaryNumber);
+    }
+
+
     //上架
     public void shelves(String secondaryNumber){
         secondaryMapper.shelves(secondaryNumber);

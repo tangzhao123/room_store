@@ -26,8 +26,8 @@
 					<el-form-item label="区域">
 						<el-checkbox-group v-model="checkList" @change="changeCheckbox">
 							<el-checkbox label="天元区"></el-checkbox>
-							<el-checkbox  label="荷塘区"></el-checkbox>
-							<el-checkbox  label="株洲县"></el-checkbox>
+							<el-checkbox label="荷塘区"></el-checkbox>
+							<el-checkbox label="株洲县"></el-checkbox>
 						</el-checkbox-group>
 					</el-form-item>
 				</el-form>
@@ -36,11 +36,11 @@
 				<el-form label-width="80px">
 					<el-form-item label="房屋用途">
 						<el-checkbox-group v-model="roomList" @change="changeRoomCheckbox">
-							<el-checkbox  label="办公"></el-checkbox>
-							<el-checkbox  label="土地"></el-checkbox>
-							<el-checkbox  label="住宅"></el-checkbox>
-							<el-checkbox  label="商业"></el-checkbox>
-							<el-checkbox  label="工业"></el-checkbox>
+							<el-checkbox label="办公"></el-checkbox>
+							<el-checkbox label="土地"></el-checkbox>
+							<el-checkbox label="住宅"></el-checkbox>
+							<el-checkbox label="商业"></el-checkbox>
+							<el-checkbox label="工业"></el-checkbox>
 						</el-checkbox-group>
 					</el-form-item>
 				</el-form>
@@ -63,11 +63,11 @@
 					<el-form-item label="朝向">
 						<el-checkbox-group v-model="towardList" @change="changeTowardCheckbox">
 							<el-checkbox label="东"></el-checkbox>
-							<el-checkbox  label="南"></el-checkbox>
-							<el-checkbox  label="西"></el-checkbox>
-							<el-checkbox  label="北"></el-checkbox>
-							<el-checkbox  label="西南"></el-checkbox>
-							<el-checkbox  label="其他"></el-checkbox>
+							<el-checkbox label="南"></el-checkbox>
+							<el-checkbox label="西"></el-checkbox>
+							<el-checkbox label="北"></el-checkbox>
+							<el-checkbox label="西南"></el-checkbox>
+							<el-checkbox label="其他"></el-checkbox>
 						</el-checkbox-group>
 					</el-form-item>
 				</el-form>
@@ -80,14 +80,15 @@
 					<el-table-column prop="secondaryId" label="序号"> </el-table-column>
 					<el-table-column prop="secondaryNumber" label="房源编号" width="140"> </el-table-column>
 					<el-table-column prop="secondaryTitle" label="出售标题" width="120"> </el-table-column>
-					<el-table-column  label="房源信息" width="450"> 
+					<el-table-column label="房源信息" width="450">
 						<template v-slot:default="r">
 							<el-row>
 								<el-col :span="12">
-									<img :src="r.row.secondaryPicture"  width="200" height="100"/>
-								</el-col >
-								<el-col :span="10" >
-									<span style="font-size:18px; font-weight: bold;">{{r.row.secondaryVillage+r.row.secondaryBuilding+r.row.secondaryUnit}}</span>
+									<img :src="r.row.secondaryPicture" width="200" height="100" />
+								</el-col>
+								<el-col :span="10">
+									<span
+										style="font-size:18px; font-weight: bold;">{{r.row.secondaryVillage+r.row.secondaryBuilding+r.row.secondaryUnit}}</span>
 									<br />
 									<span>{{r.row.secondaryModel+' '+r.row.secondaryToward+' '+r.row.secondaryType}}</span>
 									<br />
@@ -102,23 +103,27 @@
 							<el-tag type="danger" v-if="r.row.secondaryState==1">下架</el-tag>
 						</template>
 					</el-table-column>
-					<el-table-column prop="secondaryPoolsAccess" label="公房池状态" width="140"> 
-					<template v-slot:default="r">
-						<el-tag type="success" v-if="r.row.secondaryPoolsAccess==0">不在公房池</el-tag>
-						<el-tag type="danger" v-if="r.row.secondaryPoolsAccess==1">在公房池</el-tag>
-					</template>
+					<el-table-column prop="secondaryPoolsAccess" label="公房池状态" width="140">
+						<template v-slot:default="r">
+							<el-tag type="success" v-if="r.row.secondaryPoolsAccess==0">不在公房池</el-tag>
+							<el-tag type="danger" v-if="r.row.secondaryPoolsAccess==1">在公房池</el-tag>
+						</template>
 					</el-table-column>
 					<el-table-column prop="secondaryUse" label="房屋用途"> </el-table-column>
 					<el-table-column prop="secondaryAvailability" label="发布时间" width="150"> </el-table-column>
-					<el-table-column  label="操作" width="400">
+					<el-table-column label="操作" width="400">
 						<template v-slot:default="r">
-							<el-button type="primary" size="medium" >查看详情</el-button>
-							<el-button type="danger" size="medium"  v-if="r.row.secondaryState == 0">下架</el-button>
-							<el-button type="primary" size="medium"  v-if="r.row.secondaryState == 1">上架</el-button>
-							
-							<el-button type="primary" size="medium" v-if="r.row.secondaryPoolsAccess==0">移入公房池</el-button>
-							<el-button type="danger" size="medium" v-if="r.row.secondaryPoolsAccess==1">移出公房池</el-button>
-							
+							<el-button type="primary" size="medium" @click="details(r.row)">查看详情</el-button>
+							<el-button type="danger" size="medium" @click="shelves(r.row)"
+								v-if="r.row.secondaryState == 0">下架</el-button>
+							<el-button type="primary" size="medium" @click="theShelves(r.row)"
+								v-if="r.row.secondaryState == 1">上架</el-button>
+
+							<el-button type="primary" size="medium" v-if="r.row.secondaryPoolsAccess==0">移入公房池
+							</el-button>
+							<el-button type="danger" size="medium" v-if="r.row.secondaryPoolsAccess==1">移出公房池
+							</el-button>
+
 						</template>
 					</el-table-column>
 				</el-table>
@@ -127,6 +132,7 @@
 				</el-pagination>
 			</el-row>
 		</div>
+
 	</div>
 </template>
 
@@ -137,7 +143,7 @@
 				pageNo: 1, //页码
 				size: 5, //页大小
 				total: 0, //总记录数
-				secondaryData:[],//二手房源表格
+				secondaryData: [], //二手房源表格
 				secondary: { //二手房对象
 					secondaryId: '', //序号
 					secondaryNumber: '', //房源编号
@@ -178,15 +184,16 @@
 					secondaryPoolsAccess: '', //公房池状态
 					secondaryAvailability: '', //房源发布时间
 					goodRoom: '', //好房外键
-					userId: '' ,//用户外键
-					pageNo:0,
-					size:0,
+					userId: '', //用户外键
+					pageNo: 0,
+					size: 0,
 				},
 				value: '1',
 				checkList: [], //区域
 				roomList: [], //房屋用途
 				modelList: [], //户型
-				towardList:[],//朝向
+				towardList: [], //朝向
+				dialogVisible: false, //详情的弹框
 			}
 		},
 		methods: {
@@ -250,9 +257,19 @@
 			intoHousing() {
 				this.$router.push("/into_housing");
 			},
+			//跳转到房源详情的界面
+			details(row) {
+				this.$router.push({
+					path: '/details',
+					name: 'details',
+					params: {
+						id: row.secondaryNumber
+					}
+				});
+			},
 			//根据用户查询房源
 			findByUser(no) {
-				this.secondary.userId =  this.$store.state.token.userID;
+				this.secondary.userId = this.$store.state.token.userID;
 				console.log(this.$store.state.token.userID)
 				if (no == undefined) {
 					no = this.pageNo
@@ -260,8 +277,7 @@
 				this.secondary.pageNo = no;
 				this.secondary.size = this.size;
 				console.log(this.secondary);
-				this.axios.post( '/Secondary/secondary-list',this.secondary
-					).then((v) => {
+				this.axios.post('/Secondary/secondary-list', this.secondary).then((v) => {
 					console.log(v.data.list)
 					this.secondaryData = v.data.list;
 					this.total = v.data.total;
@@ -270,8 +286,40 @@
 				});
 			},
 			//下架
-			shelves(){
-				
+			shelves(row) {
+				this.axios({
+					url: 'Secondary/shelves',
+					params: {
+						secondaryNumber: row.secondaryNumber
+					}
+				}).then((v) => {
+					if (v.data == 'ok') {
+						this.$message.success("下架成功！");
+						this.findByUser();
+					} else {
+						this.$message.error("下架失败！")
+					}
+				}).catch(function() {
+
+				})
+			},
+			//下架
+			theShelves(row) {
+				this.axios({
+					url: 'Secondary/the-shelves',
+					params: {
+						secondaryNumber: row.secondaryNumber
+					}
+				}).then((v) => {
+					if (v.data == 'ok') {
+						this.$message.success("上架成功！");
+						this.findByUser();
+					} else {
+						this.$message.error("上架失败！")
+					}
+				}).catch(function() {
+
+				})
 			},
 		},
 		created() {

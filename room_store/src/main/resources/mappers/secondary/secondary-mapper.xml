@@ -34,8 +34,13 @@
         update secondary set secondary_state = 1 where secondary_number = #{secondaryNumber}
     </update>
 
-    <!-- 根据编号修改状态（上架架） -->
+    <!-- 根据编号修改状态（上架） -->
     <update id="theShelves">
         update secondary set secondary_state = 0 where secondary_number = #{secondaryNumber}
     </update>
+
+    <!-- 根据房源编号查询 -->
+    <select id="findAllSecondaryByUser" resultType="cn.gson.room_store.model.pojos.secondary.Secondary">
+        select * from secondary where secondary_number = #{secondaryNumber}
+    </select>
 </mapper>

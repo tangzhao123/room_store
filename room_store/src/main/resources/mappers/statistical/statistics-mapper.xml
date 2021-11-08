@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.statistical.StatisticsMapper">
+    <!--查询本月各房源类型-->
+    <select id="statistics1" resultType="map">
+        select count(t.Good_type) as 'number',Good_type as 'type' from(
+                                                                          select Good_type from good where good_state='1' and
+                                                                              DATE_FORMAT(good_date ,'%Y%m')= DATE_FORMAT( CURDATE( ) , '%Y%m' )
+                                                                      ) t  group by t.Good_type
+    </select>
+    <!--查询租房房源信息-->
+    <select id="statistics3" resultType="map">
+        select count(t.reho_shelf) as 'number',reho_shelf as 'type' from(
+                                                                            select reho_shelf from rentalhousing
+                                                                        ) t  group by t.reho_shelf </select>
+    <select id="statistics2" resultType="_int">
+        select id="statistics3" resultType="map">
+        select count(t.reho_shelf) as 'number',reho_shelf as 'type' from(
+                                                                            select reho_shelf from rentalhousing
+                                                                        ) t  group by t.reho_shelf </select>
+    <select id="statistics2" resultType="_int">
+        SELECT count(*) from customers
+    </select>
+</mapper>

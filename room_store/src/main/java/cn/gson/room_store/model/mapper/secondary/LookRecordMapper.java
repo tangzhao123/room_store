@@ -9,5 +9,11 @@ import java.util.List;
 public interface LookRecordMapper {
 
     //查询二手房带看记录 根据房源编号查询
-    public List<LookRecord> findAllLookRecord();
+    public List<LookRecord> findAllLookRecord(int lookId);
+
+    //查询二手房带看记录 根据房源编号查询
+    public List<LookRecord> allLookRecord();
+
+    //新增带看记录
+    public void addLookRecord(LookRecord lookRecord);
 }
