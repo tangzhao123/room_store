@@ -14,11 +14,11 @@
         select count(t.reho_shelf) as 'number',reho_shelf as 'type' from(
                                                                             select reho_shelf from rentalhousing
                                                                         ) t  group by t.reho_shelf </select>
-    <select id="statistics2" resultType="_int">
-        select id="statistics3" resultType="map">
-        select count(t.reho_shelf) as 'number',reho_shelf as 'type' from(
-                                                                            select reho_shelf from rentalhousing
-                                                                        ) t  group by t.reho_shelf </select>
+<!--    <select id="statistics2" resultType="_int">-->
+<!--        select id="statistics3" resultType="map">-->
+<!--        select count(t.reho_shelf) as 'number',reho_shelf as 'type' from(-->
+<!--                                                                            select reho_shelf from rentalhousing-->
+<!--                                                                        ) t  group by t.reho_shelf </select>-->
     <select id="statistics2" resultType="_int">
         SELECT count(*) from customers
     </select>
