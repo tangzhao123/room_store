@@ -1,5 +1,6 @@
 package cn.gson.room_store.model.pojos.renthouse;
 
+import cn.gson.room_store.model.pojos.secondary.Users;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
@@ -52,6 +53,7 @@ public class Rentalhousing {
     private int rehoGfczt;
     private int rehoGoodRoom;
     private int rehoUsersNo;
+    private Users users;
 
     private List<Multifileimage> multifileimagesList;
 

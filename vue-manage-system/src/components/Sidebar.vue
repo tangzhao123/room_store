@@ -65,41 +65,38 @@
 						index: "2",
 						title: "客源",
 						subs: [{
-								index: "mycustomers",
-								title: "我的客源"
-							},{
-								index: "maleguestpool",
-								title: "公客池"
-							},
-						]
+							index: "mycustomers",
+							title: "我的客源"
+						}, {
+							index: "maleguestpool",
+							title: "公客池"
+						}, ]
 					},
 					{
 						icon: "el-icon-lx-calendar",
 						index: "4",
 						title: "营销中心",
 						subs: [{
-								index: "selectgoodroom",
-								title: "精选好房"
-							},
-						]
+							index: "selectgoodroom",
+							title: "精选好房"
+						}, ]
 					},
 					{
-						icon:"el-icon-s-home",
-						index:"5",
-						title:"新房",
-						subs:[
+						icon: "el-icon-s-home",
+						index: "5",
+						title: "新房",
+						subs: [{
+								index: "newhouse",
+								title: "新房管理"
+							},
 							{
-							index:"newhouse",
-							title:"新房管理"
-						},
-						{
-							index:"house-collection",
-							title:'新房采集'
-						},
-						{
-							index:'house_type',
-							title:'户型管理'
-						}
+								index: "house-collection",
+								title: '新房采集'
+							},
+							{
+								index: 'house_type',
+								title: '户型管理'
+							}
 						]
 					},
 					{
@@ -107,26 +104,32 @@
 						index: "6",
 						title: "租房",
 						subs: [{
-								index: "rentalhousing",
-								title: "租房管理"
-							},{
-								index: "publicpools",
-								title: "租房公房池"
-							},
-						]
-					},{
+							index: "rentalhousing",
+							title: "租房管理"
+						}, {
+							index: "publicpools",
+							title: "租房公房池"
+						}, ]
+					}, {
 						icon: "el-icon-lx-calendar",
 						index: "7",
 						title: "个人中心",
 						subs: [{
-								index: "myInformation",
-								title: "我的信息"
-							},{
-								index: "changePass",
-								title: "修改密码"
-							},
-						]
-					},
+							index: "myInformation",
+							title: "我的信息"
+						}, {
+							index: "changePass",
+							title: "修改密码"
+						}, ]
+					}, {
+						icon: "el-icon-lx-calendar",
+						index: "8",
+						title: "数据中心",
+						subs: [{
+							index: "newStatistics",
+							title: "房源统计"
+						}]
+					}
 
 				]
 			};
