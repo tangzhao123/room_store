@@ -156,6 +156,51 @@ const routes = [{
 				"../views/renthouse/Rentalowner.vue")
 		},
 		{
+			path: "/find-rentalfollowup",
+			name: "FindRentalfollowup",
+			meta: {
+				title: '查看跟进记录'
+			},
+			component: () => import(
+				"../views/renthouse/FindRentalfollowup.vue")
+		},
+		{
+			path: "/chakantuijian",
+			name: "Chakantuijian",
+			meta: {
+				title: '查看推荐客源'
+			},
+			component: () => import(
+				"../views/renthouse/Chakantuijian.vue")
+		},
+		{
+			path: "/chakanxiangqing",
+			name: "Chakanxiangqing",
+			meta: {
+				title: '查看详情'
+			},
+			component: () => import(
+				"../views/renthouse/Chakanxiangqing.vue")
+		},
+		{
+			path: "/rentalowner",
+			name: "Rentalowner",
+			meta: {
+				title: '业主信息'
+			},
+			component: () => import(
+				"../views/renthouse/Rentalowner.vue")
+		},
+		{
+			path: "/find-rentalfollowup",
+			name: "FindRentalfollowup",
+			meta: {
+				title: '查看跟进记录'
+			},
+			component: () => import(
+				"../views/renthouse/FindRentalfollowup.vue")
+		},
+		{
 			path: "/newhouse",
 			name: "newhouse",
 			meta: {

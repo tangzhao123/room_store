@@ -32,7 +32,7 @@ public class RentalpublicpoolsService {
 
     //    租房公房池推荐客源 完成跟进、无效
     public void updateRentalpublicpoolsKYCZ( int customersState, String secondaryNumber){
-        rentalfollowupMapper.updateRentalpublicpoolsKYCZ(customersState,secondaryNumber);
+        rentalfollowupMapper.updateRentalpublicpoolsKYCZ(customersState,Integer.parseInt(secondaryNumber));
     }
 
     //    新增公房池推荐客源
@@ -50,5 +50,8 @@ public class RentalpublicpoolsService {
     public void insertRentalpublicpools(Rentalpublicpools rentalpublicpools){
         rentalhousingMapper.updateRentalhousingRehoGfcztByNumber(1,rentalpublicpools.getReppRehoNo());
         rentalfollowupMapper.insertRentalpublicpools(rentalpublicpools);
+    }
+    public List<Rentalpublicpools> findAllRentalpublicpools(){
+        return rentalfollowupMapper.findAllRentalpublicpools();
     }
 }
