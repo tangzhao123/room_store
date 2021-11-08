@@ -16,5 +16,5 @@ public interface NewHouseService {
     //根据id查询数据
     NewHouse selectByPrimaryKey(Integer houseId);
 
-    List<NewHouse> selectAll();
+    List<NewHouse> selectAll(Integer userId);
 }

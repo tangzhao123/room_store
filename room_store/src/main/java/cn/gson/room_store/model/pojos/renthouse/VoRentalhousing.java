@@ -13,4 +13,5 @@ public class VoRentalhousing {
     private String zujins;
     private String jines;
     private String quyus;
+    private String userid;
 }

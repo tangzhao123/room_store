@@ -201,6 +201,15 @@ const routes = [{
 				"../views/renthouse/FindRentalfollowup.vue")
 		},
 		{
+			path: "/zufang-details",
+			name: "ZufangDetails",
+			meta: {
+				title: '租房房源详情'
+			},
+			component: () => import(
+				"../views/renthouse/ZufangDetails.vue")
+		},
+		{
 			path: "/newhouse",
 			name: "newhouse",
 			meta: {

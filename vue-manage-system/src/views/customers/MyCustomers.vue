@@ -6,7 +6,7 @@
 				<el-col :span="6">
 					<div class="grid-content bg-purple">
 						<el-form-item label="客户电话" :label-width="formLabelWidth">
-							<el-input v-model="screening.s" placeholder="客户电话" clearable style="width:220px;">
+							<el-input v-model="screening.cusPhone" placeholder="客户电话" clearable style="width:220px;">
 							</el-input>
 						</el-form-item>
 					</div>
@@ -14,7 +14,7 @@
 				<el-col :span="9">
 					<div class="grid-content bg-purple-light">
 						<el-form-item label="录入时间" :label-width="formLabelWidth">
-							<el-date-picker v-model="screening.s" type="daterange" align="right" unlink-panels
+							<el-date-picker v-model="riqi" type="daterange" align="right" unlink-panels
 								range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期"
 								:shortcuts="shortcuts">
 							</el-date-picker>
@@ -24,9 +24,10 @@
 				<el-col :span="8">
 					<div class="grid-content bg-purple">
 						<el-form-item label="客户意向" :label-width="formLabelWidth">
-							<el-select placeholder="客户意向" v-model="screening.s" value-key="">
-								<!-- <el-option v-for="item in titles" :key="item.titId" :label="item.titName" :value="item">
-					</el-option> -->
+							<el-select placeholder="客户意向" v-model="screening.rentalId">
+                <el-option v-for="item in RentalIntentionList" :key="item.rentalId" :label="item.rentalName"
+                           :value="item.rentalId">
+                </el-option>
 							</el-select>
 						</el-form-item>
 					</div>
@@ -37,9 +38,10 @@
 				<el-col :span="6">
 					<div class="grid-content bg-purple">
 						<el-form-item label="客户来源" :label-width="formLabelWidth">
-							<el-select placeholder="客户来源" v-model="screening.s" value-key="">
-								<!-- <el-option v-for="item in titles" :key="item.titId" :label="item.titName" :value="item">
-						</el-option> -->
+							<el-select placeholder="客户来源" v-model="screening.souId">
+                <el-option v-for="item in SourceList" :key="item.souId" :label="item.souName"
+                           :value="item.souId">
+                </el-option>
 							</el-select>
 						</el-form-item>
 					</div>
@@ -47,9 +49,10 @@
 				<el-col :span="9">
 					<div class="grid-content bg-purple-light">
 						<el-form-item label="客户状态" :label-width="formLabelWidth">
-							<el-select placeholder="客户状态" v-model="screening.s" value-key="">
-								<!-- <el-option v-for="item in depts" :key="item.deptId" :label="item.deptName" :value="item">
-						</el-option> -->
+							<el-select placeholder="客户状态" v-model="screening.stateId">
+                <el-option v-for="item in StateList" :key="item.stateId" :label="item.stateName"
+                           :value="item.stateId">
+                </el-option>
 							</el-select>
 						</el-form-item>
 					</div>
@@ -60,8 +63,10 @@
 				<el-col :span="6">
 					<div class="grid-content bg-purple">
 						<el-form-item label="客户等级" :label-width="formLabelWidth">
-							<el-select placeholder="客户等级" v-model="screening.s" value-key="">
-
+							<el-select placeholder="客户等级" v-model="screening.levelId">
+                <el-option v-for="item in LevelList" :key="item.levelId" :label="item.levelName"
+                           :value="item.levelId">
+                </el-option>
 							</el-select>
 						</el-form-item>
 					</div>
@@ -69,7 +74,7 @@
 				<el-col :span="6">
 					<div class="grid-content bg-purple-light">
 						<el-form-item>
-							<el-button type="primary">搜索</el-button>
+							<el-button type="primary" @click="allCustomers()">搜索</el-button>
 						</el-form-item>
 					</div>
 				</el-col>
@@ -108,11 +113,11 @@
 						<el-link type="primary">编辑</el-link>
 					</router-link>
 					<template v-if="r.row.maleState=='不在公客池'">
-            <el-link type="primary" @click="update(r.row)">移入公客池</el-link>
-          </template>
-          <template v-else>
-            <el-link type="primary" @click="update(r.row)">移出公客池</el-link>
-          </template>
+						<el-link type="primary" @click="update(r.row)">移入公客池</el-link>
+					</template>
+					<template v-else>
+						<el-link type="primary" @click="update(r.row)">移出公客池</el-link>
+					</template>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -163,13 +168,22 @@
 					})(),
 				}], //日期选择器格式
 				screening: {
-					s: ''
+					levelId: '', //客户等级
+					rentalId: '', //客户意向
+					souId: '', //客户来源
+					stateId: '', //客户状态
+					cusPhone: '', //联系电话
 				}, //筛选信息
+				riqi: [], //录入时间筛选
 				customersForm: [], //客源表格显示
 				//分页
 				pageNo: 1, //当前页数
 				size: 5, //当前页显示的条数
 				total: 0, //总记录数
+        LevelList: [], //所有客户等级
+        RentalIntentionList: [], //所有客户意向
+        SourceList: [], //所有客户来源
+        StateList: [], //所有客户状态
 			}
 		},
 		methods: {
@@ -184,7 +198,17 @@
 				this.pageNo = val;
 			},
 			allCustomers() {
-				this.axios.get("Customerss/allCustomers").then((v) => {
+				var userId = this.$store.state.token.userID;
+				this.axios.get("Customerss/allCustomers", {
+					params: {
+						userId: userId,
+						cusPhone: this.screening.cusPhone,
+						rentalId: this.screening.rentalId,
+            souId:this.screening.souId,
+            stateId:this.screening.stateId,
+            levelId:this.screening.levelId
+					}
+				}).then((v) => {
 					this.customersForm = v.data;
 				});
 			},
@@ -199,9 +223,45 @@
 					ElMessage(v.data);
 				});
 			},
+      /**
+       * 查询所有客户等级
+       */
+      LevelSelectAll() {
+        this.axios.get("Level/selectAll").then((v) => {
+          this.LevelList = v.data;
+        });
+      },
+      /**
+       * 查询所有客户意向
+       */
+      RentalIntentionSelectAll() {
+        this.axios.get("RentalIntention/selectAll").then((v) => {
+          this.RentalIntentionList = v.data;
+        });
+      },
+      /**
+       * 查询所有客户来源
+       */
+      SourceSelectAll() {
+        this.axios.get("Source/selectAll").then((v) => {
+          this.SourceList = v.data;
+        });
+      },
+      /**
+       * 查询所有客户状态
+       */
+      StateSelectAll() {
+        this.axios.get("State/selectAll").then((v) => {
+          this.StateList = v.data;
+        });
+      },
 		},
 		created() {
 			this.allCustomers();
+      this.LevelSelectAll();
+      this.RentalIntentionSelectAll();
+      this.SourceSelectAll();
+      this.StateSelectAll();
 		}
 	}
 </script>

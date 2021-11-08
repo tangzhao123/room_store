@@ -46,8 +46,8 @@ public class NewHouseServiceImpl implements NewHouseService {
     }
 
     @Override
-    public List<NewHouse> selectAll() {
-        return newHouseMapper.selectAll();
+    public List<NewHouse> selectAll(Integer userId) {
+        return newHouseMapper.selectAll(userId);
     }
 
 }
