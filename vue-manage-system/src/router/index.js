@@ -242,6 +242,14 @@ const routes = [{
 			},
 			component: () => import(
 				"../views/statistical/ChangePass.vue")
+		}, {
+			path: "/newStatistics",
+			name: "newStatistics",
+			meta: {
+				tiele: '房源统计'
+			},
+			component: () => import(
+				"../views/statistical/NewStatistics.vue")
 		}
 	]
 }, {
