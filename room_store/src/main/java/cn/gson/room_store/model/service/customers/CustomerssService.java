@@ -122,8 +122,8 @@ public class CustomerssService {
      * 根据用户查询该下的客源
      * @return
      */
-    public List<Customerss> allCustomers(Integer userId){
-        return customerssMapper.allCustomers(userId);
+    public List<Customerss> allCustomers(Integer userId,String cusPhone,String rentalId,String souId,String stateId,String levelId){
+        return customerssMapper.allCustomers(userId,cusPhone,rentalId,souId,stateId,levelId);
     }
 
     public Map<String,Object> getallCustomers(Integer cusId) {
