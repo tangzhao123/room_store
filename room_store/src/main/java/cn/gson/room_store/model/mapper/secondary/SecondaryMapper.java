@@ -11,12 +11,10 @@ public interface SecondaryMapper {
     //新增二手房源
     public void addSecondary(Secondary secondary);
 
-
     //根据用户查询二手房源
     public List<Secondary> findAllSecondary(Secondary secondary);
 
-    //根据房源编号查询
-    public Secondary findAllSecondaryByUser(String secondaryNumber);
+    public List<Secondary> selectAll();
 
     //上架
     public void shelves(String secondaryNumber);

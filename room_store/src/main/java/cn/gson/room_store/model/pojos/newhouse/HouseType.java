@@ -60,5 +60,7 @@ public class HouseType implements Serializable {
      * */
     private String typeGuard;
 
+    private NewHouse name;
+
     private static final long serialVersionUID = 1L;
 }

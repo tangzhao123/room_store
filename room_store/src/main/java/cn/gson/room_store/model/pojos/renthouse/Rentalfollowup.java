@@ -17,7 +17,8 @@ public class Rentalfollowup {
     private String refoType;
     @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date refoDate;
-    @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "YYYY-MM-dd",timezone = "GMT+8")
     private Date refoNexttime;
     private int refoRehoNo;
+    private String refoNeirong;
 }

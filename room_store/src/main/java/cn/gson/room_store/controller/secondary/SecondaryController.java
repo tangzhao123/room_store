@@ -3,6 +3,7 @@ package cn.gson.room_store.controller.secondary;
 import cn.gson.room_store.model.pojos.secondary.Secondary;
 import cn.gson.room_store.model.service.secondary.SecondaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,9 +78,8 @@ public class SecondaryController {
         }
     }
 
-    //根据房源编号查询
-    @RequestMapping("secondary-list-user")
-    public Secondary findAllSecondaryByUser(String secondaryNumber){
-        return secondaryService.findAllSecondary(secondaryNumber);
+    @GetMapping("/selectAll")
+    public List<Secondary> selectAll(){
+        return secondaryService.selectAll();
     }
 }

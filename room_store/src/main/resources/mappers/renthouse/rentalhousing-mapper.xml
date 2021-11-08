@@ -43,12 +43,6 @@
         <result column="reho_users_no" property="rehoUsersNo" />
         <result column="reho_zhutu" property="rehoZhutu" />
         <result column="reho_weituo" property="rehoWeito" />
-        <collection property="multifileimagesList" ofType="cn.gson.room_store.model.pojos.renthouse.Multifileimage">
-            <id column="muim_no" property="muimNo" />
-            <result column="muim_name" property="muimName" />
-            <result column="muim_fangyuanno" property="muimFangyuanno" />
-            <result column="muim_type" property="muimType" />
-        </collection>
     </resultMap>
 
     <!-- 多条件模糊查询 -->
@@ -149,8 +143,7 @@
 
     <!-- 编号查询租房房源(为了修改，用于回显) -->
     <select id="findRentalhousingByNumber" resultMap="rentalhousing">
-        select * from rentalhousing r left join multifileimage m on r.reho_number = m.muim_fangyuanno
-        where r.reho_number = #{param}
+        select * from rentalhousing where reho_number = #{param}
     </select>
 
     <!-- 修改租房房源上下架状态 -->

@@ -13,6 +13,15 @@
 		<div>
 			<el-button @click="add()">新增采集</el-button>
 		</div>
+		<div>
+			<el-row>
+				<el-form label-width="80px">
+					<el-form-item label="位置">
+						<el-radio label="1" v-model="values">株洲市</el-radio>
+					</el-form-item>
+				</el-form>
+			</el-row>
+		</div>
 		<el-table :data="tableData" style="width: 100%">
 			<el-table-column prop="sourceName" label="小区名称"></el-table-column>
 			<el-table-column prop="sourcePosition" label="小区位置"></el-table-column>
@@ -42,9 +51,15 @@
 				<el-form-item label="小区名称" prop="sourceName">
 					<el-input v-model="form.sourceName" placeholder="小区名称" style="width: 240px;"></el-input>
 				</el-form-item>
-				<el-form-item label="小区位置" prop="sourcePosition">
-					<el-input v-model="form.sourcePosition" placeholder="小区位置" style="width: 240px;"></el-input>
-				</el-form-item>
+						<el-form-item label="小区位置">
+							<el-col style="padding-left: 5px;">
+								<el-select v-model="form.sourcePosition" placeholder="请选择区">
+									<el-option v-for="item in qu" :key="item.countyId" :label="item.countyName"
+										:value="item.countyName">
+									</el-option>
+								</el-select>
+							</el-col>
+						</el-form-item>
 				<el-form-item label="小区地址" prop="sourceAddress">
 					<el-input v-model="form.sourceAddress" placeholder="小区地址" style="width: 240px;"></el-input>
 				</el-form-item>
@@ -98,11 +113,28 @@
 				selectParams: {},
 				tableData: [],
 				form:{},
+				values:'1',
+				quid:"",//区
+				quname:"",
+				qu:[],
+				xqu:[],//xiao区数据
+				xquid:"",//区
 				dialogVisible:false,
 				total: 0,
 			}
 		},
 		methods: {
+			getCounty(){
+				this.axios({
+					url: 'Renthouse/findAllCountyByCountyBelong',
+					params:{
+						countyBelong:2
+					}
+				}).then((v) => {
+					this.qu = v.data
+					console.log(this.qu);
+				}).catch()
+			},
 			handleEdit(row) {
 				this.form = JSON.parse(JSON.stringify(row))
 				this.dialogVisible = true
@@ -186,6 +218,7 @@
 			this.selectParams.pageNum = 1;
 			this.selectParams.pageSize = 10;
 			this.load()
+			this.getCounty();
 		}
 	}
 </script>

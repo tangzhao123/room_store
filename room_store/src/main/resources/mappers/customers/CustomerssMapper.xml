@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.customers.CustomerssMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.customers.Customerss">
+    <id column="cus_id" jdbcType="INTEGER" property="cusId" />
+    <result column="sou_id" jdbcType="INTEGER" property="souId" />
+    <result column="rental_id" jdbcType="INTEGER" property="rentalId" />
+    <result column="state_id" jdbcType="INTEGER" property="stateId" />
+    <result column="level_id" jdbcType="INTEGER" property="levelId" />
+    <result column="cus_name" jdbcType="VARCHAR" property="cusName" />
+    <result column="cus_sex" jdbcType="VARCHAR" property="cusSex" />
+    <result column="cus_phone" jdbcType="VARCHAR" property="cusPhone" />
+    <result column="cus_standby" jdbcType="VARCHAR" property="cusStandby" />
+    <result column="cus_note" jdbcType="VARCHAR" property="cusNote" />
+    <result column="male_state" jdbcType="VARCHAR" property="maleState" />
+    <result column="deman_id" jdbcType="INTEGER" property="demanId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="cus_entry" jdbcType="TIMESTAMP" property="cusEntry" />
+    <association property="level" javaType="cn.gson.room_store.model.pojos.customers.Level">
+      <id column="level_id" property="levelId"/>
+      <result column="level_name" property="levelName"/>
+    </association>
+    <association property="rentalIntention" javaType="cn.gson.room_store.model.pojos.customers.RentalIntention">
+      <id column="rental_id" property="rentalId"/>
+      <result column="rental_name" property="rentalName"/>
+    </association>
+    <association property="source" javaType="cn.gson.room_store.model.pojos.customers.Source">
+      <id column="sou_id" property="souId"/>
+      <result column="sou_name" property="souName"/>
+    </association>
+    <association property="state" javaType="cn.gson.room_store.model.pojos.customers.State">
+      <id column="state_id" property="stateId"/>
+      <result column="state_name" property="stateName"/>
+    </association>
+    <association property="demandIntention" javaType="cn.gson.room_store.model.pojos.customers.DemandIntention">
+      <id column="demand_id" property="demandId"/>
+      <result column="demand_area" property="demandArea"/>
+      <result column="village_name" property="villageName"/>
+      <result column="min_price" property="minPrice"/>
+      <result column="max_price" property="maxPrice"/>
+      <result column="max_area" property="maxArea"/>
+      <result column="min_area" property="minArea"/>
+      <collection property="demandModelKeys" ofType="cn.gson.room_store.model.pojos.customers.ModelIntention">
+        <id column="model_id" property="modelId"/>
+        <result column="model_name" property="modelName"/>
+      </collection>
+      <collection property="demandUseKeys" ofType="cn.gson.room_store.model.pojos.customers.UseIntention">
+        <id column="use_id" property="useId"/>
+        <result column="use_name" property="useName"/>
+      </collection>
+      <collection property="demandDecorateKeys" ofType="cn.gson.room_store.model.pojos.customers.DecorateIntention">
+        <id column="decor_id" property="decorId"/>
+        <result column="decor_name" property="decorName"/>
+      </collection>
+      <collection property="demandFloorKeys" ofType="cn.gson.room_store.model.pojos.customers.FloorIntention">
+        <id column="floor_id" property="floorId"/>
+        <result column="floor_name" property="floorName"/>
+      </collection>
+    </association>
+
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    cus_id, sou_id, rental_id, state_id, level_id, cus_name, cus_sex, cus_phone, cus_standby, 
+    cus_note, male_state, deman_id, user_id, cus_entry
+  </sql>
+
+  <select id="allCustomers" resultMap="BaseResultMap">
+    SELECT * FROM customerss s LEFT JOIN level l on s.level_id=l.level_id
+                               LEFT JOIN rental_intention r on s.rental_id=r.rental_id
+                               LEFT JOIN source u on s.sou_id=u.sou_id
+                               LEFT JOIN state t on s.state_id=t.state_id
+                               LEFT JOIN demand_intention d on s.deman_id=d.demand_id
+                               LEFT JOIN demand_model dm on d.demand_id=dm.demand_id
+                               LEFT JOIN model_intention mi on dm.model_id=mi.model_id
+                               LEFT JOIN demand_use du on d.demand_id=du.demand_id
+                               LEFT JOIN use_intention ui on du.use_id=ui.use_id
+                               LEFT JOIN demand_decorate dd on d.demand_id=dd.demand_id
+                               LEFT JOIN decorate_intention di on di.decor_id=dd.decor_id
+                               LEFT JOIN demand_floor df on d.demand_id=df.demand_id
+                               LEFT JOIN floor_intention fi on df.floor_id=fi.floor_id
+  </select>
+
+  <select id="allCustomersBymaleState" resultMap="BaseResultMap">
+    SELECT * FROM customerss s LEFT JOIN level l on s.level_id=l.level_id
+                               LEFT JOIN rental_intention r on s.rental_id=r.rental_id
+                               LEFT JOIN source u on s.sou_id=u.sou_id
+                               LEFT JOIN state t on s.state_id=t.state_id
+                               LEFT JOIN demand_intention d on s.deman_id=d.demand_id
+                               LEFT JOIN demand_model dm on d.demand_id=dm.demand_id
+                               LEFT JOIN model_intention mi on dm.model_id=mi.model_id
+                               LEFT JOIN demand_use du on d.demand_id=du.demand_id
+                               LEFT JOIN use_intention ui on du.use_id=ui.use_id
+                               LEFT JOIN demand_decorate dd on d.demand_id=dd.demand_id
+                               LEFT JOIN decorate_intention di on di.decor_id=dd.decor_id
+                               LEFT JOIN demand_floor df on d.demand_id=df.demand_id
+                               LEFT JOIN floor_intention fi on df.floor_id=fi.floor_id
+    where s.male_state='已在公客池'
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from customerss
+    where cus_id = #{cusId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from customerss
+    where cus_id = #{cusId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="cus_id" keyProperty="cusId" parameterType="cn.gson.room_store.model.pojos.customers.Customerss" useGeneratedKeys="true">
+    insert into customerss (sou_id, rental_id, state_id, 
+      level_id, cus_name, cus_sex, 
+      cus_phone, cus_standby, cus_note, 
+      male_state, deman_id, user_id, 
+      cus_entry)
+    values (#{souId,jdbcType=INTEGER}, #{rentalId,jdbcType=INTEGER}, #{stateId,jdbcType=INTEGER}, 
+      #{levelId,jdbcType=INTEGER}, #{cusName,jdbcType=VARCHAR}, #{cusSex,jdbcType=VARCHAR}, 
+      #{cusPhone,jdbcType=VARCHAR}, #{cusStandby,jdbcType=VARCHAR}, #{cusNote,jdbcType=VARCHAR}, 
+      #{maleState,jdbcType=VARCHAR}, #{demanId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{cusEntry,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="cus_id" keyProperty="cusId" parameterType="cn.gson.room_store.model.pojos.customers.Customerss" useGeneratedKeys="true">
+    insert into customerss
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="souId != null">
+        sou_id,
+      </if>
+      <if test="rentalId != null">
+        rental_id,
+      </if>
+      <if test="stateId != null">
+        state_id,
+      </if>
+      <if test="levelId != null">
+        level_id,
+      </if>
+      <if test="cusName != null">
+        cus_name,
+      </if>
+      <if test="cusSex != null">
+        cus_sex,
+      </if>
+      <if test="cusPhone != null">
+        cus_phone,
+      </if>
+      <if test="cusStandby != null">
+        cus_standby,
+      </if>
+      <if test="cusNote != null">
+        cus_note,
+      </if>
+      <if test="maleState != null">
+        male_state,
+      </if>
+      <if test="demanId != null">
+        deman_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="cusEntry != null">
+        cus_entry,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="souId != null">
+        #{souId,jdbcType=INTEGER},
+      </if>
+      <if test="rentalId != null">
+        #{rentalId,jdbcType=INTEGER},
+      </if>
+      <if test="stateId != null">
+        #{stateId,jdbcType=INTEGER},
+      </if>
+      <if test="levelId != null">
+        #{levelId,jdbcType=INTEGER},
+      </if>
+      <if test="cusName != null">
+        #{cusName,jdbcType=VARCHAR},
+      </if>
+      <if test="cusSex != null">
+        #{cusSex,jdbcType=VARCHAR},
+      </if>
+      <if test="cusPhone != null">
+        #{cusPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cusStandby != null">
+        #{cusStandby,jdbcType=VARCHAR},
+      </if>
+      <if test="cusNote != null">
+        #{cusNote,jdbcType=VARCHAR},
+      </if>
+      <if test="maleState != null">
+        #{maleState,jdbcType=VARCHAR},
+      </if>
+      <if test="demanId != null">
+        #{demanId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="cusEntry != null">
+        #{cusEntry,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.gson.room_store.model.pojos.customers.Customerss">
+    update customerss
+    <set>
+      <if test="souId != null">
+        sou_id = #{souId,jdbcType=INTEGER},
+      </if>
+      <if test="rentalId != null">
+        rental_id = #{rentalId,jdbcType=INTEGER},
+      </if>
+      <if test="stateId != null">
+        state_id = #{stateId,jdbcType=INTEGER},
+      </if>
+      <if test="levelId != null">
+        level_id = #{levelId,jdbcType=INTEGER},
+      </if>
+      <if test="cusName != null">
+        cus_name = #{cusName,jdbcType=VARCHAR},
+      </if>
+      <if test="cusSex != null">
+        cus_sex = #{cusSex,jdbcType=VARCHAR},
+      </if>
+      <if test="cusPhone != null">
+        cus_phone = #{cusPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cusStandby != null">
+        cus_standby = #{cusStandby,jdbcType=VARCHAR},
+      </if>
+      <if test="cusNote != null">
+        cus_note = #{cusNote,jdbcType=VARCHAR},
+      </if>
+      <if test="maleState != null">
+        male_state = #{maleState,jdbcType=VARCHAR},
+      </if>
+      <if test="demanId != null">
+        deman_id = #{demanId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="cusEntry != null">
+        cus_entry = #{cusEntry,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cus_id = #{cusId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.customers.Customerss">
+    update customerss
+    set sou_id = #{souId,jdbcType=INTEGER},
+      rental_id = #{rentalId,jdbcType=INTEGER},
+      state_id = #{stateId,jdbcType=INTEGER},
+      level_id = #{levelId,jdbcType=INTEGER},
+      cus_name = #{cusName,jdbcType=VARCHAR},
+      cus_sex = #{cusSex,jdbcType=VARCHAR},
+      cus_phone = #{cusPhone,jdbcType=VARCHAR},
+      cus_standby = #{cusStandby,jdbcType=VARCHAR},
+      cus_note = #{cusNote,jdbcType=VARCHAR},
+      male_state = #{maleState,jdbcType=VARCHAR},
+      deman_id = #{demanId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      cus_entry = #{cusEntry,jdbcType=TIMESTAMP}
+    where cus_id = #{cusId,jdbcType=INTEGER}
+  </update>
+</mapper>

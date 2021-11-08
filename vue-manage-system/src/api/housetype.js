@@ -20,3 +20,9 @@ export function enit(data){
     data
   })
 }
+export function selectMap(){
+  return request({
+    url:'/type/selectMap',
+    method:'get',
+  })
+}

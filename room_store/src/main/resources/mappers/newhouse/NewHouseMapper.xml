@@ -14,9 +14,9 @@
     <result column="house_developer" jdbcType="VARCHAR" property="houseDeveloper" />
     <result column="house_certificate" jdbcType="VARCHAR" property="houseCertificate" />
     <result column="house_certificate_time" jdbcType="TIMESTAMP" property="houseCertificateTime" />
-    <result column="house_state" jdbcType="INTEGER" property="houseState" />
+    <result column="house_state" jdbcType="VARCHAR" property="houseState" />
     <result column="house_img" jdbcType="VARCHAR" property="houseImg" />
-    <result column="house_ishide" jdbcType="INTEGER" property="houseIshide" />
+    <result column="house_ishide" jdbcType="VARCHAR" property="houseIshide" />
     <result column="house_number" jdbcType="INTEGER" property="houseNumber" />
     <result column="type_id" jdbcType="INTEGER" property="typeId" />
     <result column="chara_id" jdbcType="INTEGER" property="charaId" />
@@ -34,6 +34,11 @@
     <include refid="Base_Column_List" />
     from new_house
     where house_id = #{houseId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from new_house
   </select>
   <select id="selectFindAll" parameterType="cn.gson.room_store.vo.newhouse.NewHouseSerachVo" resultMap="BaseResultMap">
     select

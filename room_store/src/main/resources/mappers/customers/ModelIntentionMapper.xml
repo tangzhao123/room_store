@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.customers.ModelIntentionMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.customers.ModelIntention">
+    <id column="model_id" jdbcType="INTEGER" property="modelId" />
+    <result column="model_name" jdbcType="VARCHAR" property="modelName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    model_id, model_name
+  </sql>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from model_intention
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from model_intention
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from model_intention
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="model_id" keyProperty="modelId" parameterType="cn.gson.room_store.model.pojos.customers.ModelIntention" useGeneratedKeys="true">
+    insert into model_intention (model_name)
+    values (#{modelName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="model_id" keyProperty="modelId" parameterType="cn.gson.room_store.model.pojos.customers.ModelIntention" useGeneratedKeys="true">
+    insert into model_intention
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="modelName != null">
+        model_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="modelName != null">
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.gson.room_store.model.pojos.customers.ModelIntention">
+    update model_intention
+    <set>
+      <if test="modelName != null">
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.customers.ModelIntention">
+    update model_intention
+    set model_name = #{modelName,jdbcType=VARCHAR}
+    where model_id = #{modelId,jdbcType=INTEGER}
+  </update>
+</mapper>
