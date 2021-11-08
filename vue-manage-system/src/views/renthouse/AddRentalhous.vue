@@ -550,53 +550,60 @@ import { ElMessage } from 'element-plus'
 		},
 		methods: {
 			baocun(){
-				//判断是否有房源图
-				this.rentalhousing.rehoRoomnumber = this.rentalhousing.rehoRoomnumber+"号";
-				var use = this.$store.state.token;
-				this.rentalhousing.rehoUsersNo = use.userID;
-				var number = "ZF"+Date.parse(new Date());
-				this.rentalhousing.rehoNumber = number;
-				this.rentalhousing.rehoSite = use.userProvince+","+use.userCity+","+this.quname;
-
-				var a = "";
-				this.rehoSuppfacility.forEach((v)=>{
-					a += v+",";
-				});
-				if(a.length > 0){
-					a = a.substr(0,a.length-1)
-					this.rentalhousing.rehoSuppfacility = a;
-				}
-				
-				var b = "";
-				this.rehoHouslabel.forEach((v)=>{
-					b += v+",";
-				});
-				if(b.length > 0){
-					b = b.substr(0,b.length-1);
-					this.rentalhousing.rehoHouslabel = b;
-					
-				}
-
-				// 新增房源
-				this.axios.post("Renthouse/insertRentalhousing", this.rentalhousing).then((res) => {
-					console.log(res)
+				if(this.rentalhousing.rehoZhutu == ""){
 					ElMessage({
-						message: '新增成功！',
-						type: 'success',
+						message: '请添加房源图片',
+						type: 'warning',
 					})
-					this.closes();
-					this.$router.push("/rentalhousing");
-					// if (res.data == 'ok') {
+				}else{
+					//判断是否有房源图
+					this.rentalhousing.rehoRoomnumber = this.rentalhousing.rehoRoomnumber+"号";
+					var use = this.$store.state.token;
+					this.rentalhousing.rehoUsersNo = use.userID;
+					var number = "ZF"+Date.parse(new Date());
+					this.rentalhousing.rehoNumber = number;
+					this.rentalhousing.rehoSite = use.userProvince+","+use.userCity+","+this.quname;
 
-					// 	this.getData();
-					// 	this.$message.success("新增成功！");
-					// } else {
-					// 	this.$message.error("新增失败！")
-					// }
-					//成功！
-				}).catch(() => {
-					this.$message.error("新增失败！")
-				})
+					var a = "";
+					this.rehoSuppfacility.forEach((v)=>{
+						a += v+",";
+					});
+					if(a.length > 0){
+						a = a.substr(0,a.length-1)
+						this.rentalhousing.rehoSuppfacility = a;
+					}
+					
+					var b = "";
+					this.rehoHouslabel.forEach((v)=>{
+						b += v+",";
+					});
+					if(b.length > 0){
+						b = b.substr(0,b.length-1);
+						this.rentalhousing.rehoHouslabel = b;
+						
+					}
+
+					// 新增房源
+					this.axios.post("Renthouse/insertRentalhousing", this.rentalhousing).then((res) => {
+						console.log(res)
+						ElMessage({
+							message: '新增成功！',
+							type: 'success',
+						})
+						this.closes();
+						this.$router.push("/rentalhousing");
+						// if (res.data == 'ok') {
+
+						// 	this.getData();
+						// 	this.$message.success("新增成功！");
+						// } else {
+						// 	this.$message.error("新增失败！")
+						// }
+						//成功！
+					}).catch(() => {
+						this.$message.error("新增失败！")
+					})
+				}
 			},
 			chanRehoHousetype(){
 				if(this.woshi != "" && this.dating != "" && this.wei != ""){
@@ -696,10 +703,97 @@ import { ElMessage } from 'element-plus'
 
 			//点击下一步显示更多信息
 			showMore() {
-				this.flag = false;
-				this.flag1 = true;
-				this.isActive = false;
-				this.isMore = true;
+				var fl = true;
+				if(this.quid == ""){
+					ElMessage({
+						message: '请选择区',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.xquid == ""){
+					ElMessage({
+						message: '请选择小区',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.rentalhousing.rehoCoveredarea == ""){
+					ElMessage({
+						message: '请输入建筑面积',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.woshi == ""){
+					ElMessage({
+						message: '请选择室',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.dating == ""){
+					ElMessage({
+						message: '请选择厅',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.wei == ""){
+					ElMessage({
+						message: '请选择卫',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.rentalhousing.rehoOrientation == ""){
+					ElMessage({
+						message: '请选择朝向',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.rentalhousing.rehoCoveredarea != ""){
+					if(!this.isRealNum(this.rentalhousing.rehoCoveredarea)){
+						fl = false;
+						ElMessage({
+							message: '建筑面积请输入数字！',
+							type: 'warning',
+						})
+					}
+				}
+				if(this.rentalhousing.rehoInsidespace != ""){
+					if(!this.isRealNum(this.rentalhousing.rehoInsidespace)){
+						fl = false;
+						ElMessage({
+							message: '套内面积请输入数字！',
+							type: 'warning',
+						})
+					}else{
+						if(this.rentalhousing.rehoInsidespace > this.rentalhousing.rehoCoveredarea){
+							fl = false;
+							ElMessage({
+								message: '套内面积不能大于建筑面积！',
+								type: 'warning',
+							})
+						}
+					}
+				}
+
+				if(fl){
+					this.flag = false;
+					this.flag1 = true;
+					this.isActive = false;
+					this.isMore = true;
+				}
+			},
+			isRealNum(val){
+				// isNaN()函数 把空串 空格 以及NUll 按照0来处理 所以先去除，
+				if(val === "" || val ==null){
+					return false;
+				}
+				if(!isNaN(val)){	
+					//对于空数组和只有一个数值成员的数组或全是数字组成的字符串，isNaN返回false，例如：'123'、[]、[2]、['123'],isNaN返回false,
+					//所以如果不需要val包含这些特殊情况，则这个判断改写为if(!isNaN(val) && typeof val === 'number' )
+					return true; 
+				}
+
+				else{ 
+					return false; 
+				} 
 			},
 			//点击更多信息上一步显示基本信息
 			showBasic() {
@@ -710,10 +804,53 @@ import { ElMessage } from 'element-plus'
 			},
 			//点击下一步显示房源图片界面
 			showHousing() {
-				this.flag1 = false;
-				this.flag2 = true;
-				this.isMore = false;
-				this.isPicture = true;
+				var fl = true;
+				if(this.rentalhousing.rehoRentouttitle == ""){
+					ElMessage({
+						message: '请填写房屋出租标题！',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.rentalhousing.rehoRent == ""){
+					ElMessage({
+						message: '请填写期望租金！',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.rentalhousing.rehoPayway == ""){
+					ElMessage({
+						message: '请选择付款方式！',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.rentalhousing.rehoFitmenttype == ""){
+					ElMessage({
+						message: '请选择装修类型！',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.rehoSuppfacility == ""){
+					ElMessage({
+						message: '请选择配套设施!',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.rentalhousing.rehoRent != ""){
+					if(!this.isRealNum(this.rentalhousing.rehoRent)){
+						fl = false;
+						ElMessage({
+							message: '前期租金请输入数字！',
+							type: 'warning',
+						})
+					}
+				}
+
+				if(fl){
+					this.flag1 = false;
+					this.flag2 = true;
+					this.isMore = false;
+					this.isPicture = true;
+				}
 			},
 			//点击房源上一步显示更多信息
 			showMores() {

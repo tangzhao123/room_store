@@ -111,6 +111,7 @@
                 </if>
             </foreach>
         </if>
+        and r.reho_users_no = #{userid}
         order by reho_date desc
     </select>
 

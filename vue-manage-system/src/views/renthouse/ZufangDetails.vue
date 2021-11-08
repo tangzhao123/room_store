@@ -60,8 +60,8 @@
 					</el-col>
 					<el-col :span="10">
 						发布时间：<span style="color:#300;font-weight:500">{{housing.rehoDate}}</span><br><br>
-						房屋朝向：<span style="color:#300;font-weight:500">{{housing.rehoLivefewfloor}}/(共{{housing.rehoFloornumber}})</span><br><br>
-						所在楼层：<span style="color:#300;font-weight:500">{{housing.rehoOrientation}}</span><br><br>
+						房屋朝向：<span style="color:#300;font-weight:500">{{housing.rehoOrientation}}</span><br><br>
+						所在楼层：<span style="color:#300;font-weight:500">{{housing.rehoLivefewfloor}}/(共{{housing.rehoFloornumber}})</span><br><br>
 						小区名称：<span style="color:#300;font-weight:500">{{housing.rehoCommunity}}</span><br>
 					</el-col>
 				</el-row>

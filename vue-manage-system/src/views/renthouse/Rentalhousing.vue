@@ -69,14 +69,14 @@
 				<el-col :span="4">
 					<el-form label-width="80px">
 						<el-form-item label="">
-							<el-input v-model="zuidi" placeholder="最低资金" />
+							<el-input v-model="zuidi" placeholder="资金" />
 						</el-form-item>
 					</el-form>
 				</el-col>
 				<el-col :span="3">
 					<el-form label-width="30px">
 						<el-form-item label="-">
-							<el-input v-model="zuigao" placeholder="最高资金" />
+							<el-input v-model="zuigao" placeholder="资金" />
 						</el-form-item>
 					</el-form>
 				</el-col>
@@ -299,6 +299,7 @@
 </template>
 
 <script>
+import { ElMessage } from 'element-plus'
 	export default {
 		data() {
 			return {
@@ -388,13 +389,48 @@
 					leixings:leixings,
 					zujins:zujins,
 					jines:jines,
-					quyus:quyus
+					quyus:quyus,
+					userid:this.$store.state.token.userID
 				}
-				console.log(voRentalhousing);
-				this.axios.post("Renthouse/findRentalhousingMultiple", voRentalhousing).then((res) => {
-					this.tableData1 = res.data;
-				}).catch(() => {
-				});
+				var fl = true;
+				if(this.zuidi != ""){
+					if(!this.isRealNum(this.zuidi)){
+						fl = false;
+						ElMessage({
+							message: '金额请输入数字！',
+							type: 'warning',
+						})
+					}
+				}
+				if(this.zuigao != ""){
+					if(!this.isRealNum(this.zuigao)){
+						fl = false;
+						ElMessage({
+							message: '金额请输入数字！',
+							type: 'warning',
+						})
+					}
+				}
+				
+				if(fl){
+					this.axios.post("Renthouse/findRentalhousingMultiple", voRentalhousing).then((res) => {
+						this.tableData1 = res.data;
+					}).catch(() => {
+					});
+				}
+			},
+			isRealNum(val){
+				// isNaN()函数 把空串 空格 以及NUll 按照0来处理 所以先去除，
+				if(val === "" || val ==null){
+					return false;
+				}
+				if(!isNaN(val)){	
+					//对于空数组和只有一个数值成员的数组或全是数字组成的字符串，isNaN返回false，例如：'123'、[]、[2]、['123'],isNaN返回false,
+					//所以如果不需要val包含这些特殊情况，则这个判断改写为if(!isNaN(val) && typeof val === 'number' )
+					return true; 
+				}else{ 
+					return false; 
+				} 
 			},
 			xiajia(row){
 				var zt = 1
@@ -425,21 +461,39 @@
 				}).catch()
 			},
 			quedingyiru(){
-				var rentalpublicpools = {
-					reppRehoNo:this.xjrehoNumber,
-					reppMoney:this.tigong
-				}
-				this.axios.post("Renthouse/insertRentalpublicpools", rentalpublicpools).then((res) => {
-					this.getData1();
-					var sj = "移入";
-					if(this.yrrehoGfczt == 2){
-						sj = "移出";
+				var fl = true
+				if(this.tigong == ""){
+					ElMessage({
+						message: '请输入成交奖励！',
+						type: 'warning',
+					})
+					fl = false;
+				}else if(this.tigong != ""){
+					if(!this.isRealNum(this.tigong)){
+						fl = false;
+						ElMessage({
+							message: '成交奖励请输入数字！',
+							type: 'warning',
+						})
 					}
-					this.tigong = "";
-					this.$message.success(sj+"成功！");
-					this.centerDialogVisible = false;
-					console.log(res)
-				}).catch()
+				}
+				if(fl){
+					var rentalpublicpools = {
+						reppRehoNo:this.xjrehoNumber,
+						reppMoney:this.tigong
+					}
+					this.axios.post("Renthouse/insertRentalpublicpools", rentalpublicpools).then((res) => {
+						this.getData1();
+						var sj = "移入";
+						if(this.yrrehoGfczt == 2){
+							sj = "移出";
+						}
+						this.tigong = "";
+						this.$message.success(sj+"成功！");
+						this.centerDialogVisible = false;
+						console.log(res)
+					}).catch()
+				}
 			},
 			qdyichu(){
 				this.axios({
