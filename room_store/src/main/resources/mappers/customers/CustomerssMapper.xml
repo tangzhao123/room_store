@@ -79,6 +79,26 @@
                                LEFT JOIN decorate_intention di on di.decor_id=dd.decor_id
                                LEFT JOIN demand_floor df on d.demand_id=df.demand_id
                                LEFT JOIN floor_intention fi on df.floor_id=fi.floor_id
+    <where>
+      <if test="userId!=null and userId!=''">
+        and s.user_id=#{userId}
+      </if>
+      <if test="cusPhone != null and cusPhone!=''">
+        and s.cus_phone=#{cusPhone}
+      </if>
+      <if test="souId != null and souId!=''">
+        and s.sou_id=#{souId}
+      </if>
+      <if test="rentalId != null and rentalId!=''">
+        and s.rental_id=#{rentalId}
+      </if>
+      <if test="stateId != null and stateId!=''">
+        and s.state_id=#{stateId}
+      </if>
+      <if test="levelId != null and levelId!=''">
+        and s.level_id=#{levelId}
+      </if>
+    </where>
   </select>
 
   <select id="allCustomersBymaleState" resultMap="BaseResultMap">

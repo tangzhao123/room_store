@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.secondary.HandHouseMapper">
+
+
+    <!-- 移入公房池 -->
+    <insert id="addHandHouse">
+        insert into hand_house values (0,#{houseNumber},#{secondaryNumber},#{housePrice},current_timestamp )
+    </insert>
+    
+    <!-- 修改房源状态（移入） -->
+    <update id="move">
+        update secondary set secondary_pools_access = 1 where secondary_number = #{secondaryNumber}
+    </update>
+
+    <!-- 修改房源状态（移出） -->
+    <update id="remove">
+        update secondary set secondary_pools_access = 0 where secondary_number = #{secondaryNumber}
+    </update>
+
+    <!-- 根据房源编号删除公房池信息 -->
+    <delete id="delHandHouse">
+        delete from hand_house  where secondary_number = #{secondaryNumber}
+    </delete>
+
+    <select id="findAllHandHouse" resultType="cn.gson.room_store.model.pojos.secondary.Secondary">
+        select * from hand_house h
+        left join secondary  s on h.secondary_number = s.secondary_number
+        <where>
+            <if test="name != null and '' !=name">
+                secondary_village like '%${name}%'
+            </if>
+        </where>
+        order by house_date desc
+    </select>
+</mapper>

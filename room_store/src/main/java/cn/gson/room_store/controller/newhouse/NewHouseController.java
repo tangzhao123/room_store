@@ -38,9 +38,8 @@ public class NewHouseController {
     }
 
     @GetMapping("/selectAll")
-    public Result selectAll(){
-        List<NewHouse> newHouses = newHouseService.selectAll();
-        return Result.success(newHouses);
+    public List<NewHouse> selectAll(@RequestParam("userId") Integer userId){
+        return newHouseService.selectAll(userId);
     }
     @GetMapping("/selectMap")
     public Result selectMap(){

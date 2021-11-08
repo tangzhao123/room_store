@@ -20,4 +20,8 @@ public interface HousingRecommendedMapper {
     int updateByPrimaryKeySelective(HousingRecommended record);
 
     int updateByPrimaryKey(HousingRecommended record);
+
+    List<HousingRecommended> selectHouBycusId(Integer cusId);
+
+    List<HousingRecommended> selectSecBycusId(Integer cusId);
 }

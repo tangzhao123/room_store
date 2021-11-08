@@ -48,6 +48,11 @@
             <result column="reho_users_no" property="rehoUsersNo" />
             <result column="reho_zhutu" property="rehoZhutu" />
             <result column="reho_weituo" property="rehoWeito" />
+            <association property="users" javaType="cn.gson.room_store.model.pojos.secondary.Users">
+                <id column="user_id" property="userID" />
+                <result column="user_name" property="userName" />
+                <result column="user_phone" property="userPhone" />
+            </association>
         </association>
     </resultMap>
 
@@ -56,11 +61,31 @@
 
     <select id="findAllRentalpublicpools" resultMap="rentalpublicpools">
         select * from rentalpublicpools p inner join rentalhousing r on p.repp_reho_no = r.reho_number
+        inner join users u on r.reho_users_no = u.user_id where 1 = 1
+        <if test="xiaoqu != null and xiaoqu != ''">
+            and r.reho_community like '%${xiaoqu}%'
+        </if>
+        <if test="chegshi != null and chegshi != ''">
+            and u.user_city like '%${chegshi}%'
+        </if>
+        <if test="maxje != -100">
+            and r.reho_rent between #{minje} and #{maxje}
+        </if>
+        <if test="maxm2 != -100">
+            and r.reho_coveredarea between #{minm2} and #{maxm2}
+        </if>
+        <if test="zhuangxiu != null and zhuangxiu.length >0">
+            and
+            <foreach collection="zhuangxiu" index="index" item="item" open="(" separator="or" close=")">
+                r.reho_fitmenttype like '%${item}%'
+            </foreach>
+        </if>
+        order by repp_date desc
     </select>
 
     <!-- 查询租房公房池推荐客源 -->
     <select id="findRentalpublicpoolsAndCustomers" resultMap="customers">
-        select * from customers c right join rentalhousing r on c.secondary_number = r.reho_number where r.reho_number = #{param}
+        select * from customers where secondary_number = #{param}
     </select>
 
     <!-- 租房公房池推荐客源 完成跟进、无效 -->
@@ -92,45 +117,5 @@
         <result column="customers_phone" property="customersPhone" />
         <result column="customers_date" property="customersDate" />
         <result column="customers_state" property="customersState" />
-        <association property="rentalHousing" javaType="cn.gson.room_store.model.pojos.renthouse.Rentalhousing">
-            <id column="reho_no" property="rehoNo" />
-            <result column="reho_number" property="rehoNumber" />
-            <result column="reho_site" property="rehoSite" />
-            <result column="reho_community" property="rehoCommunity" />
-            <result column="reho_unit" property="rehoUnit" />
-            <result column="reho_building" property="rehoBuilding" />
-            <result column="reho_floornumber" property="rehoFloornumber" />
-            <result column="reho_livefewfloor" property="rehoLivefewfloor" />
-            <result column="reho_roomnumber" property="rehoRoomnumber" />
-            <result column="reho_coveredarea" property="rehoCoveredarea" />
-            <result column="reho_insidespace" property="rehoInsidespace" />
-            <result column="reho_housetype" property="rehoHousetype" />
-            <result column="reho_orientation" property="rehoOrientation" />
-            <result column="reho_elevator" property="rehoElevator" />
-            <result column="reho_housingtypes" property="rehoHousingtypes" />
-            <result column="reho_ladder" property="rehoLadder" />
-            <result column="reho_households" property="rehoHouseholds" />
-            <result column="reho_certcate_cover" property="rehoCertcateCover" />
-            <result column="reho_certcate_backcover" property="rehoCertcateBackcover" />
-            <result column="reho_certcate_qsy" property="rehoCertcateQsy" />
-            <result column="reho_certcate_familypage" property="rehoCertcateFamilypage" />
-            <result column="reho_rentouttitle" property="rehoRentouttitle" />
-            <result column="reho_rent" property="rehoRent" />
-            <result column="reho_payway" property="rehoPayway" />
-            <result column="reho_fitmenttype" property="rehoFitmenttype" />
-            <result column="reho_shortestlease" property="rehoShortestlease" />
-            <result column="reho_suppfacility" property="rehoSuppfacility" />
-            <result column="reho_houslabel" property="rehoHouslabel" />
-            <result column="reho_housremark" property="rehoHousremark" />
-            <result column="reho_genjindate" property="rehoGenjindate" />
-            <result column="reho_xcgenjindate" property="rehoXcgenjindate" />
-            <result column="reho_date" property="rehoDate" />
-            <result column="reho_shelf" property="rehoShelf" />
-            <result column="reho_gfczt" property="rehoGfczt" />
-            <result column="reho_good_room" property="rehoGoodRoom" />
-            <result column="reho_users_no" property="rehoUsersNo" />
-            <result column="reho_zhutu" property="rehoZhutu" />
-            <result column="reho_weituo" property="rehoWeito" />
-        </association>
     </resultMap>
 </mapper>

@@ -18,17 +18,18 @@ public class LookRecordController {
 
     //查询二手房带看记录 根据房源编号查询
     @RequestMapping("look-record-list")
-    public List<LookRecord> findAllLookRecord(int look_id){
-        return lookRecordService.findAllLookRecord(look_id);
+    public LookRecord findAllLookRecord(int lookId){
+        return lookRecordService.findAllLookRecord(lookId);
     }
 
     //查询二手房带看记录
     @RequestMapping("record-list")
-    public List<LookRecord> allLookRecord(){
-        return lookRecordService.allLookRecord();
+    public List<LookRecord> allLookRecord(String keyWord,int userId){
+        return lookRecordService.allLookRecord(keyWord,userId);
     }
 
 
+    //新增带看记录
     @RequestMapping("add-look-record")
     public String addLookRecord(@RequestBody LookRecord lookRecord){
         try {

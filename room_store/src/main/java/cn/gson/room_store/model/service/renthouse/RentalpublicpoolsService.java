@@ -51,7 +51,8 @@ public class RentalpublicpoolsService {
         rentalhousingMapper.updateRentalhousingRehoGfcztByNumber(1,rentalpublicpools.getReppRehoNo());
         rentalfollowupMapper.insertRentalpublicpools(rentalpublicpools);
     }
-    public List<Rentalpublicpools> findAllRentalpublicpools(){
-        return rentalfollowupMapper.findAllRentalpublicpools();
+
+    public List<Rentalpublicpools> findAllRentalpublicpools(double maxm2, double minm2, double maxje, double minje, String chegshi, String xiaoqu, String[] zhuangxiu) {
+        return rentalfollowupMapper.findAllRentalpublicpools(zhuangxiu,maxm2,  minm2,  maxje,  minje,  chegshi,  xiaoqu);
     }
 }

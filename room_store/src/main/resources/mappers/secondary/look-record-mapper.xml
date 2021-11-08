@@ -5,18 +5,29 @@
 
     <!-- 查询二手房带看记录 根据带看编号查询 -->
     <select id="findAllLookRecord" resultType="cn.gson.room_store.model.pojos.secondary.LookRecord">
-        select * from look_record where look_id = #{lookId}
+        select * from look_record l
+        left join secondary s on l.secondary_number = s.secondary_number
+        where look_id = #{lookId}
+        order by look_end desc
     </select>
 
     <!-- 查询二手房带看记录  -->
     <select id="allLookRecord" resultType="cn.gson.room_store.model.pojos.secondary.LookRecord">
         select * from look_record l
         left join secondary s on l.secondary_number = s.secondary_number
+        <where>
+        1=1
+            <if test="keyWord != null and '' != keyWord">
+                and l.look_name like '%${keyWord}%' or l.look_phone like '%${keyWord}%' or s.secondary_village like '%${keyWord}%' or l.secondary_number like '%${keyWord}%'
+            </if>
+            and l.user_id = #{userId}
+        </where>
+        order by look_end desc
     </select>
 
 
     <!-- 新增带看记录 -->
     <insert id="addLookRecord">
-        insert into look_record values (0,#{lookMake},#{lookEnd},#{lookName},#{lookPhone},#{secondaryNumber},#{lookTitle},#{lookPicture},'完成')
+        insert into look_record values (0,#{lookMake},#{lookEnd},#{lookName},#{lookPhone},#{secondaryNumber},#{lookTitle},#{lookPicture},'完成',#{userId})
     </insert>
 </mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.secondary.CustomersMapper">
+
+    <!-- 新增公房池的客源推荐 -->
+    <insert id="addCustomers">
+        insert into customers values (0,#{secondaryNumber},#{customersName},#{customersPhone},current_timestamp ,0)
+    </insert>
+
+    <!-- 根据房源编号查询公房池推荐 -->
+    <select id="findAllCustomers" resultType="cn.gson.room_store.model.pojos.secondary.Customers">
+        select * from customers where secondary_number = #{secondaryNumber} order by customers_date desc
+    </select>
+
+    <!-- 修改状态（跟进） -->
+    <update id="follow">
+        update customers set customers_state = 1 where customers_id = #{customersId}
+    </update>
+
+    <!-- 修改状态（无效） -->
+    <update id="invalid">
+        update customers set customers_state = 2 where customers_id = #{customersId}
+    </update>
+</mapper>

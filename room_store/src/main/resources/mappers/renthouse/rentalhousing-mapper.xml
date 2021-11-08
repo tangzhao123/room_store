@@ -43,6 +43,11 @@
         <result column="reho_users_no" property="rehoUsersNo" />
         <result column="reho_zhutu" property="rehoZhutu" />
         <result column="reho_weituo" property="rehoWeito" />
+        <association property="users" javaType="cn.gson.room_store.model.pojos.secondary.Users">
+            <id column="user_id" property="userID" />
+            <result column="user_name" property="userName" />
+            <result column="user_phone" property="userPhone" />
+        </association>
     </resultMap>
 
     <!-- 多条件模糊查询 -->
@@ -106,6 +111,7 @@
                 </if>
             </foreach>
         </if>
+        and r.reho_users_no = #{userid}
         order by reho_date desc
     </select>
 
@@ -143,7 +149,7 @@
 
     <!-- 编号查询租房房源(为了修改，用于回显) -->
     <select id="findRentalhousingByNumber" resultMap="rentalhousing">
-        select * from rentalhousing where reho_number = #{param}
+        select * from rentalhousing r inner join users u on r.reho_users_no = u.user_id where r.reho_number = #{param}
     </select>
 
     <!-- 修改租房房源上下架状态 -->

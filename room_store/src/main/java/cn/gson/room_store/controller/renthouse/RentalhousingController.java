@@ -94,8 +94,9 @@ public class RentalhousingController {
         }
         //区域quyus
 
+        String userid = voRentalhousing.getUserid();
 //        name,yezhu,fyzt,zhifus,biaoqians,leixings,xiao,da,list,quyus
-        return rentalhousingService.findRentalhousingMultiple(name,yezhu,fyzt,zhifus,biaoqians,leixings,xiao,da,list,quyus);
+        return rentalhousingService.findRentalhousingMultiple(name,yezhu,fyzt,zhifus,biaoqians,leixings,xiao,da,list,quyus,userid);
     }
 
     //修改租房房源

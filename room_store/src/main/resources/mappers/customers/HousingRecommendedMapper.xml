@@ -6,6 +6,72 @@
     <result column="rec_cus" jdbcType="INTEGER" property="recCus" />
     <result column="rec_hou" jdbcType="INTEGER" property="recHou" />
     <result column="rec_sec" jdbcType="INTEGER" property="recSec" />
+    <association property="newHouse" javaType="cn.gson.room_store.model.pojos.newhouse.NewHouse">
+      <id column="house_id" jdbcType="INTEGER" property="houseId" />
+      <result column="house_name" jdbcType="VARCHAR" property="houseName" />
+      <result column="house_position" jdbcType="VARCHAR" property="housePosition" />
+      <result column="house_address" jdbcType="VARCHAR" property="houseAddress" />
+      <result column="house_property" jdbcType="VARCHAR" property="houseProperty" />
+      <result column="house_area" jdbcType="INTEGER" property="houseArea" />
+      <result column="house_characteristic" jdbcType="VARCHAR" property="houseCharacteristic" />
+      <result column="house_price" jdbcType="DOUBLE" property="housePrice" />
+      <result column="house_total_price" jdbcType="DOUBLE" property="houseTotalPrice" />
+      <result column="house_developer" jdbcType="VARCHAR" property="houseDeveloper" />
+      <result column="house_certificate" jdbcType="VARCHAR" property="houseCertificate" />
+      <result column="house_certificate_time" jdbcType="TIMESTAMP" property="houseCertificateTime" />
+      <result column="house_state" jdbcType="VARCHAR" property="houseState" />
+      <result column="house_img" jdbcType="VARCHAR" property="houseImg" />
+      <result column="house_ishide" jdbcType="VARCHAR" property="houseIshide" />
+      <result column="house_number" jdbcType="INTEGER" property="houseNumber" />
+      <result column="type_id" jdbcType="INTEGER" property="typeId" />
+      <result column="chara_id" jdbcType="INTEGER" property="charaId" />
+      <result column="good_id" jdbcType="INTEGER" property="goodId" />
+      <result column="house_users_no" jdbcType="INTEGER" property="houseUsersNo" />
+    </association>
+    <association property="secondary" javaType="cn.gson.room_store.model.pojos.secondary.Secondary">
+      <id column="secondary_id" jdbcType="INTEGER" property="secondaryId" />
+      <result column="secondary_number" jdbcType="VARCHAR" property="secondaryNumber" />
+      <result column="secondary_city" jdbcType="VARCHAR" property="secondaryCity" />
+      <result column="secondary_village" jdbcType="VARCHAR" property="secondaryVillage" />
+      <result column="secondary_floor" jdbcType="VARCHAR" property="secondaryFloor" />
+      <result column="secondary_layer" jdbcType="VARCHAR" property="secondaryLayer" />
+      <result column="secondary_unit" jdbcType="VARCHAR" property="secondaryUnit" />
+      <result column="secondary_building" jdbcType="VARCHAR" property="secondaryBuilding" />
+      <result column="secondary_room" jdbcType="VARCHAR" property="secondaryRoom" />
+      <result column="secondary_area" jdbcType="INTEGER" property="secondaryArea" />
+      <result column="secondary_within" jdbcType="INTEGER" property="secondaryWithin" />
+      <result column="secondary_model" jdbcType="VARCHAR" property="secondaryModel" />
+      <result column="secondary_toward" jdbcType="VARCHAR" property="secondaryToward" />
+      <result column="secondary_year" jdbcType="INTEGER" property="secondaryYear" />
+      <result column="secondary_use" jdbcType="VARCHAR" property="secondaryUse" />
+      <result column="secondary_ladder" jdbcType="VARCHAR" property="secondaryLadder" />
+      <result column="secondary_elevator" jdbcType="VARCHAR" property="secondaryElevator" />
+      <result column="secondary_cover" jdbcType="VARCHAR" property="secondaryCover" />
+      <result column="secondary_back" jdbcType="VARCHAR" property="secondaryBack" />
+      <result column="secondary_page" jdbcType="VARCHAR" property="secondaryPage" />
+      <result column="secondary_family" jdbcType="VARCHAR" property="secondaryFamily" />
+      <result column="secondary_title" jdbcType="VARCHAR" property="secondaryTitle" />
+      <result column="secondary_price" jdbcType="DOUBLE" property="secondaryPrice" />
+      <result column="secondary_type" jdbcType="VARCHAR" property="secondaryType" />
+      <result column="secondary_access" jdbcType="VARCHAR" property="secondaryAccess" />
+      <result column="secondary_lable" jdbcType="VARCHAR" property="secondaryLable" />
+      <result column="secondary_power" jdbcType="VARCHAR" property="secondaryPower" />
+      <result column="secondary_rights" jdbcType="VARCHAR" property="secondaryRights" />
+      <result column="secondary_buy" jdbcType="VARCHAR" property="secondaryBuy" />
+      <result column="secondary_only" jdbcType="VARCHAR" property="secondaryOnly" />
+      <result column="secondary_housing" jdbcType="VARCHAR" property="secondaryHousing" />
+      <result column="secondary_community" jdbcType="VARCHAR" property="secondaryCommunity" />
+      <result column="secondary_school" jdbcType="VARCHAR" property="secondarySchool" />
+      <result column="secondary_advantage" jdbcType="VARCHAR" property="secondaryAdvantage" />
+      <result column="secondary_owner" jdbcType="VARCHAR" property="secondaryOwner" />
+      <result column="secondary_state" jdbcType="INTEGER" property="secondaryState" />
+      <result column="secondary_pools_access" jdbcType="INTEGER" property="secondaryPoolsAccess" />
+      <result column="secondary_availability" jdbcType="TIMESTAMP" property="secondaryAvailability" />
+      <result column="good_room" jdbcType="INTEGER" property="goodRoom" />
+      <result column="user_id" jdbcType="INTEGER" property="userId" />
+      <result column="secondary_entrust" jdbcType="VARCHAR" property="secondaryEntrust" />
+      <result column="secondary_picture" jdbcType="VARCHAR" property="secondaryPicture" />
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
     rec_id, rec_cus, rec_hou, rec_sec
@@ -16,6 +82,16 @@
     from housing_recommended
     where rec_id = #{recId,jdbcType=INTEGER}
   </select>
+  <select id="selectHouBycusId" resultMap="BaseResultMap">
+    select * from housing_recommended hr LEFT JOIN new_house nh on hr.rec_hou=nh.house_id LEFT JOIN secondary s on hr.rec_sec=s.secondary_id
+    where hr.rec_cus=#{cusId} and hr.rec_hou is not null
+  </select>
+
+  <select id="selectSecBycusId" resultMap="BaseResultMap">
+    select * from housing_recommended hr LEFT JOIN new_house nh on hr.rec_hou=nh.house_id LEFT JOIN secondary s on hr.rec_sec=s.secondary_id
+    where hr.rec_cus=#{cusId} and hr.rec_sec is not null
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from housing_recommended
     where rec_id = #{recId,jdbcType=INTEGER}

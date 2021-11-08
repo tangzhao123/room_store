@@ -62,11 +62,12 @@ public class CustomerssService {
             demandFloorMapper.deleteBydemandId(demand.getDemandId());
         }else{
              demandIntentionMapper.insert(demand);
+            if(customers.getDemanId()==null){
+                customers.setDemanId(demand.getDemandId());
+            }
              i= customerssMapper.insertSelective(customers);
         }
-        if(customers.getDemanId()==null){
-            customers.setDemanId(demand.getDemandId());
-        }
+
             List<DemandModelKey> list=new ArrayList<>();
             for(Integer p : SelectedModelIntentionList) {
                 DemandModelKey demandModelKey = new DemandModelKey();
@@ -122,8 +123,8 @@ public class CustomerssService {
      * 根据用户查询该下的客源
      * @return
      */
-    public List<Customerss> allCustomers(){
-        return customerssMapper.allCustomers();
+    public List<Customerss> allCustomers(Integer userId,String cusPhone,String rentalId,String souId,String stateId,String levelId){
+        return customerssMapper.allCustomers(userId,cusPhone,rentalId,souId,stateId,levelId);
     }
 
     public Map<String,Object> getallCustomers(Integer cusId) {

@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { ElMessage } from 'element-plus'
 	export default {
 		data() {
 			return {
@@ -83,22 +84,37 @@
 				this.$router.push("/rentalhousing");
 			},
 			queding(){
-				if(this.zx == "新增"){
-					this.axios.post("Renthouse/insertRentalowner", this.rentalowner).then((res) => {
-						this.clear();
-						console.log(res)
-						this.$router.push("/rentalhousing");
-					}).catch(() => {
-						
-					});
-				}else{
-					this.axios.post("Renthouse/updateRentalowner", this.rentalowner).then((res) => {
-						console.log(res)
-						this.clear();
-						this.$router.push("/rentalhousing");
-					}).catch(() => {
-						
-					});
+				var fl = true;
+				if(this.rentalowner.reowName == ""){
+					ElMessage({
+						message: '请输入业主姓名！',
+						type: 'warning',
+					})
+				}else if(this.rentalowner.reowPhone == ""){
+					ElMessage({
+						message: '请输入业主电话！',
+						type: 'warning',
+					})
+				}
+
+				if(fl){
+					if(this.zx == "新增"){
+						this.axios.post("Renthouse/insertRentalowner", this.rentalowner).then((res) => {
+							this.clear();
+							console.log(res)
+							this.$router.push("/rentalhousing");
+						}).catch(() => {
+							
+						});
+					}else{
+						this.axios.post("Renthouse/updateRentalowner", this.rentalowner).then((res) => {
+							console.log(res)
+							this.clear();
+							this.$router.push("/rentalhousing");
+						}).catch(() => {
+							
+						});
+					}
 				}
 			},
 			getDate(){

@@ -71,7 +71,7 @@ select * FROM new_house o LEFT JOIN house_type s on o.house_id=s.newhouse_id WHE
   <select id="selectAll"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from new_house
+    from new_house where house_users_no=#{userId}
   </select>
   <select id="selectFindAll" parameterType="cn.gson.room_store.vo.newhouse.NewHouseSerachVo" resultMap="BaseResultMap">
     select

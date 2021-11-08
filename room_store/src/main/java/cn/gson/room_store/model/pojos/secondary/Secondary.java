@@ -53,4 +53,10 @@ public class Secondary {
    private String secondaryPicture;//房源图片
    private Integer pageNo;
    private Integer size;
+
+   //公房池查询使用的字段
+   private String houseNumber;//公房池编号
+   private double housePrice;//客源奖励
+   @JsonFormat(pattern = "yyyy-MM-dd HH:ss:mm", timezone = "GMT+8")
+   private Date houseDate;//进入时间
 }
