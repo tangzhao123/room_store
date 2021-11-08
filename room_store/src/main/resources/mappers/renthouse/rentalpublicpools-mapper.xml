@@ -48,6 +48,11 @@
             <result column="reho_users_no" property="rehoUsersNo" />
             <result column="reho_zhutu" property="rehoZhutu" />
             <result column="reho_weituo" property="rehoWeito" />
+            <association property="users" javaType="cn.gson.room_store.model.pojos.secondary.Users">
+                <id column="user_id" property="userID" />
+                <result column="user_name" property="userName" />
+                <result column="user_phone" property="userPhone" />
+            </association>
         </association>
     </resultMap>
 
@@ -56,6 +61,26 @@
 
     <select id="findAllRentalpublicpools" resultMap="rentalpublicpools">
         select * from rentalpublicpools p inner join rentalhousing r on p.repp_reho_no = r.reho_number
+        inner join users u on r.reho_users_no = u.user_id where 1 = 1
+        <if test="xiaoqu != null and xiaoqu != ''">
+            and r.reho_community like '%${xiaoqu}%'
+        </if>
+        <if test="chegshi != null and chegshi != ''">
+            and u.user_city like '%${chegshi}%'
+        </if>
+        <if test="maxje != -100">
+            and r.reho_rent between #{minje} and #{maxje}
+        </if>
+        <if test="maxm2 != -100">
+            and r.reho_coveredarea between #{minm2} and #{maxm2}
+        </if>
+        <if test="zhuangxiu != null and zhuangxiu.length >0">
+            and
+            <foreach collection="zhuangxiu" index="index" item="item" open="(" separator="or" close=")">
+                r.reho_fitmenttype like '%${item}%'
+            </foreach>
+        </if>
+        order by repp_date desc
     </select>
 
     <!-- 查询租房公房池推荐客源 -->

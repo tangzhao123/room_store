@@ -4,19 +4,19 @@
 			<el-col :span="8">
 				<el-form label-width="80px">
 					<el-form-item label="城市名称">
-						<el-input placeholder="请输入城市名称" clearable></el-input>
+						<el-input placeholder="请输入城市名称" v-model="chengshi" clearable></el-input>
 					</el-form-item>
 				</el-form>
 			</el-col>
 			<el-col :span="8">
 				<el-form label-width="80px">
 					<el-form-item label="小区名称">
-						<el-input placeholder="请输入小区名称" clearable></el-input>
+						<el-input placeholder="请输入小区名称" v-model="xiaoqu" clearable></el-input>
 					</el-form-item>
 				</el-form>
 			</el-col>
 			<el-col :span="2" :push="1">
-				<el-button type="primary" size="medium" @click="getData()">查询</el-button>
+				<el-button type="primary" size="medium" @click="getData1()">查询</el-button>
 			</el-col>
 		</el-row>
 		<div style="height: 180px; width: 1250px; border: 1px solid #D9D9D9; margin-left: 5px; margin: 10px;">
@@ -24,9 +24,9 @@
 				<el-form label-width="80px">
 					<el-form-item label="装修">
 						<el-col span="2">
-							<el-checkbox v-model="value" label="毛坯房"></el-checkbox>
-							<el-checkbox v-model="value" label="普通装修"></el-checkbox>
-							<el-checkbox v-model="value" label="精装修"></el-checkbox>
+							<el-checkbox v-model="zhuangxiu" label="毛坯房" @change="getData1()"></el-checkbox>
+							<el-checkbox v-model="zhuangxiu" label="普通装修" @change="getData1()"></el-checkbox>
+							<el-checkbox v-model="zhuangxiu" label="精装修" @change="getData1()"></el-checkbox>
 						</el-col>
 					</el-form-item>
 				</el-form>
@@ -35,21 +35,21 @@
 				<el-col :span="4">
 					<el-form label-width="80px">
 						<el-form-item label="租金">
-							<el-input v-model="input" placeholder="最低资金" />
+							<el-input v-model="minje" placeholder="最低资金" />
 						</el-form-item>
 					</el-form>
 				</el-col>
 				<el-col :span="3">
 					<el-form label-width="30px">
 						<el-form-item label="-">
-							<el-input v-model="input" placeholder="最高资金" />
+							<el-input v-model="maxje" placeholder="最高资金" />
 						</el-form-item>
 					</el-form>
 				</el-col>
 				<el-col :span="3">
 					<el-form label-width="50px">
 						<el-form-item label="元/月">
-							<el-button type="primary" size="medium" >确定</el-button>
+							<el-button type="primary" size="medium" @click="getData1()">确定</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
@@ -58,21 +58,21 @@
 				<el-col :span="4">
 					<el-form label-width="80px">
 						<el-form-item label="建筑面积">
-							<el-input v-model="input" placeholder="最小面积" />
+							<el-input v-model="minm2" placeholder="最小面积" />
 						</el-form-item>
 					</el-form>
 				</el-col>
 				<el-col :span="3">
 					<el-form label-width="30px">
 						<el-form-item label="-">
-							<el-input v-model="input" placeholder="最大面积" />
+							<el-input v-model="maxm2" placeholder="最大面积" />
 						</el-form-item>
 					</el-form>
 				</el-col>
 				<el-col :span="3">
 					<el-form label-width="50px">
 						<el-form-item label="m²">
-							<el-button type="primary" size="medium" >确定</el-button>
+							<el-button type="primary" size="medium" @click="getData1()">确定</el-button>
 						</el-form-item>
 					</el-form>
 				</el-col>
@@ -162,6 +162,15 @@ import { ElMessageBox } from 'element-plus'
 export default {
 		data() {
 			return {
+				// 模糊查询
+				chengshi:"",
+				xiaoqu:"",
+				zhuangxiu:[],
+				minje:"",
+				maxje:"",
+				minm2:"",
+				maxm2:"",
+
 				// 分页参数
 				queryParams: {
 					//初始页
@@ -242,7 +251,15 @@ export default {
 				}).catch()
 			},
 			getData1(){
-				this.axios.post("Renthouse/findAllRentalpublicpools").then((res) => {
+				var voRentalPublicpools = {
+					chengshi:this.chengshi,
+					xiaoqu:this.xiaoqu,
+					zhuangxiu:this.zhuangxiu.join(","),
+					je:this.minje+","+this.maxje,
+					m2:this.minm2+","+this.maxm2
+				};
+
+				this.axios.post("Renthouse/findAllRentalpublicpools",voRentalPublicpools).then((res) => {
 					this.tableData1 = res.data;
 					console.log(this.tableData1);
 				}).catch(() => {

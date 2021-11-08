@@ -185,7 +185,7 @@
 					<el-table-column prop="" label="操作" fixed="right" width="180px">
 						<template v-slot:default="v">
 							<div class="dianji" style="margin-bottom:8px">
-								<span style="margin-left:-14px;margin-right:29px">查看详情</span>
+								<span style="margin-left:-14px;margin-right:29px" @click="xiangqing(v.row)">查看详情</span>
 								<span @click="xiajia(v.row)">{{v.row.rehoShelf == 1 ? "下架":"上架"}}</span>
 							</div>
 							<div class="dianji" style="margin-bottom:8px">
@@ -352,6 +352,14 @@
 					path:"/rentalowner",
 					query: {
 						params: JSON.stringify({no:row.rehoNo,Title:row.rehoRentouttitle,number:row.rehoNumber}) 
+					}
+				});
+			},
+			xiangqing(id){
+				this.$router.push({
+					path:"/zufang-details",
+					query: {
+						params: JSON.stringify({no:id.rehoNumber}) 
 					}
 				});
 			},

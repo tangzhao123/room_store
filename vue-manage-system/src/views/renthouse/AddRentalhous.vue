@@ -382,7 +382,7 @@
 				<el-row>
 					<el-form label-width="80px">
 						<el-form-item label="装修类型">
-							<el-radio v-model="rentalhousing.rehoFitmenttype" label="毛胚">毛胚</el-radio>
+							<el-radio v-model="rentalhousing.rehoFitmenttype" label="毛坯房">毛坯房</el-radio>
 							<el-radio v-model="rentalhousing.rehoFitmenttype" label="普通装修">普通装修</el-radio>
 							<el-radio v-model="rentalhousing.rehoFitmenttype" label="精装修">精装修</el-radio>
 						</el-form-item>
