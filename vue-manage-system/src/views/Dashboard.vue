@@ -6,7 +6,77 @@
 			</div>
 			<span>{{beginDate}} - {{nowDate}}</span>
 		</div>
-		<el-row :gutter="20">
+		<div class="div1">
+			<div class="div2" style="background: linear-gradient(1turn, #8ed3ff, #55a8fd)">
+				<div>
+					<span class="span1">{{house}}</span>
+				</div>
+				<span class="span2">新增房源 (套）</span>
+				<div class="div3">
+					<div class="div4" style="width: 30%;">
+						<span class="span3">{{statistics1[0].number}}</span>
+						<span class="span3">{{statistics1[0].type}}</span>
+					</div>
+					<div class="div4" style="width: 30%;">
+						<span class="span3">{{statistics1[1].number}}</span>
+						<span class="span3">{{statistics1[1].type}}</span>
+					</div>
+					<div class="div4" style="width: 30%;">
+						<span class="span3">{{statistics1[2].number}}</span>
+						<span class="span3">{{statistics1[2].type}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="div2" style="background: linear-gradient(1turn,#ffe06f,#febd3c)">
+				<div>
+					<span class="span1">{{statistics2}}</span>
+				</div>
+				<span class="span2">新增客源 (人）</span>
+				<div class="div3">
+					<div class="div4" style="width: 100%;">
+						<span class="span3">{{statistics2}}</span>
+						<span class="span3">全部客源</span>
+					</div>
+				</div>
+			</div>
+			<div class="div2" style="background: linear-gradient(1turn,#c2b5f4,#8f7ee5)">
+				<div>
+					<span class="span1">{{house}}</span>
+				</div>
+				<span class="span2"> 新增带看 (次）</span>
+				<div class="div3">
+					<div class="div4" style="width: 30%;">
+						<span class="span3">{{statistics1[0].number}}</span>
+						<span class="span3">{{statistics1[0].type}}</span>
+					</div>
+					<div class="div4" style="width: 30%;">
+						<span class="span3">{{statistics1[1].number}}</span>
+						<span class="span3">{{statistics1[1].type}}</span>
+					</div>
+					<div class="div4" style="width: 30%;">
+						<span class="span3">{{statistics1[1].number}}</span>
+						<span class="span3">{{statistics1[1].type}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="div2" style="background: linear-gradient(1turn,#83eeb2,#4cd87a)">
+				<div>
+					<span class="span1">{{house}}</span>
+				</div>
+				<span class="span2"> 新增跟进 (次）</span>
+				<div class="div3">
+					<div class="div4" style="width: 50%;">
+						<span class="span3">{{statistics1[0].number}}</span>
+						<span class="span3">{{statistics1[0].type}}</span>
+					</div>
+					<div class="div4" style="width: 50%;">
+						<span class="span3">{{statistics1[1].number}}</span>
+						<span class="span3">{{statistics1[1].type}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <el-row :gutter="20">
 			<el-col :span="12">
 				<el-card shadow="hover">
 					<schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
@@ -17,50 +87,30 @@
 					<schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
 				</el-card>
 			</el-col>
-		</el-row>
+		</el-row> -->
 	</div>
 </template>
 
 <script>
-	import Schart from "vue-schart";
+	//import Schart from "vue-schart";
 	import echarts from 'echarts';
 	export default {
 		name: "dashboard",
 		data() {
 			return {
+				house: 0,
+				test1: "",
 				beginDate: '', //开始日期
 				nowDate: '', //现在日期
 				name: this.$store.state.token.userName,
-				todoList: [{
-						title: "今天要修复100个bug",
-						status: false
-					},
-					{
-						title: "今天要修复100个bug",
-						status: false
-					},
-					{
-						title: "今天要写100行代码加几个bug吧",
-						status: false
-					},
-					{
-						title: "今天要修复100个bug",
-						status: false
-					},
-					{
-						title: "今天要修复100个bug",
-						status: true
-					},
-					{
-						title: "今天要写100行代码加几个bug吧",
-						status: true
-					}
-				],
+				statistics1: [0, 1, 2],
+				statistics2: 0,
 				options: {
 					type: "bar",
 					title: {
 						text: "最近一周各品类销售图"
 					},
+
 					xRorate: 25,
 					labels: ["周一", "周二", "周三", "周四", "周五"],
 					datasets: [{
@@ -101,7 +151,7 @@
 		},
 		components: {
 
-			Schart
+			//Schart
 		},
 		computed: {
 			role() {
@@ -114,22 +164,99 @@
 				var aData = new Date();
 				this.nowDate = aData.getFullYear() + "-" + (aData.getMonth() + 1) + "-" + aData
 					.getDate();
-				this.beginDate = aData.getFullYear() + "-" + (aData.getMonth() + 1) + "-1"
+				this.beginDate = aData.getFullYear() + "-" + (aData.getMonth() + 1) + "-1";
 			},
 			statistics() {
 				let broken = echarts.init(document.getElementById('broken'));
 				broken.setOption({
 					//too
 				})
-			}
+			},
+			getDate() {
+				this.axios.get("statistics1").then((res) => {
+					this.statistics1 = res.data;
+					this.house = this.statistics1[0].number + this.statistics1[1].number + this
+						.statistics1[2].number
+				}).catch()
+				this.axios.get("statistics2").then((res) => {
+					this.statistics2 = res.data;
+				}).catch()
+			},
 		},
 		created() {
+			this.getDate();
 			this.times();
 		},
 	};
 </script>
 
 <style scoped>
+	.div1 {
+		width: 100%;
+		height: 200px;
+	}
+
+	.div2 {
+		margin-right: 20px;
+		display: inline-block;
+		positiom: absolute;
+		width: 20%;
+		height: 200px;
+
+	}
+
+	.div3 {
+		bottom: 0;
+		width: 100%;
+		height: 100px;
+		background: #f5faff
+	}
+
+	.div4 {
+		display: inline-block;
+		height: 50px;
+		font-size: 14px;
+	}
+
+	.span1 {
+		font-size: 36px;
+		font-weight: 500;
+		display: block;
+		color: #fff;
+		line-height: 50px;
+		text-align: center;
+	}
+
+	.num {
+		-webkit-box-flex: 1;
+		-ms-flex: 1;
+		flex: 1;
+		font-size: 14px;
+		font-weight: 400;
+		color: #333;
+		line-height: 20px;
+		padding-bottom: 15 px;
+	}
+
+	.span2 {
+		font-size: 16px;
+		display: block;
+		color: #fff;
+		line-height: 50px;
+		text-align: center;
+	}
+
+	.span3 {
+		display: block;
+		text-align: center;
+		line-height: 50px;
+		font-size: 16px;
+	}
+
+	.div-inline {
+		display: inline
+	}
+
 	.el-row {
 		margin-bottom: 20px;
 	}

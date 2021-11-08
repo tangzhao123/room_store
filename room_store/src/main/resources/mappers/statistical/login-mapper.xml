@@ -17,6 +17,9 @@
     <select id="login" resultMap="usersMapper">
         select * from users where user_phone=#{phone} and user_pass=#{pass}
     </select>
+    <select id="edits" resultType="_int">
+        select count(*) from users where user_phone= #{userPhone} and user_pass=#{userPass}
+    </select>
     <!--查询电话号码是否存在-->
     <select id="findIDPhone" resultType="_int">
         select count(*) from users where user_phone=#{phone}
@@ -32,6 +35,7 @@
     </update>
     <!--修改密码-->
     <update id="editPassWord" parameterType="cn.gson.room_store.model.pojos.secondary.Users">
-        update users set user_pass=#{userPass} where  user_phone=#{userPhone}
+        update users set user_pass=#{userPass2} where user_phone=#{userPhone}
     </update>
+
 </mapper>

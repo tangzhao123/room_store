@@ -10,6 +10,8 @@ public interface LoginMapper {
     Users login(@Param("phone")String phone,@Param("pass")String pass);
     //查询电话号码
     int findIDPhone(String phone);
+    //修改密码查看密码是否正确
+    int edits(Users users);
     //注册用户
     void addUsers(Users users);
     //修改修改用户基本信息,名字,头像等

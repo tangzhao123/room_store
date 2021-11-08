@@ -1,5 +1,7 @@
 <template>
-	个人中心
+	<div>
+		新增跟进记录
+	</div>
 </template>
 
 <script>

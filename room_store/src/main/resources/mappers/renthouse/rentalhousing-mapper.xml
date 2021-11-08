@@ -41,6 +41,8 @@
         <result column="reho_gfczt" property="rehoGfczt" />
         <result column="reho_good_room" property="rehoGoodRoom" />
         <result column="reho_users_no" property="rehoUsersNo" />
+        <result column="reho_zhutu" property="rehoZhutu" />
+        <result column="reho_weituo" property="rehoWeito" />
         <collection property="multifileimagesList" ofType="cn.gson.room_store.model.pojos.renthouse.Multifileimage">
             <id column="muim_no" property="muimNo" />
             <result column="muim_name" property="muimName" />
@@ -50,6 +52,75 @@
     </resultMap>
 
     <!-- 多条件模糊查询 -->
+    <select id="findRentalhousingMultiple" resultMap="rentalhousing">
+        select * from rentalhousing r left join rentalowner l on r.reho_no = l.reow_reho_no where 1 = 1
+        <if test="name != null and name != ''">
+            and r.reho_community like '%${name}%'
+        </if>
+        <if test="yezhu != null and yezhu != ''">
+            and (l.reow_name like '%${yezhu}%'
+            or l.reow_phone like '%${yezhu}%')
+        </if>
+        <if test="fyzt != 0">
+            and r.reho_shelf = #{fyzt}
+        </if>
+        <if test="zhifus != null and zhifus.length >0">
+            and
+            <foreach collection="zhifus" index="index" item="item" open="(" separator="or" close=")">
+                r.reho_payway = #{item}
+            </foreach>
+        </if>
+        <if test="biaoqians != null and biaoqians.length >0">
+            and
+            <foreach collection="biaoqians" index="index" item="item" open="(" separator="or" close=")">
+                r.reho_houslabel = #{item}
+            </foreach>
+        </if>
+        <if test="leixings != null and leixings.length >0">
+            and
+            <foreach collection="leixings" index="index" item="item" open="(" separator="or" close=")">
+                r.reho_housingtypes = #{item}
+            </foreach>
+        </if>
+        <if test="quyus != null and quyus.length >0">
+            and
+            <foreach collection="quyus" index="index" item="item" open="(" separator="or" close=")">
+                r.reho_site like '%${item}%'
+            </foreach>
+        </if>
+        <if test="da != -100">
+            and reho_rent between #{xiao} and #{da}
+        </if>
+        <if test="list != null and list.size() > 0">
+            and
+            <foreach collection="list" index="index" item="item" open="(" separator="or" close=")">
+                <if test="item.length == 1">
+                    <foreach collection="item" index="index1" item="item1" open="" separator="" close="">
+                        <if test="item1 == 1500">
+                            r.reho_rent &lt; #{item1}
+                        </if>
+                        <if test="item1 == 8000">
+                            r.reho_rent &gt; #{item1}
+                        </if>
+                    </foreach>
+                </if>
+                <if test="item.length == 2">
+                    r.reho_rent between
+                    <foreach collection="item" index="index1" item="item1" open="" separator="and" close="">
+                        #{item1}
+                    </foreach>
+                </if>
+            </foreach>
+        </if>
+        order by reho_date desc
+    </select>
+
+
+
+
+
+
+
 
     <!-- 修改租房房源 -->
     <update id="updateRentalhousingByNumber" parameterType="cn.gson.room_store.model.pojos.renthouse.Rentalhousing">
@@ -97,12 +168,14 @@
         insert into rentalhousing(reho_number,reho_site,reho_community,reho_unit,reho_building,reho_floornumber,reho_livefewfloor,reho_roomnumber,
                                   reho_coveredarea,reho_insidespace,reho_housetype,reho_orientation,reho_elevator,reho_housingtypes,reho_ladder,reho_households,
                                   reho_certcate_cover,reho_certcate_backcover,reho_certcate_qsy,reho_certcate_familypage,reho_rentouttitle,reho_rent,reho_payway,
-                                  reho_fitmenttype,reho_shortestlease,reho_suppfacility,reho_houslabel,reho_housremark,reho_good_room,reho_users_no) values
+                                  reho_fitmenttype,reho_shortestlease,reho_suppfacility,reho_houslabel,reho_housremark,reho_good_room,reho_users_no,
+                                  reho_zhutu,reho_weito) values
         (#{rehoNumber},#{rehoSite},#{rehoCommunity},#{rehoUnit},#{rehoBuilding},#{rehoFloornumber},#{rehoLivefewfloor},#{rehoRoomnumber},
          #{rehoCoveredarea},#{rehoInsidespace},#{rehoHousetype},#{rehoOrientation},#{rehoElevator},#{rehoHousingtypes},
          #{rehoLadder},#{rehoHouseholds},#{rehoCertcateCover},#{rehoCertcateBackcover},
          #{rehoCertcateQsy},#{rehoCertcateFamilypage},#{rehoRentouttitle},#{rehoRent},#{rehoPayway},
-         #{rehoFitmenttype},#{rehoShortestlease},#{rehoSuppfacility},#{rehoHouslabel},#{rehoHousremark},#{rehoGoodRoom},#{rehoUsersNo}
+         #{rehoFitmenttype},#{rehoShortestlease},#{rehoSuppfacility},#{rehoHouslabel},#{rehoHousremark},#{rehoGoodRoom},#{rehoUsersNo},
+         #{rehoZhutu},#{rehoWeito}
         )
     </insert>
 </mapper>

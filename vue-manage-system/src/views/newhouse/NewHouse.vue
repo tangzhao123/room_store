@@ -214,7 +214,6 @@
 			onsumbit() {
 				this.load()
 			},
-		},
 			handleSizeChange(pageSize) {
 				this.selectParams.pageSize = pageSize;
 				this.load();
@@ -223,6 +222,7 @@
 				this.selectParams.pageNum = pageNum;
 				this.load();
 			},
+		},
 		created() {
 			this.selectParams.pageNum = 1;
 			this.selectParams.pageSize = 10;

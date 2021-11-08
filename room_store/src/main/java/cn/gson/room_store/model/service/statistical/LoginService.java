@@ -37,8 +37,15 @@ public class LoginService {
         mapper.editMessage(users);
     }
     //修改密码
-    public void editPassWord(Users users){
-        mapper.editPassWord(users);
+    public String editPassWord(Users users){
+        int sum= mapper.edits(users);
+        if (sum == 0){
+            return null;
+        }else{
+            mapper.editPassWord(users);
+            return "ok";
+        }
+
     }
     //查询电话号码
     public int findIDPhone(String phone){

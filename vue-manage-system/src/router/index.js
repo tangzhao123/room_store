@@ -129,6 +129,33 @@ const routes = [{
 				"../views/renthouse/AddRentalhous.vue")
 		},
 		{
+			path: "/add-rentalfollowup",
+			name: "AddRentalfollowup",
+			meta: {
+				title: '新增跟进记录'
+			},
+			component: () => import(
+				"../views/renthouse/AddRentalfollowup.vue")
+		},
+		{
+			path: "/rentalfollowup",
+			name: "Rentalfollowup",
+			meta: {
+				title: '跟进记录'
+			},
+			component: () => import(
+				"../views/renthouse/Rentalfollowup.vue")
+		},
+		{
+			path: "/rentalowner",
+			name: "Rentalowner",
+			meta: {
+				title: '业主信息'
+			},
+			component: () => import(
+				"../views/renthouse/Rentalowner.vue")
+		},
+		{
 			path: "/newhouse",
 			name: "newhouse",
 			meta: {
@@ -145,19 +172,28 @@ const routes = [{
 			},
 			component: () => import(
 				"../views/newhouse/HouseCollection.vue")
+		},
+		{
+			path: "/house_type",
+			name: "house-type",
+			meta: {
+				title: '户型管理'
+			},
+			component: () => import(
+				"../views/newhouse/HouseType.vue")
 		},{
-			path:"/myInformation",
-			name:"myInformation",
-			meta:{
-				tiele:'我的信息'
+			path: "/myInformation",
+			name: "myInformation",
+			meta: {
+				tiele: '我的信息'
 			},
 			component: () => import(
 				"../views/statistical/MyInformation.vue")
-		},{
-			path:"/changePass",
-			name:"changePass",
-			meta:{
-				tiele:'修改密码'
+		}, {
+			path: "/changePass",
+			name: "changePass",
+			meta: {
+				tiele: '修改密码'
 			},
 			component: () => import(
 				"../views/statistical/ChangePass.vue")

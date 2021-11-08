@@ -5,17 +5,17 @@
 				<el-col :span="8" v-bind:class="{ 'active': isActive }">
 					基本信息
 				</el-col>
-				<el-col :span="8">
+				<el-col :span="8" v-bind:class="{ 'more': isMore }">
 					出租信息
 				</el-col>
-				<el-col :span="8">
+				<el-col :span="8" v-bind:class="{ 'picture': isPicture }">
 					房源图片
 				</el-col>
 			</el-row>
 		</div>
 		<el-row>
 			<!-- 基本信息填写的Div -->
-			<div style="padding: 20px;" >
+			<div style="padding: 20px;" v-if="flag">
 				<el-input v-model="rentalhousing.rehoNo" type="hidden"></el-input>
 				<el-input v-model="rentalhousing.rehoNumber" style="display:none;"></el-input>
 				<el-row>
@@ -275,67 +275,71 @@
 				<el-row>
 					<el-form>
 						<el-form-item label="请上传不动产权证">
-							<el-col :span="4">
-								<el-upload style="margin-right:400px" class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/"
-									:show-file-list="false" :on-success="handleAvatarSuccess"
-									:before-upload="beforeAvatarUpload">
-									<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-									<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+							<el-col :span="16" style="margin-right: 50px;" class="fangyuantupian">
+								<el-upload class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
+									:on-change="handleFileUploaderCoverPhoto">
+									<i class="el-icon-upload"></i>
+									<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 								</el-upload>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请上传封面照片
 							</el-col>
-							<el-col :span="4">
-								<el-upload style="margin-right:400px" class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/"
-									:show-file-list="false" :on-success="handleAvatarSuccess"
-									:before-upload="beforeAvatarUpload">
-									<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-									<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+							<el-col :span="6" class="fangyuantupian">
+								<el-upload class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
+									:on-change="handleFileUploaderBackPhoto">
+									<i class="el-icon-upload"></i>
+									<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 								</el-upload>
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请上传封底照片
-							</el-col>
-							<el-col :span="4">
-								<el-upload style="margin-right:400px" class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/"
-									:show-file-list="false" :on-success="handleAvatarSuccess"
-									:before-upload="beforeAvatarUpload">
-									<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-									<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-								</el-upload>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请上传权属页照片
-							</el-col>
-							<el-col :span="4">
-								<el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/"
-									:show-file-list="false" :on-success="handleAvatarSuccess"
-									:before-upload="beforeAvatarUpload">
-									<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-									<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-								</el-upload>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请上传户型照片
 							</el-col>
 						</el-form-item>
 					</el-form>
 				</el-row>
 				<el-row>
 					<el-form>
-						<el-form-item label="请上传委托协议">
-							<el-col :span="6">
-								<el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/"
-									:show-file-list="false" :on-success="handleAvatarSuccess"
-									:before-upload="beforeAvatarUpload">
-									<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-									<i v-else class="el-icon-plus avatar-uploader-icon"></i>
+						<el-form-item label="">
+							<el-col :span="16" style="margin-right: 50px; margin-left: 125px;" class="fangyuantupian">
+								<el-upload class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
+									:on-change="handleFileUploaderPagePhoto">
+									<i class="el-icon-upload"></i>
+									<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 								</el-upload>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请上传权属页照片
+							</el-col>
+							<el-col :span="6" class="fangyuantupian">
+								<el-upload class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
+									:on-change="handleFileUploaderDoorPhoto">
+									<i class="el-icon-upload"></i>
+									<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+								</el-upload>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请上传户型照片
 							</el-col>
 						</el-form-item>
 					</el-form>
 				</el-row>
+
+				<el-row>
+					<el-form>
+						<el-form-item label="请上传委托协议">
+							<el-col :span="6" class="fangyuantupian">
+								<el-upload class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
+									:on-change="handleFileUploaderEntrust">
+									<i class="el-icon-upload"></i>
+									<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+								</el-upload>
+							</el-col>
+						</el-form-item>
+
+					</el-form>
+				</el-row>
+
 				<el-row>
 					<el-col :push="15">
-						<el-button type="primary" size="medium">下一步</el-button>
+						<el-button type="primary" size="medium" @click="showMore()">下一步</el-button>
 					</el-col>
 				</el-row>
 			</div>
 			<!-- 更多信息填写的Div -->
-			<div style="padding: 20px;" >
+			<div style="padding: 20px;"  v-if="flag1">
 				<el-row>
 					<el-form label-width="80px">
 						<el-form-item label="出售标题">
@@ -446,26 +450,31 @@
 						</el-form-item>
 					</el-form>
 				</el-row>
+				
+				<el-row>
+					<el-col :push="15">
+						<el-button type="primary" size="medium" @click="showBasic()">上一步</el-button>
+						<el-button type="primary" size="medium" @click="showHousing()">下一步</el-button>
+					</el-col>
+				</el-row>
 			</div>
-			<div style="padding: 10px;">
+			<div style="padding: 10px;" v-if="flag2">
 				<el-row style="font-size: 16px ; font-weight:bold ">
 					<div style="border-bottom: 2px solid #CCCCCC; width: 1240px; padding: 10px;">
 						请上传房源图片
 					</div>
 				</el-row>
-				<el-row style="padding: 10px;">
-					<el-col :span="6" :push="6">
-						<el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/"
-							:show-file-list="false" :on-success="handleAvatarSuccess"
-							:before-upload="beforeAvatarUpload">
-							<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-							<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-						</el-upload>
-					</el-col>
+				<el-row style="padding: 10px;" class="fangyuantupian">
+					<el-upload class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
+						:on-change="handleFileUploaderChange">
+						<i class="el-icon-upload"></i>
+						<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+					</el-upload>
 				</el-row>
+				
 				<el-row>
 					<el-col :push="10">
-						<el-button type="primary" size="medium">上一步</el-button>
+						<el-button type="primary" size="medium" @click="showMores()">上一步</el-button>
 						<el-button type="primary" size="medium" @click="baocun()">保存</el-button>
 					</el-col>
 				</el-row>
@@ -477,9 +486,19 @@
 </template>
 
 <script>
+
+import { ElMessage } from 'element-plus'
 	export default {
 		data() {
 			return {
+
+				isActive: true, //基本信息样式
+				isMore: false, //更多信息样式
+				isPicture: false, //房源图片样式
+				flag: true, //基本信息Div显示隐藏
+				flag1: false, //更多信息Div显示隐藏
+				flag2: false, //房源图片Div显示隐藏
+
 				rentalhousing:{
 					rehoNo:"",//编号
 					rehoNumber:"",//租房房源编号(生成)
@@ -502,6 +521,8 @@
 					rehoCertcateBackcover:"",//不动产权证封底
 					rehoCertcateQsy:"",//不动产权证权属页
 					rehoCertcateFamilypage:"",//不动产权证户型页
+					rehoZhutu:"",//主图
+					rehoWeito:"",//委托
 					rehoRentouttitle:"",//出租标题
 					rehoRent:"",//租金
 					rehoPayway:"",//付款方式
@@ -523,7 +544,6 @@
 				rehoSuppfacility:[],
 				rehoHouslabel:[],
 
-
 				value: '',
 				imageUrl: '',
 			}
@@ -531,9 +551,12 @@
 		methods: {
 			baocun(){
 				//判断是否有房源图
-
-
-				this.rentalhousing.rehoSite = "用户省加市"+this.quname;
+				this.rentalhousing.rehoRoomnumber = this.rentalhousing.rehoRoomnumber+"号";
+				var use = this.$store.state.token;
+				this.rentalhousing.rehoUsersNo = use.userID;
+				var number = "ZF"+Date.parse(new Date());
+				this.rentalhousing.rehoNumber = number;
+				this.rentalhousing.rehoSite = use.userProvince+","+use.userCity+","+this.quname;
 
 				var a = "";
 				this.rehoSuppfacility.forEach((v)=>{
@@ -554,14 +577,30 @@
 					
 				}
 
-				console.log(this.rentalhousing)
-
 				// 新增房源
+				this.axios.post("Renthouse/insertRentalhousing", this.rentalhousing).then((res) => {
+					console.log(res)
+					ElMessage({
+						message: '新增成功！',
+						type: 'success',
+					})
+					this.closes();
+					this.$router.push("/rentalhousing");
+					// if (res.data == 'ok') {
+
+					// 	this.getData();
+					// 	this.$message.success("新增成功！");
+					// } else {
+					// 	this.$message.error("新增失败！")
+					// }
+					//成功！
+				}).catch(() => {
+					this.$message.error("新增失败！")
+				})
 			},
 			chanRehoHousetype(){
 				if(this.woshi != "" && this.dating != "" && this.wei != ""){
-					this.rentalhousing.rehoHousetype = this.woshi+","+this.dating+","+this.wei;
-					alert(this.rentalhousing.rehoHousetype);
+					this.rentalhousing.rehoHousetype = this.woshi+this.dating+this.wei;
 				}
 			},
 			
@@ -592,23 +631,171 @@
 					}
 				}).then((v) => {
 					this.qu = v.data
-					console.log(this.qu);
 				}).catch()
 			},
-			handleAvatarSuccess(res, file) {
-				this.imageUrl = URL.createObjectURL(file.raw)
+			//房源图片
+			handleFileUploaderChange(file) {
+				const self = this
+				let reader = new FileReader()
+				reader.readAsDataURL(file.raw)
+				reader.onload = function() {
+					let img_base64 = this.result
+					self.rentalhousing.rehoZhutu  = img_base64;
+				}
 			},
-			beforeAvatarUpload(file) {
-				const isJPG = file.type === 'image/jpeg'
-				const isLt2M = file.size / 1024 / 1024 < 2
+			//封面照片
+			handleFileUploaderCoverPhoto(file) {
+				const self = this
+				let reader = new FileReader()
+				reader.readAsDataURL(file.raw)
+				reader.onload = function() {
+					let img_base64 = this.result
+					self.rentalhousing.rehoCertcateCover = img_base64;
+				}
+			},
+			//封底照片
+			handleFileUploaderBackPhoto(file) {
+				const self = this
+				let reader = new FileReader()
+				reader.readAsDataURL(file.raw)
+				reader.onload = function() {
+					let img_base64 = this.result
+					self.rentalhousing.rehoCertcateBackcover = img_base64;
+				}
+			},
+			//权属页照片
+			handleFileUploaderPagePhoto(file) {
+				const self = this
+				let reader = new FileReader()
+				reader.readAsDataURL(file.raw)
+				reader.onload = function() {
+					let img_base64 = this.result
+					self.rentalhousing.rehoCertcateQsy = img_base64;
+				}
+			},
+			//户型照片
+			handleFileUploaderDoorPhoto(file) {
+				const self = this
+				let reader = new FileReader()
+				reader.readAsDataURL(file.raw)
+				reader.onload = function() {
+					let img_base64 = this.result
+					self.rentalhousing.rehoCertcateFamilypage = img_base64;
+				}
+			},
+			//委托协议照片
+			handleFileUploaderEntrust(file) {
+				const self = this
+				let reader = new FileReader()
+				reader.readAsDataURL(file.raw)
+				reader.onload = function() {
+					let img_base64 = this.result
+					self.rentalhousing.rehoWeito  = img_base64;
+				}
+			},
 
-				if (!isJPG) {
-					this.$message.error('上传头像图片只能是 JPG 格式!')
+			//点击下一步显示更多信息
+			showMore() {
+				this.flag = false;
+				this.flag1 = true;
+				this.isActive = false;
+				this.isMore = true;
+			},
+			//点击更多信息上一步显示基本信息
+			showBasic() {
+				this.flag1 = false;
+				this.flag = true;
+				this.isMore = false;
+				this.isActive = true;
+			},
+			//点击下一步显示房源图片界面
+			showHousing() {
+				this.flag1 = false;
+				this.flag2 = true;
+				this.isMore = false;
+				this.isPicture = true;
+			},
+			//点击房源上一步显示更多信息
+			showMores() {
+				this.flag2 = false;
+				this.flag1 = true;
+				this.isPicture = false;
+				this.isMore = true;
+			},
+			//图片转码
+			Base64(file) {
+				return new Promise(function(resolve, reject) {
+					let reader = new FileReader();
+					let imgResult = "";
+					reader.readAsDataURL(file);
+					reader.onload = function() {
+						imgResult = reader.result;
+					};
+					reader.onerror = function(error) {
+						reject(error);
+					};
+					reader.onloadend = function() {
+						resolve(imgResult)
+					}
+				})
+			},
+			//
+			closes(){
+				
+				this.isActive= true //基本信息样式
+				this.isMore= false //更多信息样式
+				this.isPicture= false //房源图片样式
+				this.flag= true //基本信息Div显示隐藏
+				this.flag1= false //更多信息Div显示隐藏
+				this.flag2= false //房源图片Div显示隐藏
+
+				this.rentalhousing={
+					rehoNo:"",//编号
+					rehoNumber:"",//租房房源编号(生成)
+					rehoSite:"",//城市/区域(省、市、区)
+					rehoCommunity:"",//小区名称
+					rehoUnit:"",//单元
+					rehoBuilding:"",//楼栋
+					rehoFloornumber:"",//总楼层
+					rehoLivefewfloor:"",//所在层
+					rehoRoomnumber:"",//序号(房间号)
+					rehoCoveredarea:"",//建筑面积
+					rehoInsidespace:"",//套内面积(不能大于建筑面积)
+					rehoHousetype:"",//户型(几室、几厅、几卫)
+					rehoOrientation:"",//朝向
+					rehoElevator:"",//电梯(有、无)
+					rehoHousingtypes:"",//房屋类型(住宅、复式、公寓、商铺、写字楼)
+					rehoLadder:"",//梯(梯户比例)
+					rehoHouseholds:"",//户
+					rehoCertcateCover:"",//不动产权证封面
+					rehoCertcateBackcover:"",//不动产权证封底
+					rehoCertcateQsy:"",//不动产权证权属页
+					rehoCertcateFamilypage:"",//不动产权证户型页
+					rehoZhutu:"",//主图
+					rehoWeito:"",//委托
+					rehoRentouttitle:"",//出租标题
+					rehoRent:"",//租金
+					rehoPayway:"",//付款方式
+					rehoFitmenttype:"",//装修类型
+					rehoShortestlease:"",//最短租期
+					rehoSuppfacility:"",//配套设施
+					rehoHouslabel:"",//房源标签
+					rehoHousremark:"",//房源介绍
+					rehoUsersNo:"",//用户编号
 				}
-				if (!isLt2M) {
-					this.$message.error('上传头像图片大小不能超过 2MB!')
-				}
-				return isJPG && isLt2M
+				this.woshi=""
+				this.dating=""
+				this.wei=""
+				this.quid=""//区
+				this.quname=""
+				this.qu=[]
+				this.xqu=[]//xiao区数据
+				this.xquid=""//区
+				this.rehoSuppfacility=[]
+				this.rehoHouslabel=[]
+
+				this.value= ''
+				this.imageUrl= ''
 			},
 		},
 		created(){
@@ -650,5 +837,25 @@
 	.el-upload--text{
 		width: 166px;
 		height: 150px;
+	}
+	
+
+	.active {
+		color: #2a75ec;
+	}
+
+	.more {
+		color: #2a75ec;
+	}
+
+	.picture {
+		color: #2a75ec;
+	}
+	
+
+	.fangyuantupian .upload-demo,
+	.fangyuantupian .el-upload {
+		width: 362px !important;
+		height: 182px !important;
 	}
 </style>

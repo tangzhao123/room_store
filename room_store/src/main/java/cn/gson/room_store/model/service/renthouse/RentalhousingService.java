@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -51,5 +52,16 @@ public class RentalhousingService {
     //    修改租房房源上下架状态
     public void updateRentalhousingRehoShelfByNumber(int rehoShelf, String rehoNumber){
         rentalhousingMapper.updateRentalhousingRehoShelfByNumber(rehoShelf,rehoNumber);
+    }
+
+    public List<Rentalhousing> findRentalhousingMultiple(String name, String yezhu, int fyzt, String[] zhifus, String[] biaoqians, String[] leixings, double xiao, double da, ArrayList<int[]> list, String[] quyus) {
+        System.out.println(list);
+        for(int i = 0 ; i < list.size() ; i++){
+            System.out.println(list.get(i));
+            for(int a = 0;a<list.get(i).length;a++){
+                System.out.println(list.get(i)[a]);
+            }
+        }
+        return rentalhousingMapper.findRentalhousingMultiple(list,biaoqians,zhifus,leixings,quyus,name,yezhu,fyzt,xiao,da);
     }
 }
