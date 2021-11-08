@@ -281,7 +281,7 @@
 									<i class="el-icon-upload"></i>
 									<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 								</el-upload>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请上传封面照片
+								请上传封面照片
 							</el-col>
 							<el-col :span="6" class="fangyuantupian">
 								<el-upload class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
@@ -289,7 +289,7 @@
 									<i class="el-icon-upload"></i>
 									<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 								</el-upload>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请上传封底照片
+								请上传封底照片
 							</el-col>
 						</el-form-item>
 					</el-form>
@@ -303,7 +303,7 @@
 									<i class="el-icon-upload"></i>
 									<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 								</el-upload>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请上传权属页照片
+								请上传权属页照片
 							</el-col>
 							<el-col :span="6" class="fangyuantupian">
 								<el-upload class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
@@ -311,7 +311,7 @@
 									<i class="el-icon-upload"></i>
 									<div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
 								</el-upload>
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请上传户型照片
+								请上传户型照片
 							</el-col>
 						</el-form-item>
 					</el-form>
@@ -319,7 +319,7 @@
 
 				<el-row>
 					<el-form>
-						<el-form-item label="请上传委托协议">
+						<el-form-item label="请上传委托协议" class="labelss">
 							<el-col :span="6" class="fangyuantupian">
 								<el-upload class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
 									:on-change="handleFileUploaderEntrust">
@@ -857,5 +857,8 @@ import { ElMessage } from 'element-plus'
 	.fangyuantupian .el-upload {
 		width: 362px !important;
 		height: 182px !important;
+	}
+	.labelss .el-form-item__label{
+		margin-right: 16px;
 	}
 </style>

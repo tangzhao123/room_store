@@ -427,6 +427,7 @@
 					if(this.yrrehoGfczt == 2){
 						sj = "移出";
 					}
+					this.tigong = "";
 					this.$message.success(sj+"成功！");
 					this.centerDialogVisible = false;
 					console.log(res)
