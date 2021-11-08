@@ -95,43 +95,63 @@ import { ElMessage } from 'element-plus'
 				
 			},
 			queding(){
-				let params = JSON.parse( this.$route.query.params);
-				this.no = params.no;
-				this.rentalfollowup.refoRehoNo = this.no;
-
-				var a = ""
-				this.refoType.forEach((v)=>{
-					a += v+",";
-				});
-				if(a.length > 0){
-					a = a.substr(0,a.length-1)
-					this.rentalfollowup.refoType = a;
-				}
-				var use = this.$store.state.token;
-				this.rentalfollowup.refoName = use.userName;
-				this.rentalfollowup.refoPhone = use.userPhone;
-				//获取当前时间并打印
-				let yy = new Date().getFullYear();
-				let mm = new Date().getMonth()+1;
-				let dd = new Date().getDate();
-				let hh = new Date().getHours();
-				let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
-				let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
-				this.rentalfollowup.refoDate = yy+'-'+mm+'-'+dd+' '+hh+':'+mf+':'+ss
-
-				console.log(this.rentalfollowup);
-
-				this.axios.post("Renthouse/insertRentalfollowup", this.rentalfollowup).then((res) => {
-					console.log(res)
+				var fl = true;
+				if(this.rentalfollowup.refoWay == ""){
 					ElMessage({
-						message: '新增成功！',
-						type: 'success',
+						message: '请选择跟进方式',
+						type: 'warning',
 					})
-					this.clear();
-					this.$router.go(-1);
-				}).catch(() => {
-					this.$message.error("新增失败！")
-				})
+				}else if(this.refoType == ""){
+					ElMessage({
+						message: '请选择跟进内容分类',
+						type: 'warning',
+					})
+				}else if(this.rentalfollowup.refoNeirong == ""){
+					ElMessage({
+						message: '请输入跟进内容',
+						type: 'warning',
+					})
+				}
+				
+				if(fl){
+					let params = JSON.parse( this.$route.query.params);
+					this.no = params.no;
+					this.rentalfollowup.refoRehoNo = this.no;
+
+					var a = ""
+					this.refoType.forEach((v)=>{
+						a += v+",";
+					});
+					if(a.length > 0){
+						a = a.substr(0,a.length-1)
+						this.rentalfollowup.refoType = a;
+					}
+					var use = this.$store.state.token;
+					this.rentalfollowup.refoName = use.userName;
+					this.rentalfollowup.refoPhone = use.userPhone;
+					//获取当前时间并打印
+					let yy = new Date().getFullYear();
+					let mm = new Date().getMonth()+1;
+					let dd = new Date().getDate();
+					let hh = new Date().getHours();
+					let mf = new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes();
+					let ss = new Date().getSeconds()<10 ? '0'+new Date().getSeconds() : new Date().getSeconds();
+					this.rentalfollowup.refoDate = yy+'-'+mm+'-'+dd+' '+hh+':'+mf+':'+ss
+
+					console.log(this.rentalfollowup);
+
+					this.axios.post("Renthouse/insertRentalfollowup", this.rentalfollowup).then((res) => {
+						console.log(res)
+						ElMessage({
+							message: '新增成功！',
+							type: 'success',
+						})
+						this.clear();
+						this.$router.go(-1);
+					}).catch(() => {
+						this.$message.error("新增失败！")
+					})
+				}
 			},
 			clear(){
 				this.rentalfollowup={
