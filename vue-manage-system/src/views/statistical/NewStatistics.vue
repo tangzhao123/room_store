@@ -18,8 +18,8 @@
 </template>
 
 <script>
-	import Schart from "vue-schart";
-	import echarts from 'echarts';
+	//import Schart from "vue-schart";
+	//import echarts from 'echarts';
 	export default {
 		data() {
 			return {
@@ -45,7 +45,7 @@
 		margin-right: 20px;
 		display: inline-block;
 		positiom: absolute;
-		width: 33%;
+		width: 30%;
 		height: 200px;
 	}
 </style>
