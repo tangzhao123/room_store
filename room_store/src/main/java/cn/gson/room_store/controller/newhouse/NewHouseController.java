@@ -35,4 +35,11 @@ public class NewHouseController {
         NewHouse newHouse = newHouseService.selectByPrimaryKey(houseId);
         return Result.success(newHouse);
     }
+
+    @GetMapping("/selectAll")
+    public Result selectAll(){
+        List<NewHouse> newHouses = newHouseService.selectAll();
+        return Result.success(newHouses);
+    }
+
 }

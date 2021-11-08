@@ -289,7 +289,6 @@
           this.SelectedDecorateIntentionList=v.data.SelectedDecorateIntentionList;
           this.SelectedFloorIntentionList=v.data.SelectedFloorIntentionList;
         });
-        this.axios.get().then();
 			},
 		},
 		created() {

@@ -14,6 +14,8 @@ public interface SecondaryMapper {
     //根据用户查询二手房源
     public List<Secondary> findAllSecondary(Secondary secondary);
 
+    public List<Secondary> selectAll();
+
     //上架
     public void shelves(String secondaryNumber);
 

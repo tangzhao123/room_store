@@ -34,4 +34,8 @@ public class SecondaryService {
     public void theShelves(String secondaryNumber){
         secondaryMapper.theShelves(secondaryNumber);
     }
+
+    public List<Secondary> selectAll(){
+        return secondaryMapper.selectAll();
+    }
 }

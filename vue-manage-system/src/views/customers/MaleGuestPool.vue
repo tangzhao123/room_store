@@ -108,9 +108,6 @@
 			<el-table-column prop="demandIntention.demandArea" label="意向区域" min-width="100">
 			</el-table-column>
 			<el-table-column prop="demandIntention.villageName" label="意向小区" min-width="100">
-				<!--      <template v-slot:default="r">
-        <el-tag>{{r.row.empName}}</el-tag>
-      </template>-->
 			</el-table-column>
 			<el-table-column prop="level.levelName" label="客户等级" min-width="100">
 			</el-table-column>
@@ -124,10 +121,11 @@
 			</el-table-column>
 			<el-table-column prop="demandIntention.maxArea" label="最大面积" min-width="160">
 			</el-table-column>
-			<el-table-column label="操作" fixed="right" width="120">
-				<!--        <template>
-          <el-link type="primary" @click="tigong()">提供新房房源</el-link>
-        </template>-->
+			<el-table-column label="操作" fixed="right" width="250">
+				<template v-slot:default="r">
+					<el-button @click="po(r.row)">提供二手房房源</el-button>
+					<el-button @click="all(r.row)">查看详情</el-button>
+				</template>
 			</el-table-column>
 		</el-table>
 		<!--  表格结束  -->
@@ -143,23 +141,85 @@
 
 
 		<el-dialog v-model="fangDialog" title="选择房源">
-			<el-table :data="tableData.slice((pageNo-1)*size,pageNo*size)" border @selection-change="xuan"
+			<el-table :data="ershoufan.slice((pageNo2-1)*size2,pageNo2*size2)" border @selection-change="xuan"
 				style="width: 100%">
 				<el-table-column fixed="left" type="selection" width="55">
 				</el-table-column>
-				<el-table-column prop="deptId" label="编号" width="180">
-				</el-table-column>
-				<el-table-column prop="deptName" label="部门" width="180">
-				</el-table-column>
-				<el-table-column prop="deptCreate" label="创建时间">
+				<el-table-column prop="secondaryId" label="序号"> </el-table-column>
+				<el-table-column prop="secondaryTitle" label="出售标题" width="120"> </el-table-column>
+				<el-table-column label="房源信息" width="450">
+					<template v-slot:default="r">
+						<el-row>
+							<el-col :span="12">
+								<img :src="r.row.secondaryPicture" width="200" height="100" />
+							</el-col>
+							<el-col :span="10">
+								<span
+									style="font-size:18px; font-weight: bold;">{{r.row.secondaryVillage+r.row.secondaryBuilding+r.row.secondaryUnit}}</span>
+								<br />
+								<span>{{r.row.secondaryModel+' '+r.row.secondaryToward+' '+r.row.secondaryType}}</span>
+								<br />
+								<span style="font-size:25px; color: red;">{{r.row.secondaryPrice}}万</span>
+							</el-col>
+						</el-row>
+					</template>
 				</el-table-column>
 			</el-table>
+			<!-- 分页开始   -->
+			<div style="text-align: center;margin-top: 10px;">
+				<el-pagination @size-change="handleSizeChange2" @current-change="handleCurrentChange2"
+					:current-page="pageNo2" :page-sizes="[5, 10, 15, 20]" :page-size="size2"
+					layout="total, sizes, prev, pager, next, jumper" :total="ershoufan.length">
+				</el-pagination>
+			</div>
+			<el-button @click="addhou()">保存</el-button>
+		</el-dialog>
+
+		<el-dialog v-model="selectIs" title="查看详情">
+      <label>查看详情</label>
+      <hr />
+      公客池需求
+      <p>求购意向:{{customers.rentalIntention.rentalName}}意向区域:{{customers.demandIntention.demandArea}}户型:<template v-for="item in customers.demandIntention.demandModelKeys" :key="item.modelId"><label>{{item.modelName}}</label></template></p>
+      <label>推荐房源</label>
+      <hr />
+			<el-table :data="ershoufan.slice((pageNo2-1)*size2,pageNo2*size2)" border style="width: 100%">
+				<el-table-column prop="secondaryId" label="序号"> </el-table-column>
+				<el-table-column prop="secondaryTitle" label="出售标题" width="120"> </el-table-column>
+				<el-table-column label="房源信息" width="450">
+					<template v-slot:default="r">
+						<el-row>
+							<el-col :span="12">
+								<img :src="r.row.secondaryPicture" width="200" height="100" />
+							</el-col>
+							<el-col :span="10">
+								<span
+									style="font-size:18px; font-weight: bold;">{{r.row.secondaryVillage+r.row.secondaryBuilding+r.row.secondaryUnit}}</span>
+								<br />
+								<span>{{r.row.secondaryModel+' '+r.row.secondaryToward+' '+r.row.secondaryType}}</span>
+								<br />
+								<span style="font-size:25px; color: red;">{{r.row.secondaryPrice}}万</span>
+							</el-col>
+						</el-row>
+					</template>
+				</el-table-column>
+			</el-table>
+			<!-- 分页开始   -->
+			<div style="text-align: center;margin-top: 10px;">
+				<el-pagination @size-change="handleSizeChange2" @current-change="handleCurrentChange2"
+					:current-page="pageNo2" :page-sizes="[5, 10, 15, 20]" :page-size="size2"
+					layout="total, sizes, prev, pager, next, jumper" :total="ershoufan.length">
+				</el-pagination>
+			</div>
 		</el-dialog>
 
 	</div>
 </template>
 
 <script>
+	import qs from 'qs'
+	import {
+		ElMessage
+	} from 'element-plus'
 	export default {
 		data() {
 			return {
@@ -171,9 +231,22 @@
 				pageNo: 1, //当前页数
 				size: 5, //当前页显示的条数
 				total: 0, //总记录数
-				fangDialog: true,
+				fangDialog: false,
 				xinfan: [], //新房
 				ershoufan: [], //二手房
+				pageNo2: 1, //当前页数
+				size2: 5, //当前页显示的条数
+				total2: 0, //总记录数
+				choose: [],
+				housingRecommended: {
+					recId: '',
+					recCus: '',
+					recHou: '',
+					recSec: '',
+				},
+				cusId: '',
+				selectIs: false,
+				customers: {},
 			}
 		},
 		methods: {
@@ -187,24 +260,61 @@
 				console.log(`当前页: ${val}`);
 				this.pageNo = val;
 			},
+			/*分页*/
+			handleSizeChange2(val) {
+				console.log(`每页 ${val} 条`);
+				this.pageNo = 1;
+				this.size = val;
+			},
+			handleCurrentChange2(val) {
+				console.log(`当前页: ${val}`);
+				this.pageNo = val;
+			},
 			allCustomersBymaleState() {
 				this.axios.get("Customerss/AllCustomersBymaleState").then((v) => {
 					this.demandForm = v.data;
 				});
 			},
-			HousSelectAll() {
+			/*HousSelectAll() {
 				this.axios.get("Hous/selectAll").then((v) => {
 					this.xinfan = v.data;
 				});
-			},
+			},*/
 			SeconSelectAll() {
-				this.axios.get("Secon/selectAll").then((v) => {
+				this.axios.get("Secondary/selectAll").then((v) => {
 					this.ershoufan = v.data;
 				});
 			},
+			xuan(row) {
+				this.choose = [];
+				row.forEach(r => {
+					this.choose.push(r.secondaryId);
+				})
+			},
+			addhou() {
+				var hou = JSON.stringify({
+					cusId: this.cusId,
+					choose: this.choose
+				})
+				this.axios.post("sing/batchAdd", qs.stringify({
+					hou: hou
+				})).then((v) => {
+					ElMessage(v.data);
+					this.fangDialog = false;
+				});
+			},
+			po(row) {
+				this.fangDialog = true;
+				this.cusId = row.cusId;
+			},
+			all(row) {
+				this.selectIs = true;
+				this.customers = row;
+			}
 		},
 		created() {
 			this.allCustomersBymaleState();
+			this.SeconSelectAll();
 		}
 	}
 </script>

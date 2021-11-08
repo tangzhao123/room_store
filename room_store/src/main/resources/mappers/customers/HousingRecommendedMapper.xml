@@ -26,6 +26,12 @@
     values (#{recCus,jdbcType=INTEGER}, #{recHou,jdbcType=INTEGER}, #{recSec,jdbcType=INTEGER}
       )
   </insert>
+  <insert id="batchAdd" parameterType="java.util.List">
+    insert into housing_recommended values
+    <foreach collection="list" item="p" index="i" separator=",">
+      (null,#{p.recCus},#{p.recHou},#{p.recSec})
+    </foreach>
+  </insert>
   <insert id="insertSelective" keyColumn="rec_id" keyProperty="recId" parameterType="cn.gson.room_store.model.pojos.customers.HousingRecommended" useGeneratedKeys="true">
     insert into housing_recommended
     <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -110,7 +110,7 @@
 					<template v-if="r.row.maleState=='不在公客池'">
             <el-link type="primary" @click="update(r.row)">移入公客池</el-link>
           </template>
-          <template v-if="r.row.maleState=='已在公客池'">
+          <template v-else>
             <el-link type="primary" @click="update(r.row)">移出公客池</el-link>
           </template>
 				</template>
