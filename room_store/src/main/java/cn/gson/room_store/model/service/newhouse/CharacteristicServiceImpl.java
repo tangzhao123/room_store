@@ -11,7 +11,7 @@ public class CharacteristicServiceImpl implements CharacteristicService {
     @Autowired
     CharacteristicMapper characteristicMapper;
     @Override
-    public List<Characteristic> selectAll(Characteristic characteristic) {
-        return characteristicMapper.selectAll(characteristic);
+    public List<Characteristic> selectAll() {
+        return characteristicMapper.selectAll();
     }
 }

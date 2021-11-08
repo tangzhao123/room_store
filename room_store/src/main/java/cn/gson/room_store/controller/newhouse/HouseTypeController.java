@@ -31,9 +31,9 @@ public class HouseTypeController {
         PageInfo<HouseType> houseTypePageInfo = houseTypeService.selectByAll(houseTypeSearchVo);
         return Result.success(houseTypePageInfo);
     }
-//    @GetMapping("/selectMap")
-//    public Result selectMap(){
-//        List<Map> maps = houseTypeService.selectMap();
-//        return Result.success(maps);
-//    }
+    @GetMapping("/selectMap")
+    public Result selectMap(){
+        List<Map> maps = houseTypeService.selectList();
+        return Result.success(maps);
+    }
 }

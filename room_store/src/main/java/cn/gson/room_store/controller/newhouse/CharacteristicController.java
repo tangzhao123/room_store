@@ -17,8 +17,8 @@ public class CharacteristicController {
     @Autowired
     CharacteristicService characteristicService;
     @GetMapping("/select")
-    public Result select(@RequestBody Characteristic characteristic){
-        List<Characteristic> characteristics = characteristicService.selectAll(characteristic);
+    public Result select(){
+        List<Characteristic> characteristics = characteristicService.selectAll();
         return Result.success(characteristics);
     }
 }

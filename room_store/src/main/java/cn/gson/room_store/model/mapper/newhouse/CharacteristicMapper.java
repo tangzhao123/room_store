@@ -8,5 +8,5 @@ import java.util.List;
 @Mapper
 public interface CharacteristicMapper {
     //查询所有特色
-      List<Characteristic> selectAll(Characteristic characteristic);
+      List<Characteristic> selectAll();
 }

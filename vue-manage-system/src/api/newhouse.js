@@ -20,3 +20,21 @@ export function enit(data){
     data
   })
 }
+export function selectList(){
+	return request({
+		url:'/chara/select',
+		method:'get',
+	})
+}
+export function selectByOne(data){
+	return request({
+		url:`/house/selectByOne/${data}`,
+		data
+	})
+}
+export function selectDetails(data){
+	return request({
+		url:`/house/selectDetails/${data}`,
+		data
+	})
+}

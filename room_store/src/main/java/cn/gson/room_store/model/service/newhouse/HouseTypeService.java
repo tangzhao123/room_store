@@ -14,6 +14,6 @@ public interface HouseTypeService {
     int updateByAll(HouseType record);
     //分页查询列表
     PageInfo<HouseType> selectByAll(HouseTypeSearchVo houseTypeSearchVo);
-    //连表查询新房名称
-//    List<Map> selectMap();
+    //    连表查询新房名称
+    List<Map> selectList();
 }

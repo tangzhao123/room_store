@@ -94,10 +94,6 @@ public class NewHouse implements Serializable {
      */
     private Integer houseNumber;
 
-    /**
-     * 户型id
-     */
-    private Integer typeId;
 
     /**
      * 特点id
@@ -114,7 +110,10 @@ public class NewHouse implements Serializable {
      */
     private Integer houseUsersNo;
 
-
+   /*
+   * 连表查询
+   * */
+    private List<HouseType> houseTypes;
 
     private static final long serialVersionUID = 1L;
 }

@@ -77,7 +77,9 @@
 					<el-input v-model="form.sourceArea" placeholder="建筑面积" style="width: 240px;"></el-input>
 				</el-form-item>
 				<el-form-item label="小区特色" prop="sourceCharacteristic">
-					<el-input v-model="form.sourceCharacteristic" placeholder="小区特色" style="width: 240px;"></el-input>
+					<el-select v-model="form.sourceCharacteristic">
+						<el-option v-for="item in lists" :key="item.charaId" :label="item.charaName" :value="item.charaName"></el-option>
+					</el-select>
 				</el-form-item>
 				<el-form-item label="参考单价" prop="sourcePrice">
 					<el-input v-model="form.sourcePrice" placeholder="参考单价" style="width: 240px;"></el-input>
@@ -105,7 +107,8 @@
 	import {
 		getList,
 		enit,
-		addall
+		addall,
+		selectList
 	} from '../../api/housecollection.js'
 	export default {
 		data() {
@@ -117,6 +120,7 @@
 				quid:"",//区
 				quname:"",
 				qu:[],
+				lists:[],
 				xqu:[],//xiao区数据
 				xquid:"",//区
 				dialogVisible:false,
@@ -213,12 +217,20 @@
 				this.selectParams.pageNum = pageNum;
 				this.load();
 			},
+			find(){
+				selectList().then(res=>{
+					this.lists=res.data
+					console.log(this.lists)
+					console.log(res.data)
+				})
+			},
 		},
 		created() {
 			this.selectParams.pageNum = 1;
 			this.selectParams.pageSize = 10;
 			this.load()
 			this.getCounty();
+			this.find();
 		}
 	}
 </script>

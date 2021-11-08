@@ -19,6 +19,10 @@ public class HouseType implements Serializable {
      */
     private String typeName;
 
+    /*
+    * 小区名称
+    * */
+    private String typeAddress;
     /**
      * 户型结构
      */
@@ -59,7 +63,10 @@ public class HouseType implements Serializable {
      * 卫
      * */
     private String typeGuard;
-
+    /*
+    * 新房外键
+    * */
+    private Integer newhouseId;
     private NewHouse name;
 
     private static final long serialVersionUID = 1L;
