@@ -14,6 +14,8 @@ public interface NewHouseMapper {
     int insertSelective(NewHouse record);
 //根据id查询数据
     NewHouse selectByPrimaryKey(Integer houseId);
+
+    List<NewHouse> selectAll();
 //修改列表
     int updateByAll(NewHouse record);
 

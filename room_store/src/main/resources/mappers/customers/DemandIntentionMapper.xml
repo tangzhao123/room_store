@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.customers.DemandIntentionMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.customers.DemandIntention">
+    <id column="demand_id" jdbcType="INTEGER" property="demandId" />
+    <result column="demand_area" jdbcType="VARCHAR" property="demandArea" />
+    <result column="village_name" jdbcType="VARCHAR" property="villageName" />
+    <result column="min_price" jdbcType="DOUBLE" property="minPrice" />
+    <result column="max_price" jdbcType="DOUBLE" property="maxPrice" />
+    <result column="max_area" jdbcType="DOUBLE" property="maxArea" />
+    <result column="min_area" jdbcType="DOUBLE" property="minArea" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    demand_id, demand_area, village_name, min_price, max_price, max_area, min_area
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from demand_intention
+    where demand_id = #{demandId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from demand_intention
+    where demand_id = #{demandId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="demand_id" keyProperty="demandId" parameterType="cn.gson.room_store.model.pojos.customers.DemandIntention" useGeneratedKeys="true">
+    <selectKey resultType="java.lang.Integer" keyProperty="demandId">
+      select last_insert_id()
+    </selectKey>
+    insert into demand_intention (demand_area, village_name, min_price,
+      max_price, max_area, min_area
+      )
+    values (#{demandArea,jdbcType=VARCHAR}, #{villageName,jdbcType=VARCHAR}, #{minPrice,jdbcType=DOUBLE},
+      #{maxPrice,jdbcType=DOUBLE}, #{maxArea,jdbcType=DOUBLE}, #{minArea,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="demand_id" keyProperty="demandId" parameterType="cn.gson.room_store.model.pojos.customers.DemandIntention" useGeneratedKeys="true">
+    insert into demand_intention
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="demandArea != null">
+        demand_area,
+      </if>
+      <if test="villageName != null">
+        village_name,
+      </if>
+      <if test="minPrice != null">
+        min_price,
+      </if>
+      <if test="maxPrice != null">
+        max_price,
+      </if>
+      <if test="maxArea != null">
+        max_area,
+      </if>
+      <if test="minArea != null">
+        min_area,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="demandArea != null">
+        #{demandArea,jdbcType=VARCHAR},
+      </if>
+      <if test="villageName != null">
+        #{villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null">
+        #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="maxPrice != null">
+        #{maxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="maxArea != null">
+        #{maxArea,jdbcType=DOUBLE},
+      </if>
+      <if test="minArea != null">
+        #{minArea,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.gson.room_store.model.pojos.customers.DemandIntention">
+    update demand_intention
+    <set>
+      <if test="demandArea != null">
+        demand_area = #{demandArea,jdbcType=VARCHAR},
+      </if>
+      <if test="villageName != null">
+        village_name = #{villageName,jdbcType=VARCHAR},
+      </if>
+      <if test="minPrice != null">
+        min_price = #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="maxPrice != null">
+        max_price = #{maxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="maxArea != null">
+        max_area = #{maxArea,jdbcType=DOUBLE},
+      </if>
+      <if test="minArea != null">
+        min_area = #{minArea,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where demand_id = #{demandId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.customers.DemandIntention">
+    update demand_intention
+    set demand_area = #{demandArea,jdbcType=VARCHAR},
+      village_name = #{villageName,jdbcType=VARCHAR},
+      min_price = #{minPrice,jdbcType=DOUBLE},
+      max_price = #{maxPrice,jdbcType=DOUBLE},
+      max_area = #{maxArea,jdbcType=DOUBLE},
+      min_area = #{minArea,jdbcType=DOUBLE}
+    where demand_id = #{demandId,jdbcType=INTEGER}
+  </update>
+</mapper>

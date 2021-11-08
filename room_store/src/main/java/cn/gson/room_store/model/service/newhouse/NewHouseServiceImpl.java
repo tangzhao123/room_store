@@ -8,6 +8,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NewHouseServiceImpl implements NewHouseService {
     @Autowired
@@ -27,6 +29,9 @@ public class NewHouseServiceImpl implements NewHouseService {
 
     @Override
     public int insert(NewHouse record) {
+        if(record.getHouseIshide()==null){
+            record.setHouseIshide("显示");
+        }
         return newHouseMapper.insert(record);
     }
 
@@ -39,4 +44,10 @@ public class NewHouseServiceImpl implements NewHouseService {
     public NewHouse selectByPrimaryKey(Integer houseId) {
         return newHouseMapper.selectByPrimaryKey(houseId);
     }
+
+    @Override
+    public List<NewHouse> selectAll() {
+        return newHouseMapper.selectAll();
+    }
+
 }

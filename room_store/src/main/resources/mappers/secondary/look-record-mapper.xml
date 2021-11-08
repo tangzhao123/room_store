@@ -3,8 +3,20 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.gson.room_store.model.mapper.secondary.LookRecordMapper">
 
-    <!-- 查询二手房带看记录 根据房源编号查询 -->
+    <!-- 查询二手房带看记录 根据带看编号查询 -->
     <select id="findAllLookRecord" resultType="cn.gson.room_store.model.pojos.secondary.LookRecord">
-        select * from look_record
+        select * from look_record where look_id = #{lookId}
     </select>
+
+    <!-- 查询二手房带看记录  -->
+    <select id="allLookRecord" resultType="cn.gson.room_store.model.pojos.secondary.LookRecord">
+        select * from look_record l
+        left join secondary s on l.secondary_number = s.secondary_number
+    </select>
+
+
+    <!-- 新增带看记录 -->
+    <insert id="addLookRecord">
+        insert into look_record values (0,#{lookMake},#{lookEnd},#{lookName},#{lookPhone},#{secondaryNumber},#{lookTitle},#{lookPicture},'完成')
+    </insert>
 </mapper>

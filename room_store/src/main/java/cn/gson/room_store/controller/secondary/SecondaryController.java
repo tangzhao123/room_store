@@ -3,6 +3,7 @@ package cn.gson.room_store.controller.secondary;
 import cn.gson.room_store.model.pojos.secondary.Secondary;
 import cn.gson.room_store.model.service.secondary.SecondaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -75,5 +76,10 @@ public class SecondaryController {
             e.printStackTrace();
             return "fail";
         }
+    }
+
+    @GetMapping("/selectAll")
+    public List<Secondary> selectAll(){
+        return secondaryService.selectAll();
     }
 }

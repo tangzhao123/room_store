@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.customers.DemandUseMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.customers.DemandUseKey">
+    <id column="use_id" jdbcType="INTEGER" property="useId" />
+    <id column="demand_id" jdbcType="INTEGER" property="demandId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.customers.DemandUseKey">
+    delete from demand_use
+    where use_id = #{useId,jdbcType=INTEGER}
+      and demand_id = #{demandId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="use_id" keyProperty="useId" parameterType="cn.gson.room_store.model.pojos.customers.DemandUseKey" useGeneratedKeys="true">
+    insert into demand_use (demand_id)
+    values (#{demandId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="use_id" keyProperty="useId" parameterType="cn.gson.room_store.model.pojos.customers.DemandUseKey" useGeneratedKeys="true">
+    insert into demand_use
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="demandId != null">
+        demand_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="demandId != null">
+        #{demandId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <insert id="batchAdd" parameterType="java.util.List">
+    insert into demand_use values
+    <foreach collection="list" item="p" index="i" separator=",">
+      (#{p.useId},#{p.demandId})
+    </foreach>
+  </insert>
+  <select id="SelectedUseIntentionList" resultType="java.lang.Integer">
+    select use_id from demand_use where demand_id=#{demandId}
+  </select>
+
+  <delete id="deleteBydemandId">
+    delete from demand_use
+    where demand_id = #{demandId,jdbcType=INTEGER}
+  </delete>
+</mapper>

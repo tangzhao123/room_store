@@ -177,11 +177,6 @@
 						</template>
 					</el-table-column>
 					<el-table-column prop="rehoDate" label="发布时间" width="160px"> </el-table-column>
-					<el-table-column prop="rehoXcgenjindate" label="预计下次跟进时间" width="160px">
-						<template v-slot:default="v">
-							<div>{{v.row.rehoXcgenjindate == null ? "-" : v.row.rehoXcgenjindate}}</div>
-						</template>
-					</el-table-column>
 					<el-table-column prop="rehoGenjindate" label="最近跟进时间" width="160px">
 						<template v-slot:default="v">
 							<div>{{v.row.rehoGenjindate == null ? "-" : v.row.rehoGenjindate}}</div>
@@ -194,11 +189,11 @@
 								<span @click="xiajia(v.row)">{{v.row.rehoShelf == 1 ? "下架":"上架"}}</span>
 							</div>
 							<div class="dianji" style="margin-bottom:8px">
-								<span style="margin-right:15px;">跟进记录</span>
-								<span>业主信息</span>
+								<span style="margin-right:15px;" @click="genjinjilu(v.row)">跟进记录</span>
+								<span @click="yezhuxx(v.row)">业主信息</span>
 							</div>
 							<div class="dianji">
-								<span style="margin-left:-14px;margin-right:29px" @click="chugongfangchi(v.row)">{{v.row.rehoGfczt == 1 ? "移出公房池":"移入公房池"}}</span>
+								<span style="margin-left:0px;margin-right:29px" @click="chugongfangchi(v.row)">{{v.row.rehoGfczt == 1 ? "移出公房池":"移入公房池"}}</span>
 								<span>编辑</span>
 							</div>
 						</template>
@@ -218,92 +213,89 @@
 				</div>
 			</el-row>
 		</div>
+
+		<el-dialog
+			v-model="dialogVisible"
+			:title="xjrehoRentouttitle"
+			width="30%"
+			:before-close="handleClose">
+			<span>确定要{{xjzt == 2?"下架":"上架"}}吗？</span>
+			<template #footer>
+			<span class="dialog-footer">
+				<el-button @click="dialogVisible = false">取消</el-button>
+				<el-button type="primary" @click="qdxiajia()">确定</el-button>
+			</span>
+			</template>
+		</el-dialog>
+
+		<el-dialog v-model="centerDialogVisible" title="移入公房池设置" width="30%" center>
+			<div>
+				<el-row>
+					<el-col :span="2">
+						<el-form label-width="80px">
+							<el-form-item label="房源编号">
+							</el-form-item>
+						</el-form>
+					</el-col>
+					<el-col :span="6">
+						<el-form label-width="190px">
+							<el-form-item :label="xjrehoNumber">
+							</el-form-item>
+						</el-form>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="2">
+						<el-form label-width="80px">
+							<el-form-item label="房源标题">
+							</el-form-item>
+						</el-form>
+					</el-col>
+					<el-col :span="6">
+						<el-form label-width="80px">
+							<el-form-item :label="xjrehoRentouttitle">
+							</el-form-item>
+						</el-form>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="15">
+						<el-form label-width="100px">
+							<el-form-item label="房源提供方">
+								<el-input v-model="tigong" />
+							</el-form-item>
+						</el-form>
+					</el-col>
+					<el-col :span="3">
+						<el-form label-width="30px">
+							<el-form-item label="元">
+							</el-form-item>
+						</el-form>
+					</el-col>
+				</el-row>
+			</div>
+			<template #footer>
+			<span class="dialog-footer">
+				<el-button @click="centerDialogVisible = false">取消</el-button>
+				<el-button type="primary" @click="quedingyiru()" >确定</el-button>
+			</span>
+			</template>
+		</el-dialog>
+
+		<el-dialog
+			v-model="dialogVisible1"
+			:title="xjrehoRentouttitle"
+			width="30%"
+			:before-close="handleClose">
+			<span>确定要移出公房池吗？</span>
+			<template #footer>
+			<span class="dialog-footer">
+				<el-button @click="dialogVisible1 = false">取消</el-button>
+				<el-button type="primary" @click="qdyichu()">确定</el-button>
+			</span>
+			</template>
+		</el-dialog>
 	</div>
-
-	<el-dialog
-    v-model="dialogVisible"
-    :title="xjrehoRentouttitle"
-    width="30%"
-    :before-close="handleClose"
-  >
-    <span>确定要{{xjzt == 2?"下架":"上架"}}吗？</span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="qdxiajia()">确定</el-button>
-      </span>
-    </template>
-  </el-dialog>
-
-	<el-dialog v-model="centerDialogVisible" title="移入公房池设置" width="30%" center>
-	<div>
-		<el-row>
-			<el-col :span="2">
-				<el-form label-width="80px">
-					<el-form-item label="房源编号">
-					</el-form-item>
-				</el-form>
-			</el-col>
-			<el-col :span="6">
-				<el-form label-width="190px">
-					<el-form-item :label="xjrehoNumber">
-					</el-form-item>
-				</el-form>
-			</el-col>
-		</el-row>
-		<el-row>
-			<el-col :span="2">
-				<el-form label-width="80px">
-					<el-form-item label="房源标题">
-					</el-form-item>
-				</el-form>
-			</el-col>
-			<el-col :span="6">
-				<el-form label-width="80px">
-					<el-form-item :label="xjrehoRentouttitle">
-					</el-form-item>
-				</el-form>
-			</el-col>
-		</el-row>
-		<el-row>
-			<el-col :span="15">
-				<el-form label-width="100px">
-					<el-form-item label="房源提供方">
-						<el-input v-model="tigong" />
-					</el-form-item>
-				</el-form>
-			</el-col>
-			<el-col :span="3">
-				<el-form label-width="30px">
-					<el-form-item label="元">
-					</el-form-item>
-				</el-form>
-			</el-col>
-		</el-row>
-	</div>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="quedingyiru()" >确定</el-button>
-      </span>
-    </template>
-  </el-dialog>
-
-  <el-dialog
-    v-model="dialogVisible1"
-    :title="xjrehoRentouttitle"
-    width="30%"
-    :before-close="handleClose"
-  >
-    <span>确定要移出公房池吗？</span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dialogVisible1 = false">取消</el-button>
-        <el-button type="primary" @click="qdyichu()">确定</el-button>
-      </span>
-    </template>
-  </el-dialog>
-
 </template>
 
 <script>
@@ -354,6 +346,22 @@
 			//跳转到新增房源的界面
 			intoHousing(){
 				this.$router.push("/add-rentalhous");
+			},
+			yezhuxx(row){
+				this.$router.push({
+					path:"/rentalowner",
+					query: {
+						params: JSON.stringify({no:row.rehoNo,Title:row.rehoRentouttitle,number:row.rehoNumber}) 
+					}
+				});
+			},
+			genjinjilu(row){
+				this.$router.push({
+					path:"/rentalfollowup",
+					query: {
+						params: JSON.stringify({no:row.rehoNo}) 
+					}
+				});
 			},
 			getData1(){
 				var quyus = this.quyu.join(",");

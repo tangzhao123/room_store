@@ -17,10 +17,9 @@
   <sql id="Base_Column_List">
     type_id, type_name, type_structure, type_area, type_label, type_img, type_describe,type_room,type_office,type_kitchen,
     type_guard
-
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from house_type
     where type_id = #{typeId,jdbcType=INTEGER}
@@ -40,10 +39,10 @@
     where type_id = #{typeId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" keyColumn="type_id" keyProperty="typeId" parameterType="cn.gson.room_store.model.pojos.newhouse.HouseType" useGeneratedKeys="true">
-    insert into house_type (type_name, type_structure, type_area, 
+    insert into house_type (type_name, type_structure, type_area,
       type_label, type_img, type_describe,type_room,type_office,type_kitchen,type_guard
       )
-    values (#{typeName,jdbcType=VARCHAR}, #{typeStructure,jdbcType=VARCHAR}, #{typeArea,jdbcType=INTEGER}, 
+    values (#{typeName,jdbcType=VARCHAR}, #{typeStructure,jdbcType=VARCHAR}, #{typeArea,jdbcType=INTEGER},
       #{typeLabel,jdbcType=VARCHAR}, #{typeImg,jdbcType=VARCHAR}, #{typeDescribe,jdbcType=VARCHAR},
       #{typeRoom,jdbcType=VARCHAR},#{typeOffice,jdbcType=VARCHAR},#{typeKitchen,jdbcType=VARCHAR},
       #{typeGuard,jdbcType=VARCHAR}

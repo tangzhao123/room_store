@@ -29,6 +29,15 @@
         select count(t.house_state) as 'number',house_state as 'type' from(
                                                                               select house_state from new_house
                                                                           ) t  group by t.house_state
+=======
+<!--    <select id="statistics2" resultType="_int">-->
+<!--        select id="statistics3" resultType="map">-->
+<!--        select count(t.reho_shelf) as 'number',reho_shelf as 'type' from(-->
+<!--                                                                            select reho_shelf from rentalhousing-->
+<!--                                                                        ) t  group by t.reho_shelf </select>-->
+    <select id="statistics2" resultType="_int">
+        SELECT count(*) from customers
+>>>>>>> 85183a1ac3332cb61dfdfcad808e1b2d34086cca
     </select>
 
 </mapper>

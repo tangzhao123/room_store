@@ -2,6 +2,7 @@ package cn.gson.room_store.model.pojos.newhouse;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -74,9 +75,9 @@ public class NewHouse implements Serializable {
     private Date houseCertificateTime;
 
     /**
-     * 销售状态(0：代售，1：在售，2：售罄)
+     * 销售状态
      */
-    private Integer houseState;
+    private String houseState;
 
     /**
      * 请上传房源图片
@@ -84,9 +85,9 @@ public class NewHouse implements Serializable {
     private String houseImg;
 
     /**
-     * 前台是否显示(0:显示，1：隐藏)
+     * 前台是否显示
      */
-    private Integer houseIshide;
+    private String houseIshide;
 
     /**
      * 楼盘编号
@@ -112,6 +113,8 @@ public class NewHouse implements Serializable {
      * 用户编号
      */
     private Integer houseUsersNo;
+
+
 
     private static final long serialVersionUID = 1L;
 }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.customers.LevelMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.customers.Level">
+    <id column="level_id" jdbcType="INTEGER" property="levelId" />
+    <result column="level_name" jdbcType="VARCHAR" property="levelName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    level_id, level_name
+  </sql>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from level
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from level
+    where level_id = #{levelId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from level
+    where level_id = #{levelId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="level_id" keyProperty="levelId" parameterType="cn.gson.room_store.model.pojos.customers.Level" useGeneratedKeys="true">
+    insert into level (level_name)
+    values (#{levelName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="level_id" keyProperty="levelId" parameterType="cn.gson.room_store.model.pojos.customers.Level" useGeneratedKeys="true">
+    insert into level
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="levelName != null">
+        level_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="levelName != null">
+        #{levelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.gson.room_store.model.pojos.customers.Level">
+    update level
+    <set>
+      <if test="levelName != null">
+        level_name = #{levelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where level_id = #{levelId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.customers.Level">
+    update level
+    set level_name = #{levelName,jdbcType=VARCHAR}
+    where level_id = #{levelId,jdbcType=INTEGER}
+  </update>
+</mapper>

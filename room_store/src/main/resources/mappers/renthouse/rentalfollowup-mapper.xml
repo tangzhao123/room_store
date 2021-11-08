@@ -14,6 +14,7 @@
         <result column="refo_date" property="refoDate" />
         <result column="refo_nexttime" property="refoNexttime" />
         <result column="refo_reho_no" property="refoRehoNo" />
+        <result column="refo_neirong" property="refoNeirong" />
     </resultMap>
 
     <!-- 查询单个跟进记录根据编号 -->
@@ -23,13 +24,13 @@
 
     <!-- 查询房源租房跟进记录 -->
     <select id="findAllRentalfollowup" resultMap="rentalfollowup">
-        select * from rentalfollowup where refo_reho_no = #{param}
+        select * from rentalfollowup where refo_reho_no = #{param} order by refo_date desc
     </select>
 
     <!-- 新增租房跟进记录 -->
     <insert id="insertRentalfollowup" parameterType="cn.gson.room_store.model.pojos.renthouse.Rentalfollowup">
-        insert into rentalfollowup(refo_img,refo_name,refo_phone,refo_way,refo_type,refo_nexttime,refo_reho_no) values
-        (#{refoImg},#{refoName},#{refoPhone},#{refoWay},#{refoType},#{refoNexttime},#{refoRehoNo})
+        insert into rentalfollowup(refo_img,refo_name,refo_phone,refo_way,refo_type,refo_nexttime,refo_reho_no,refo_neirong) values
+        (#{refoImg},#{refoName},#{refoPhone},#{refoWay},#{refoType},#{refoNexttime},#{refoRehoNo},#{refoNeirong})
     </insert>
 
 

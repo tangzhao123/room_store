@@ -23,6 +23,11 @@ public class RentalpublicpoolsController {
     @Autowired
     RentalpublicpoolsService rentalpublicpoolsService;
 
+
+    @RequestMapping("findAllRentalpublicpools")
+    public List<Rentalpublicpools> findAllRentalpublicpools(){
+        return rentalpublicpoolsService.findAllRentalpublicpools();
+    }
     //    查询租房公房池推荐客源
     @RequestMapping("findRentalpublicpoolsAndCustomers")
     public List<Customers> findRentalpublicpoolsAndCustomers(String param){

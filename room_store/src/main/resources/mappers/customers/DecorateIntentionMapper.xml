@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.gson.room_store.model.mapper.customers.DecorateIntentionMapper">
+  <resultMap id="BaseResultMap" type="cn.gson.room_store.model.pojos.customers.DecorateIntention">
+    <id column="decor_id" jdbcType="INTEGER" property="decorId" />
+    <result column="decor_name" jdbcType="VARCHAR" property="decorName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    decor_id, decor_name
+  </sql>
+  <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from decorate_intention
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from decorate_intention
+    where decor_id = #{decorId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from decorate_intention
+    where decor_id = #{decorId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="decor_id" keyProperty="decorId" parameterType="cn.gson.room_store.model.pojos.customers.DecorateIntention" useGeneratedKeys="true">
+    insert into decorate_intention (decor_name)
+    values (#{decorName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="decor_id" keyProperty="decorId" parameterType="cn.gson.room_store.model.pojos.customers.DecorateIntention" useGeneratedKeys="true">
+    insert into decorate_intention
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="decorName != null">
+        decor_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="decorName != null">
+        #{decorName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.gson.room_store.model.pojos.customers.DecorateIntention">
+    update decorate_intention
+    <set>
+      <if test="decorName != null">
+        decor_name = #{decorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where decor_id = #{decorId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.gson.room_store.model.pojos.customers.DecorateIntention">
+    update decorate_intention
+    set decor_name = #{decorName,jdbcType=VARCHAR}
+    where decor_id = #{decorId,jdbcType=INTEGER}
+  </update>
+</mapper>
