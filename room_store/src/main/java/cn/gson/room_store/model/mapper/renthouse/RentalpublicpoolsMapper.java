@@ -18,7 +18,7 @@ public interface RentalpublicpoolsMapper {
     List<Customers> findRentalpublicpoolsAndCustomers(String param);
 
 //    租房公房池推荐客源 完成跟进、无效
-    void updateRentalpublicpoolsKYCZ(@Param("customersState") int customersState,@Param("secondaryNumber") String secondaryNumber);
+    void updateRentalpublicpoolsKYCZ(@Param("customersState") int customersState,@Param("secondaryNumber") int secondaryNumber);
 
 //    新增公房池推荐客源
     void insertRentalpublicpoolsKy(Customers customers);
@@ -28,4 +28,6 @@ public interface RentalpublicpoolsMapper {
 
 //    移入公房池
     void insertRentalpublicpools(Rentalpublicpools rentalpublicpools);
+
+    List<Rentalpublicpools> findAllRentalpublicpools();
 }

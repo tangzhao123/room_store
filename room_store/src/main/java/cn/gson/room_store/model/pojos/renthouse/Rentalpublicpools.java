@@ -15,4 +15,5 @@ public class Rentalpublicpools {
     private double reppMoney;
     @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date reppDate;
+    private Rentalhousing rentalhousing;
 }
