@@ -62,11 +62,12 @@ public class CustomerssService {
             demandFloorMapper.deleteBydemandId(demand.getDemandId());
         }else{
              demandIntentionMapper.insert(demand);
+            if(customers.getDemanId()==null){
+                customers.setDemanId(demand.getDemandId());
+            }
              i= customerssMapper.insertSelective(customers);
         }
-        if(customers.getDemanId()==null){
-            customers.setDemanId(demand.getDemandId());
-        }
+
             List<DemandModelKey> list=new ArrayList<>();
             for(Integer p : SelectedModelIntentionList) {
                 DemandModelKey demandModelKey = new DemandModelKey();
