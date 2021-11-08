@@ -8,6 +8,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/type")
 public class HouseTypeController {
@@ -28,4 +31,9 @@ public class HouseTypeController {
         PageInfo<HouseType> houseTypePageInfo = houseTypeService.selectByAll(houseTypeSearchVo);
         return Result.success(houseTypePageInfo);
     }
+//    @GetMapping("/selectMap")
+//    public Result selectMap(){
+//        List<Map> maps = houseTypeService.selectMap();
+//        return Result.success(maps);
+//    }
 }

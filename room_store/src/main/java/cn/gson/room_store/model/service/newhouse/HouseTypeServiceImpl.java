@@ -8,6 +8,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class HouseTypeServiceImpl implements HouseTypeService {
     @Autowired
@@ -33,4 +36,10 @@ public class HouseTypeServiceImpl implements HouseTypeService {
         PageHelper.startPage(houseTypeSearchVo.getPageNum(),houseTypeSearchVo.getPageSize());
         return new PageInfo<HouseType>(houseTypeMapper.selectByAll(houseTypeSearchVo));
     }
+
+//    @Override
+//    public List<Map> selectMap() {
+//        List<Map> maps = houseTypeMapper.selectMap();
+//        return maps;
+//    }
 }
