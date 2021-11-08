@@ -91,15 +91,15 @@
 				<el-table-column prop="secondaryNumber" label="房源编号" width="200"> </el-table-column>
 				<el-table-column label="操作" width="300">
 					<template v-slot:default="r">
-						<el-button type="primary" size="medium" @click="findDetails(r.row)"
+						<el-button type="text" size="medium" @click="findDetails(r.row)"
 							v-if=" r.row.userId==userId">
 							查看详情</el-button>
-						<el-button type="danger" size="medium" @click="removeHandHouse(r.row)" v-if="r.row.userId == userId">
+						<el-button type="text" size="medium" @click="removeHandHouse(r.row)" v-if="r.row.userId == userId">
 							移出公房池</el-button>
-						<el-button type="primary" size="medium" @click="addCustomers(r.row)"
+						<el-button type="text" size="medium" @click="addCustomers(r.row)"
 							v-if="r.row.userId != userId">提供客源</el-button>
 
-						<el-button type="primary" size="medium" v-if="r.row.userId != userId" @click="findAllCustomers(r.row)">查看推荐
+						<el-button type="text" size="medium" v-if="r.row.userId != userId" @click="findAllCustomers(r.row)">查看推荐
 						</el-button>
 					</template>
 				</el-table-column>
@@ -140,9 +140,9 @@
 				<el-table-column prop="address" label="操作">
 					<template v-slot:default="r">
 						<span v-if="r.row.customersState==0">
-							<el-button type="primary" size="medium" @click="follow(r.row)">
+							<el-button type="text" size="medium" @click="follow(r.row)">
 								跟进</el-button>
-							<el-button type="danger" size="medium" @click="invalid(r.row)">
+							<el-button type="text" size="medium" @click="invalid(r.row)">
 								无效</el-button>
 						</span>
 					</template>

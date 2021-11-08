@@ -24,7 +24,7 @@
 			<el-table-column prop="lookState" label="看房状态"> </el-table-column>
 			<el-table-column prop="address" label="操作">
 				<template v-slot:default="r">
-					<el-button type="primary" size="medium" @click="lookDetails(r.row)">查看详情</el-button>
+					<el-button type="text" size="medium" @click="lookDetails(r.row)">查看详情</el-button>
 				</template>
 			</el-table-column>
 		</el-table>

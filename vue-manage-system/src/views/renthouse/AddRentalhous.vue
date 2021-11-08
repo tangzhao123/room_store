@@ -755,23 +755,6 @@ import { ElMessage } from 'element-plus'
 						})
 					}
 				}
-				if(this.rentalhousing.rehoInsidespace != ""){
-					if(!this.isRealNum(this.rentalhousing.rehoInsidespace)){
-						fl = false;
-						ElMessage({
-							message: '套内面积请输入数字！',
-							type: 'warning',
-						})
-					}else{
-						if(this.rentalhousing.rehoInsidespace > this.rentalhousing.rehoCoveredarea){
-							fl = false;
-							ElMessage({
-								message: '套内面积不能大于建筑面积！',
-								type: 'warning',
-							})
-						}
-					}
-				}
 
 				if(fl){
 					this.flag = false;

@@ -113,16 +113,16 @@
 					<el-table-column prop="secondaryAvailability" label="发布时间" width="150"> </el-table-column>
 					<el-table-column label="操作" width="400">
 						<template v-slot:default="r">
-							<el-button type="primary" size="medium" @click="details(r.row)">查看详情</el-button>
-							<el-button type="danger" size="medium" @click="shelves(r.row)"
+							<el-button type="text" size="medium" @click="details(r.row)">查看详情</el-button>
+							<el-button type="text" size="medium" @click="shelves(r.row)"
 								v-if="r.row.secondaryState == 0">下架</el-button>
-							<el-button type="primary" size="medium" @click="theShelves(r.row)"
+							<el-button type="text" size="medium" @click="theShelves(r.row)"
 								v-if="r.row.secondaryState == 1">上架</el-button>
 
-							<el-button type="primary" size="medium" v-if="r.row.secondaryPoolsAccess==0"
+							<el-button type="text" size="medium" v-if="r.row.secondaryPoolsAccess==0"
 								@click='dialogFormVisible= true,showHouse(r.row)'>移入公房池
 							</el-button>
-							<el-button type="danger" size="medium" v-if="r.row.secondaryPoolsAccess==1"
+							<el-button type="text" size="medium" v-if="r.row.secondaryPoolsAccess==1"
 								@click="removeHandHouse(r.row)">移出公房池
 							</el-button>
 

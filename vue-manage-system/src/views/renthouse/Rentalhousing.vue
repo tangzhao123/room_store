@@ -245,7 +245,7 @@
 					</el-col>
 				</el-row>
 				<el-row>
-					<el-col :span="2">
+					<el-col :span="5">
 						<el-form label-width="80px">
 							<el-form-item label="房源标题">
 							</el-form-item>

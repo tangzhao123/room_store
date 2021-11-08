@@ -42,7 +42,7 @@
 		</el-row>
 		<el-row>
 			<el-form label-width="150px">
-				<el-form-item label="请上传委托协议">
+				<el-form-item label="">
 					<el-col :span="6" class="fangyuantupian">
 						<el-upload class="upload-demo" ref="upload" action="" drag multiple :auto-upload="false"
 							:on-change="handleFileUploaderEntrust">
