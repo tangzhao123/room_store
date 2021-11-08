@@ -3,10 +3,7 @@ package cn.gson.room_store.controller.secondary;
 import cn.gson.room_store.model.pojos.secondary.Secondary;
 import cn.gson.room_store.model.service.secondary.SecondaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -79,7 +76,7 @@ public class SecondaryController {
     }
 
     @GetMapping("/selectAll")
-    public List<Secondary> selectAll(){
-        return secondaryService.selectAll();
+    public List<Secondary> selectAll(@RequestParam("userId")Integer userId){
+        return secondaryService.selectAll(userId);
     }
 }

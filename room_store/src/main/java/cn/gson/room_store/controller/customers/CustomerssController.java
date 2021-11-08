@@ -23,8 +23,8 @@ public class CustomerssController {
     }
 
     @GetMapping("/allCustomers")
-    public List<Customerss> allCustomers(){
-        return service.allCustomers();
+    public List<Customerss> allCustomers(@RequestParam("userId") Integer userId){
+        return service.allCustomers(userId);
     }
 
     @GetMapping("/getallCustomers")

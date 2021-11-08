@@ -19,7 +19,7 @@ public interface CustomerssMapper {
 
     int updateByPrimaryKey(Customerss record);
 
-    List<Customerss> allCustomers();
+    List<Customerss> allCustomers(Integer userId);
 
     List<Customerss> allCustomersBymaleState();
 }

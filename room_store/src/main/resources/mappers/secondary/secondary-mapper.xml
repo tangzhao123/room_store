@@ -26,7 +26,7 @@
 
     <!-- 查询二手房源根据用户 -->
     <select id="selectAll" resultType="cn.gson.room_store.model.pojos.secondary.Secondary">
-        select * from secondary
+        select * from secondary where user_id=#{userId}
     </select>
     
     <!-- 根据编号修改状态（下架） -->

@@ -79,6 +79,7 @@
                                LEFT JOIN decorate_intention di on di.decor_id=dd.decor_id
                                LEFT JOIN demand_floor df on d.demand_id=df.demand_id
                                LEFT JOIN floor_intention fi on df.floor_id=fi.floor_id
+    where s.user_id=#{userId}
   </select>
 
   <select id="allCustomersBymaleState" resultMap="BaseResultMap">

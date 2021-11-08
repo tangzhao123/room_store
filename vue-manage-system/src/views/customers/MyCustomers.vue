@@ -184,7 +184,8 @@
 				this.pageNo = val;
 			},
 			allCustomers() {
-				this.axios.get("Customerss/allCustomers").then((v) => {
+        var userId=this.$store.state.token.userID;
+				this.axios.get("Customerss/allCustomers",{params:{userId:userId}}).then((v) => {
 					this.customersForm = v.data;
 				});
 			},
