@@ -37,13 +37,13 @@
 		</div>
 		<el-dialog title="提示" v-model="dialogVisible" width="1200px" :before-close="handleClose">
 			<el-form :model="form" label-width="100px" :rules="rules" ref="form">
-<!-- 				<el-form-item label="小区名称" prop="nameHouse">
-					<el-select v-model="form.nameHouse" placeholder="请选择小区名称">
-						<el-option v-for="item in name" :key="item.houseId" :label="item.houseName" :value="item.houseName"></el-option>
-					</el-select>
-				</el-form-item> -->
 				<el-form-item label="户型名称" prop="typeName">
 					<el-input v-model="form.typeName" placeholder="小区名称" style="width: 240px;"></el-input>
+				</el-form-item>
+				<el-form-item label="小区名称" prop="typeAddress">
+					<el-select v-model="form.typeAddress" placeholder="请选择小区名称" @change="changes($event)">
+						<el-option v-for="item in name" :key="item.house_id" :label="item.house_name" :value="{house_id:item.house_id,house_name:item.house_name}"></el-option>
+					</el-select>
 				</el-form-item>
 				<el-row>
 					<el-col :span="6">
@@ -104,6 +104,7 @@
 		getList,
 		enit,
 		addall,
+		selectMap
 	} from '../../api/housetype.js'
 	export default {
 		data() {
@@ -130,12 +131,16 @@
 				console.log(file)
 				console.log(this.imgBase64Array)
 			},
-			// find(){
-			// 	selectMap().then(res=>{
-			// 		this.name=res.data
-			// 		console.log(res.data)
-			// 	})
-			// },
+			find(){
+				selectMap().then(res=>{
+					this.name=res.data
+					console.log(res.data)
+				})
+			},
+			changes(event){
+				this.form.newhouseId=event.house_id;
+				this.form.typeAddress=event.house_name;
+			},
 			handleEdit(row) {
 				this.form = JSON.parse(JSON.stringify(row))
 				this.dialogVisible = true
@@ -219,7 +224,7 @@
 			this.selectParams.pageNum = 1;
 			this.selectParams.pageSize = 10;
 			this.load()
-			// this.find()
+			this.find()
 		},
 		// mounted(){
 		// 	this.find()

@@ -20,3 +20,9 @@ export function enit(data){
     data
   })
 }
+export function selectList(){
+	return request({
+		url:'/chara/select',
+		method:'get',
+	})
+}

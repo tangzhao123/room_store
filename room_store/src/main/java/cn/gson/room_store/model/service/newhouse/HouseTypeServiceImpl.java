@@ -37,9 +37,9 @@ public class HouseTypeServiceImpl implements HouseTypeService {
         return new PageInfo<HouseType>(houseTypeMapper.selectByAll(houseTypeSearchVo));
     }
 
-//    @Override
-//    public List<Map> selectMap() {
-//        List<Map> maps = houseTypeMapper.selectMap();
-//        return maps;
-//    }
+    @Override
+    public List<Map> selectList() {
+        List<Map> maps = houseTypeMapper.selectList();
+        return maps;
+    }
 }

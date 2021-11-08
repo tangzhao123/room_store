@@ -51,9 +51,12 @@
 			<el-table-column prop="houseNumber" label="楼盘编号"></el-table-column>
 			<el-table-column label="操作">
 				<template #default="scope">
-					<el-row :gutter="20">
+					<el-row :gutter="24">
 						<el-col :span="12" :offset="0">
-							<el-button size="mini" @click="handleEdit(scope.row)">编辑</el-button>
+							<el-button size="mini" icon="el-icon-view" @click="handleSelectById(scope.row.houseId)"></el-button>
+						</el-col>
+						<el-col :span="12" :offset="0">
+							<el-button size="mini" icon="el-icon-edit" @click="handleEdit(scope.row)"></el-button>
 						</el-col>
 					</el-row>
 				</template>
@@ -95,7 +98,9 @@
 					<el-input v-model="form.houseArea" placeholder="建筑面积" style="width: 240px;"></el-input>
 				</el-form-item>
 				<el-form-item label="小区特色" prop="houseCharacteristic">
-					<el-input v-model="form.houseCharacteristic" placeholder="小区特色" style="width: 240px;"></el-input>
+					<el-select v-model="form.houseCharacteristic">
+						<el-option v-for="item in lists" :key="item.charaId" :label="item.charaName" :value="item.charaName"></el-option>
+					</el-select>
 				</el-form-item>
 				<el-form-item label="参考单价" prop="housePrice">
 					<el-input v-model="form.housePrice" placeholder="参考单价" style="width: 240px;"></el-input>
@@ -141,7 +146,9 @@
 	import {
 		getList,
 		addall,
-		enit
+		enit,
+		selectList,
+		// selectByOne
 	} from '../../api/newhouse.js'
 	export default {
 		data() {
@@ -157,6 +164,8 @@
 				xquid:"",//区
 				dialogVisible: false,
 				tableData: [],
+				lists:[],
+				// byone:[],
 				options: [{
 						value: '全部',
 						label: '全部',
@@ -205,6 +214,16 @@
 			handleEdit(row) {
 				this.form = JSON.parse(JSON.stringify(row))
 				this.dialogVisible = true
+			},
+			handleSelectById(id){
+				//console.log(row)
+				this.$router.push({path:`/personal-details/${id}`,
+				// params:{
+				// 	id:1
+				// },
+
+				});
+				
 			},
 			add() {
 				this.dialogVisible = true;
@@ -282,12 +301,27 @@
 				this.selectParams.pageNum = pageNum;
 				this.load();
 			},
+			find(){
+				selectList().then(res=>{
+					this.lists=res.data
+					console.log(this.lists)
+					console.log(res.data)
+				})
+			},
+			// send(){
+			// 	selectByOne(this.form.id).then(res=>{
+			// 		this.byone=res.data
+			// 		console.log(res.data)
+			// 	})
+			// },
 		},
 		created() {
 			this.selectParams.pageNum = 1;
 			this.selectParams.pageSize = 10;
-			this.load()
+			this.load();
 			this.getCounty();
+			this.find();
+			// this.send()
 		}
 	}
 </script>

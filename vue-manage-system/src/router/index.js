@@ -236,7 +236,17 @@ const routes = [{
 			},
 			component: () => import(
 				"../views/newhouse/HouseType.vue")
-		},{
+		},
+		{
+			path: "/personal-details/:id",
+			name: "personal-details",
+			meta: {
+				title: '查看详情'
+			},
+			component: () => import(
+				"../views/newhouse/PersonalDetails.vue")
+		},
+		{
 			path: "/myInformation",
 			name: "myInformation",
 			meta: {

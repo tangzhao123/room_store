@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/house")
@@ -40,5 +41,15 @@ public class NewHouseController {
     public List<NewHouse> selectAll(@RequestParam("userId") Integer userId){
         return newHouseService.selectAll(userId);
     }
-
+    @GetMapping("/selectMap")
+    public Result selectMap(){
+        List<Map> maps = newHouseService.selectMap();
+        return Result.success(maps);
+    }
+    @GetMapping("/selectDetails/{houseId}")
+    public Result selectDetails(@PathVariable("houseId")Integer houseId){
+        List<NewHouse> newHouses = newHouseService.selectAllDetails(houseId);
+        System.err.println(newHouses);
+        return Result.success(newHouses);
+    }
 }

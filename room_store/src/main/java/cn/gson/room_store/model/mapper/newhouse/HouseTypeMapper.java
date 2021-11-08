@@ -22,6 +22,6 @@ public interface HouseTypeMapper {
     int updateByPrimaryKey(HouseType record);
     //分页模糊查询列表
     List<HouseType> selectByAll(HouseTypeSearchVo houseTypeSearchVo);
-    //连表查询新房名称
-//    List<Map> selectMap();
+//    连表查询新房名称
+    List<Map> selectList();
 }

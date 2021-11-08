@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class NewHouseServiceImpl implements NewHouseService {
@@ -49,5 +50,16 @@ public class NewHouseServiceImpl implements NewHouseService {
     public List<NewHouse> selectAll(Integer userId) {
         return newHouseMapper.selectAll(userId);
     }
+
+    @Override
+    public List<Map> selectMap() {
+        return newHouseMapper.selectMap();
+    }
+
+    @Override
+    public List<NewHouse> selectAllDetails(Integer houseId) {
+        return newHouseMapper.selectAllDetails(houseId);
+    }
+
 
 }

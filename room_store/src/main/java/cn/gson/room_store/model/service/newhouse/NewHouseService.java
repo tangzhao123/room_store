@@ -5,6 +5,7 @@ import cn.gson.room_store.vo.newhouse.NewHouseSerachVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface NewHouseService {
     //分页模糊查询
@@ -16,5 +17,11 @@ public interface NewHouseService {
     //根据id查询数据
     NewHouse selectByPrimaryKey(Integer houseId);
 
-    List<NewHouse> selectAll(Integer userId);
+    List<NewHouse> selectAll();
+
+    //查询所有小区名称
+    List<Map> selectMap();
+
+    //连接查询
+    List<NewHouse> selectAllDetails(Integer houseId);
 }
