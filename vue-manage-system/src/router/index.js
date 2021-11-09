@@ -245,12 +245,11 @@ const routes = [{
 			},
 			component: () => import(
 				"../views/newhouse/PersonalDetails.vue")
-		},
-		{
+		},{
 			path: "/myInformation",
 			name: "myInformation",
 			meta: {
-				tiele: '我的信息'
+				title: '我的信息'
 			},
 			component: () => import(
 				"../views/statistical/MyInformation.vue")
@@ -258,7 +257,7 @@ const routes = [{
 			path: "/changePass",
 			name: "changePass",
 			meta: {
-				tiele: '修改密码'
+				title: '修改密码'
 			},
 			component: () => import(
 				"../views/statistical/ChangePass.vue")
@@ -266,7 +265,7 @@ const routes = [{
 			path: "/newStatistics",
 			name: "newStatistics",
 			meta: {
-				tiele: '房源统计'
+				title: '房源统计'
 			},
 			component: () => import(
 				"../views/statistical/NewStatistics.vue")

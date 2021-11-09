@@ -44,6 +44,7 @@
         and  source_total_rice like concat(concat('%',#{sourceTotalPrice}),'%')
       </if>
     </where>
+    order by source_id desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from source_collection

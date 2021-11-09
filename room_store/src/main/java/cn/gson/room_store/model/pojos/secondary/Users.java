@@ -1,5 +1,8 @@
 package cn.gson.room_store.model.pojos.secondary;
 
+import lombok.Data;
+
+@Data
 public class Users {
     //用户id
     private int userID;

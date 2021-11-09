@@ -126,6 +126,7 @@ select * FROM new_house o LEFT JOIN house_type s on o.house_id=s.newhouse_id WHE
         and house_number like concat(concat('%',#{houseNumber}),'%')
       </if>
     </where>
+    order by house_id desc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from new_house

@@ -3,13 +3,6 @@
 		<el-row>
 			<el-col :span="8">
 				<el-form label-width="80px">
-					<el-form-item label="城市名称">
-						<el-input placeholder="请输入城市名称" v-model="chengshi" clearable></el-input>
-					</el-form-item>
-				</el-form>
-			</el-col>
-			<el-col :span="8">
-				<el-form label-width="80px">
 					<el-form-item label="小区名称">
 						<el-input placeholder="请输入小区名称" v-model="xiaoqu" clearable></el-input>
 					</el-form-item>
@@ -19,7 +12,7 @@
 				<el-button type="primary" size="medium" @click="getData1()">查询</el-button>
 			</el-col>
 		</el-row>
-		<div style="height: 180px; width: 1250px; border: 1px solid #D9D9D9; margin-left: 5px; margin: 10px;">
+		<div style="height: 180px; width: 98%; border: 1px solid #D9D9D9; margin-left: 5px; margin: 10px;">
 			<el-row>
 				<el-form label-width="80px">
 					<el-form-item label="装修">
@@ -79,7 +72,7 @@
 			</el-row>
 		</div>
 
-		<div style="width: 1250px; margin-left: 5px;">
+		<div style="width: 100%; margin-left: 5px;">
 			<el-row style="margin: 10px;">
 				<el-table :data="tableData1.slice((queryParams.pageNum-1)*queryParams.pageSize,queryParams.pageNum*queryParams.pageSize)" :cell-style="{'text-align':'center'}" :header-cell-style="{'text-align':'center'}">
 					<el-table-column prop="rentalhousing.rehoNumber" label="房源编号"> </el-table-column>

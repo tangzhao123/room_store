@@ -6,6 +6,8 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 @CrossOrigin
@@ -14,7 +16,7 @@ public class LoginController {
     @Autowired
     LoginService service;
     @PostMapping("/login")
-    public Users login(@RequestBody Map<String,String> map){
+    public Users login(@RequestBody Map<String,String> map) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         String phone = map.get("phone");
         String pass = map.get("pass");
         return service.login(phone,pass);

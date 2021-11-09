@@ -13,15 +13,6 @@
 		<div>
 			<el-button @click="add()">新增采集</el-button>
 		</div>
-		<div>
-			<el-row>
-				<el-form label-width="80px">
-					<el-form-item label="位置">
-						<el-radio label="1" v-model="values">株洲市</el-radio>
-					</el-form-item>
-				</el-form>
-			</el-row>
-		</div>
 		<el-table :data="tableData" style="width: 100%">
 			<el-table-column prop="sourceName" label="小区名称"></el-table-column>
 			<el-table-column prop="sourcePosition" label="小区位置"></el-table-column>

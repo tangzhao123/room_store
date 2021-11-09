@@ -47,7 +47,7 @@
 				<div class="div3">
 					<div class="div4" style="width: 100%;">
 						<span class="span3">{{statistics3}}</span>
-						<span class="span3">全部带看</span>
+						<span class="span3">全部跟进</span>
 					</div>
 				</div>
 			</div>
@@ -59,7 +59,7 @@
 				<div class="div3">
 					<div class="div4" style="width: 100%;">
 						<span class="span3">{{statistics4}}</span>
-						<span class="span3">全部跟进</span>
+						<span class="span3">全部带看</span>
 					</div>
 				</div>
 			</div>

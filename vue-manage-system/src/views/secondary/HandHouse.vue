@@ -89,7 +89,7 @@
 				</el-table-column>
 				<el-table-column prop="houseDate" label="进入公房池时间" width="200"> </el-table-column>
 				<el-table-column prop="secondaryNumber" label="房源编号" width="200"> </el-table-column>
-				<el-table-column label="操作" width="300">
+				<el-table-column label="操作" width="170"  fixed="right">
 					<template v-slot:default="r">
 						<el-button type="text" size="medium" @click="findDetails(r.row)"
 							v-if=" r.row.userId==userId">
@@ -137,7 +137,7 @@
 						{{r.row.customersState==0?'未跟进':r.row.customersState==1?'已跟进':'无效'}}
 					</template>
 				</el-table-column>
-				<el-table-column prop="address" label="操作">
+				<el-table-column prop="address"  label="操作">
 					<template v-slot:default="r">
 						<span v-if="r.row.customersState==0">
 							<el-button type="text" size="medium" @click="follow(r.row)">
@@ -180,14 +180,18 @@
 			<el-table :data="customersData" style="width: 100%">
 				<el-table-column type="selection"></el-table-column>
 				<el-table-column prop="customersDate" label="推荐时间"> </el-table-column>
-				<el-table-column prop="customersPhone" label="跟进状态" > </el-table-column>
+				<el-table-column prop="customersState" label="跟进状态" > 
+					<template v-slot:default="r">
+						{{r.row.customersState==0?'未跟进':r.row.customersState==1?'已跟进':'无效'}}
+					</template>
+				</el-table-column>
 			</el-table>
 			<el-pagination :current-page="pageNo2" @current-change="findAllCustomers" background
 				layout="total,prev, pager, next,jumper" :page-size="size2" :total="total2">>
 			</el-pagination>
 			<template #footer>
 				<span class="dialog-footer">
-					<el-button @click="dialogTableVisible1 = false">取 消</el-button>
+					<el-button @click="dialogTableVisible2 = false">取 消</el-button>
 				</span>
 			</template>
 		</el-dialog>

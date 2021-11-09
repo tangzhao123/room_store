@@ -16,15 +16,6 @@
 		<div>
 			<el-button @click="add">新增房源</el-button>
 		</div>
-		<div>
-			<el-row>
-				<el-form label-width="80px">
-					<el-form-item label="位置">
-						<el-radio label="1" v-model="values">株洲市</el-radio>
-					</el-form-item>
-				</el-form>
-			</el-row>
-		</div>
 		<el-table :data="tableData" style="width: 100%">
 			<el-table-column label="楼盘名称" width="450px">
 				<template v-slot:default="r">

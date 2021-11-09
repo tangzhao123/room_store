@@ -34,8 +34,8 @@
 						<span style="font-size: 20px; color:#333;"><span style="font-size:14px">朝向：</span>{{housing.rehoOrientation}}</span>
 					</el-col>
 				</el-row>
-				<el-row style="margin-bottom:25px">
-					<el-tag style="font-size: 16px;">{{housing.rehoHouslabel}}</el-tag>
+				<el-row style="margin-bottom:25px" v-if="housing.rehoHouslabel != ''">
+					<el-tag style="font-size: 16px; margin-right:4px;" v-for="(item,index) in rehoHouslabel" :key="rehoHouslabel[index]">{{rehoHouslabel[index]}}</el-tag>
 				</el-row>
 				<el-row style="font-size:14px;color:#666;">
 					房源编码：{{housing.rehoNumber}}

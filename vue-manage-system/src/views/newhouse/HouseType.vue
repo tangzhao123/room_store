@@ -1,7 +1,7 @@
 <template>
 	<div style="padding: 10px;">
 		<div>
-			<el-button @click="add()">新增采集</el-button>
+			<el-button @click="add()">新增户型</el-button>
 		</div>
 		<div style="margin-top: 10px;">
 			<el-form :inline="true" v-model="selectParams">

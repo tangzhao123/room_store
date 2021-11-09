@@ -13,11 +13,11 @@
 		<el-row style="margin: 10px;">
 			<el-button type="primary" size="medium" @click="intoHousing">录入房源</el-button>
 		</el-row>
-		<div style="height: 300px; width: 1400px; border: 1px solid #D9D9D9; margin-left: 5px; margin: 10px;">
+		<div style="height: 300px; width: 98%; border: 1px solid #D9D9D9; margin-left: 5px; margin: 10px;">
 			<el-row>
 				<el-form label-width="80px">
 					<el-form-item label="位置">
-						<el-radio label="1" v-model="value">株洲市</el-radio>
+						<el-radio label="1" v-model="value">长沙市</el-radio>
 					</el-form-item>
 				</el-form>
 			</el-row>
@@ -25,9 +25,13 @@
 				<el-form label-width="80px">
 					<el-form-item label="区域">
 						<el-checkbox-group v-model="checkList" @change="changeCheckbox">
-							<el-checkbox label="天元区"></el-checkbox>
+							<el-checkbox label="雨花区"></el-checkbox>
+							<el-checkbox label="岳麓区"></el-checkbox>
+							<el-checkbox label="开福区"></el-checkbox>
+							<el-checkbox label="长沙县"></el-checkbox>
+							<el-checkbox label="天心区"></el-checkbox>
 							<el-checkbox label="荷塘区"></el-checkbox>
-							<el-checkbox label="株洲县"></el-checkbox>
+							<el-checkbox label="天元区"></el-checkbox>
 						</el-checkbox-group>
 					</el-form-item>
 				</el-form>
@@ -73,7 +77,7 @@
 				</el-form>
 			</el-row>
 		</div>
-		<div style="width: 1400px; margin-left: 5px;">
+		<div style="width: 100%; margin-left: 5px;">
 			<el-row style="margin: 10px;">
 				<el-table :data="secondaryData" style="width: 100%">
 					<el-table-column type="selection"></el-table-column>
@@ -111,7 +115,7 @@
 					</el-table-column>
 					<el-table-column prop="secondaryUse" label="房屋用途"> </el-table-column>
 					<el-table-column prop="secondaryAvailability" label="发布时间" width="150"> </el-table-column>
-					<el-table-column label="操作" width="400">
+					<el-table-column label="操作" fixed="right" width="220">
 						<template v-slot:default="r">
 							<el-button type="text" size="medium" @click="details(r.row)">查看详情</el-button>
 							<el-button type="text" size="medium" @click="shelves(r.row)"

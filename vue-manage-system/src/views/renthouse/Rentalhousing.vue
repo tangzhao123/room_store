@@ -31,11 +31,11 @@
 		<el-row style="margin: 10px;">
 			<el-button type="primary" size="medium" @click="intoHousing">录入房源</el-button>
 		</el-row>
-		<div style="height: 430px; width: 1250px; border: 1px solid #D9D9D9; margin-left: 5px; margin: 10px;">
+		<div style="height: 430px; width: 98%; border: 1px solid #D9D9D9; margin-left: 5px; margin: 10px;">
 			<el-row>
 				<el-form label-width="80px">
 					<el-form-item label="位置">
-						<el-radio v-model="ra" @change="getData1()" value="株洲市">株洲市</el-radio>
+						<el-radio v-model="ra" @change="getData1()" value="长沙市">长沙市</el-radio>
 					</el-form-item>
 				</el-form>
 			</el-row>
@@ -43,9 +43,13 @@
 				<el-form label-width="80px">
 					<el-form-item label="区域">
 						<el-col span="2">
-							<el-checkbox v-model="quyu" @change="getData1()" label="天元区"></el-checkbox>
+							<el-checkbox v-model="quyu" @change="getData1()" label="雨花区"></el-checkbox>
+							<el-checkbox v-model="quyu" @change="getData1()" label="岳麓区"></el-checkbox>
+							<el-checkbox v-model="quyu" @change="getData1()" label="开福区"></el-checkbox>
+							<el-checkbox v-model="quyu" @change="getData1()" label="长沙县"></el-checkbox>
+							<el-checkbox v-model="quyu" @change="getData1()" label="天心区"></el-checkbox>
 							<el-checkbox v-model="quyu" @change="getData1()" label="荷塘区"></el-checkbox>
-							<el-checkbox v-model="quyu" @change="getData1()" label="株洲县"></el-checkbox>
+							<el-checkbox v-model="quyu" @change="getData1()" label="天元区"></el-checkbox>
 						</el-col>
 					</el-form-item>
 				</el-form>
@@ -132,7 +136,7 @@
 				</el-form>
 			</el-row>
 		</div>
-		<div style="width: 1250px; margin-left: 5px;">
+		<div style="width: 100%; margin-left: 5px;">
 			<el-row style="margin: 10px;">
 				<el-table :data="tableData1.slice((queryParams.pageNum-1)*queryParams.pageSize,queryParams.pageNum*queryParams.pageSize)" :cell-style="{'text-align':'center'}" :header-cell-style="{'text-align':'center'}">
 					<el-table-column prop="rehoNumber" label="房源编号" width="140px"> </el-table-column>
@@ -193,8 +197,7 @@
 								<span @click="yezhuxx(v.row)">业主信息</span>
 							</div>
 							<div class="dianji">
-								<span style="margin-left:0px;margin-right:29px" @click="chugongfangchi(v.row)">{{v.row.rehoGfczt == 1 ? "移出公房池":"移入公房池"}}</span>
-								<span>编辑</span>
+								<span style="margin-left:0px;margin-right:53px" @click="chugongfangchi(v.row)">{{v.row.rehoGfczt == 1 ? "移出公房池":"移入公房池"}}</span>
 							</div>
 						</template>
 					</el-table-column>

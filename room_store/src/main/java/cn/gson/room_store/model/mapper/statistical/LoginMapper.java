@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface LoginMapper {
     //用户登录
-    Users login(@Param("phone")String phone,@Param("pass")String pass);
+    Users login(String phone);
     //查询电话号码
     int findIDPhone(String phone);
     //修改密码查看密码是否正确

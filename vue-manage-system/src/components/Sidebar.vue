@@ -38,7 +38,7 @@
 		data() {
 			return {
 				items: [{
-						icon: "el-icon-lx-home",
+						icon: "el-icon-s-home",
 						index: "dashboard",
 						title: "系统首页"
 					},
@@ -61,7 +61,7 @@
 						]
 					},
 					{
-						icon: "el-icon-lx-calendar",
+						icon: "el-icon-s-home",
 						index: "2",
 						title: "客源",
 						subs: [{
@@ -73,7 +73,7 @@
 						}, ]
 					},
 					{
-						icon: "el-icon-lx-calendar",
+						icon: "el-icon-s-home",
 						index: "4",
 						title: "营销中心",
 						subs: [{
@@ -100,7 +100,7 @@
 						]
 					},
 					{
-						icon: "el-icon-lx-calendar",
+						icon: "el-icon-s-home",
 						index: "6",
 						title: "租房",
 						subs: [{
@@ -111,7 +111,7 @@
 							title: "租房公房池"
 						}, ]
 					}, {
-						icon: "el-icon-lx-calendar",
+						icon: "el-icon-s-home",
 						index: "7",
 						title: "个人中心",
 						subs: [{
@@ -122,7 +122,7 @@
 							title: "修改密码"
 						}, ]
 					}, {
-						icon: "el-icon-lx-calendar",
+						icon: "el-icon-s-home",
 						index: "8",
 						title: "数据中心",
 						subs: [{

@@ -94,7 +94,7 @@
 				loading: false,
 				param: {
 					username: "17673977795",
-					password: "hjm123456789"
+					password: "1234.a.0"
 				},
 				register: {
 					userName: "",

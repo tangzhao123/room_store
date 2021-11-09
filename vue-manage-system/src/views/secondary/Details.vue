@@ -6,7 +6,7 @@
 					<img :src="secondary.secondaryPicture" width="600" height="400"/>
 				</div>
 			</el-col>
-			<el-col :span="8" :pull="1">
+			<el-col :span="8" :pull="1" :offset="2">
 				<span style="font-size: 20px; font-weight: bold;">{{secondary.secondaryTitle}}</span>
 				<br />
 				<br />
@@ -19,9 +19,13 @@
 				<span>建筑面积：{{secondary.secondaryArea}}.00㎡ &nbsp;&nbsp;&nbsp;{{secondary.secondaryState == 0?'上架':'下架'}}</span>
 				<br />
 				<br />
-				<span>
-					<el-tag style="font-size: 16px;">{{secondary.secondaryLable}}</el-tag>
-				</span>
+				
+				<el-row style="margin-bottom:25px" v-if="secondary.secondaryLable != ''">
+					<el-tag style="font-size: 16px; margin-right:4px;" v-for="(item,index) in rehoHouslabel" :key="rehoHouslabel[index]">{{rehoHouslabel[index]}}</el-tag>
+				</el-row>
+				<!-- <span v-if="secondary.secondaryLable != ''>
+					<el-tag style="font-size: 16px;" v-for="(item,index) in rehoHouslabel" :key="rehoHouslabel[index]">{{rehoHouslabel[index]}}</el-tag>
+				</span> -->
 				<br />
 				<br />
 				<span>
@@ -85,6 +89,7 @@
 			return {
 				id: '', //房屋编号
 				secondary: {},//房源对象
+				rehoHouslabel:[]
 			}
 		},
 		methods: {
@@ -101,6 +106,7 @@
 					}
 				}).then((v) => {
 					this.secondary = v.data;
+					this.rehoHouslabel = this.secondary.secondaryLable.split(",");
 					console.log(v)
 				}).catch(function() {
 				

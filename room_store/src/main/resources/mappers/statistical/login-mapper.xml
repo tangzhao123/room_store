@@ -15,7 +15,7 @@
     </resultMap>
     <!-- 用户登录 -->
     <select id="login" resultMap="usersMapper">
-        select * from users where user_phone=#{phone} and user_pass=#{pass}
+        select * from users where user_phone=#{phone}
     </select>
     <select id="edits" resultType="_int">
         select count(*) from users where user_phone= #{userPhone} and user_pass=#{userPass}
